@@ -7,9 +7,7 @@
 
 Пример замыкания:
 
-> javascript
-Copy code
-function outerFunction() {
+> function outerFunction() {
   var outerVariable = 10;
   function innerFunction() {
     console.log(outerVariable);
