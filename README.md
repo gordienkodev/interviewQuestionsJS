@@ -7,15 +7,15 @@
 
 Пример замыкания:
 
-> function outerFunction() {
-  var outerVariable = 10;
-  function innerFunction() {
-    console.log(outerVariable);
+  function outerFunction() {
+    var outerVariable = 10;
+    function innerFunction() {
+      console.log(outerVariable);
+    }
+    return innerFunction;
   }
-  return innerFunction;
-}
-var closure = outerFunction();
-closure(); // Выведет 10
+  var closure = outerFunction();
+  closure(); // Выведет 10
 
 В приведенном примере innerFunction является замыканием, потому что она определена внутри outerFunction и имеет доступ к переменной outerVariable из внешней области видимости. Когда outerFunction вызывается и возвращает innerFunction, создается замыкание closure. Затем вызов closure() сохраняет доступ к переменной outerVariable, и она может быть использована внутри innerFunction.
 
