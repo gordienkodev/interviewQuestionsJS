@@ -171,7 +171,34 @@ reduce(): Применяет функцию редукции к элемента
 если селектор составной, по системе расчета производится расчет по которому выяснется что главное 0 0 0 0 0, вместо 0 добавляется по 1
 
 ### в RS
-
+Interview Topics 📚
+Basics of OOP.
+Basic data structures and their organization (array, list, stack, queue, tree, hash table, etc.).
+Ability to implement a fairly simple algorithm in JavaScript. Example tasks
+Basic sorting and searching algorithms.
+Binary number system.
+Several questions on tasks solved in stage#1
+Basics of HTML/CSS:
+Display attribute values
+Selector weights
+Pseudo-classes and pseudo-elements
+Box model
+em vs rem, relative and absolute values
+Positioning: document flow, position property, overflow, and z-index
+Flexbox
+Grid
+...
+Basics of JS:
+Data types
+Variables
+Number methods
+String methods & String templates
+Ternary, Nullish Coalescing, Optional Chaining, and Logical Operators – Syntax and Use Cases
+Switch case - examples where it can be useful
+Loops - for, while, do while
+Be able to discover cases of implicit data types conversion into boolean, string, number
+Type conversions
+Strict comparison
 
 
 1. What is JavaScript?
