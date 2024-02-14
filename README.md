@@ -222,6 +222,7 @@ node2.next = node3;
 let currentNode = node1;
 while (currentNode) {
   console.log(currentNode.data);
+  console.log(currentNode.next);
   currentNode = currentNode.next;
 }
 
