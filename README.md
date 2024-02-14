@@ -147,7 +147,6 @@ let bubbleSort = (arr) => {
     }
     return arr;
 };
-
 // Пример использования
 let arr = [5, 3, 8, 1, 2];
 console.log(bubbleSort(arr));
