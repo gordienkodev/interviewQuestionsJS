@@ -170,10 +170,14 @@ reduce(): Применяет функцию редукции к элемента
 5. tag, ::pseudoelement
 если селектор составной, по системе расчета производится расчет по которому выяснется что главное 0 0 0 0 0, вместо 0 добавляется по 1
 
-### в RS
-Interview Topics 📚
-Basics of OOP.
-Basic data structures and their organization (array, list, stack, queue, tree, hash table, etc.).
+### в RS Interview Topics
+Basics of OOP. 
+
+## Basic data structures and their organization (array, list, stack, queue, tree, hash table, etc.).
+
+Вопрос: Какие базовые структуры данных вы знаете в JavaScript, и как они организованы?
+Ответ: Основные структуры данных в JavaScript включают массивы (Arrays), списки (Lists), стеки (Stacks), очереди (Queues), деревья (Trees), и хеш-таблицы (Hash Tables).
+
 Ability to implement a fairly simple algorithm in JavaScript. Example tasks
 Basic sorting and searching algorithms.
 Binary number system.
