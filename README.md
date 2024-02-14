@@ -170,6 +170,10 @@ reduce(): Применяет функцию редукции к элемента
 5. tag, ::pseudoelement
 если селектор составной, по системе расчета производится расчет по которому выяснется что главное 0 0 0 0 0, вместо 0 добавляется по 1
 
+### в RS
+
+
+
 1. What is JavaScript?
 JavaScript is a high-level, interpreted programming language primarily used for
 adding interactivity to web pages.
