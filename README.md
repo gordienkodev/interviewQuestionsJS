@@ -172,7 +172,14 @@ console.log(bubbleSort(arr));
 
 Ability to implement a fairly simple algorithm in JavaScript. Example tasks
 
-Binary number system.
+## Binary number system
+Двоичная система счисления, использующая только цифры 0 и 1, является основной для компьютеров, включая JavaScript, по нескольким причинам. В компьютерах все данные хранятся и обрабатываются в виде двоичных чисел, а JavaScript также работает с этой системой. Она поддерживает арифметические операции, хранение данных в памяти и битовые операции, что полезно для работы с флагами и состояниями.
+Можно использовать встроенный метод toString(), указав основание системы счисления в качестве параметра.
+let decimal = 10;
+let binary = decimal.toString(2);
+console.log(binary); // Вывод: "1010"
+
+
 Several questions on tasks solved in stage#1
 Basics of HTML/CSS:
 Display attribute values
