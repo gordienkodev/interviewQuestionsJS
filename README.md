@@ -135,17 +135,18 @@ console.log(hashTable["banana"]); // Выведет 10
 Для больших массивов данных, так как его временная сложность составляет O(n^2), что делает его медленным на больших объемах данных.
 Когда нужно сортировать данные, требующие высокой производительности, так как другие алгоритмы, такие как быстрая сортировка или сортировка слиянием, работают значительно быстрее на больших наборах данных.
 let bubbleSort = (arr) => {
-    let len = arr.length;
+	const sortArr = [...arr]
+    let len = sortArr.length;
     for (let i = 0; i < len; i++) {
         for (let j = 0; j < len; j++) {
-            if (arr[j] > arr[j + 1]) {
-                let temp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = temp;
+            if (sortArr[j] > sortArr[j + 1]) {
+                let temp = sortArr[j];
+                sortArr[j] = sortArr[j + 1];
+                sortArr[j + 1] = temp;
             }
         }
     }
-    return arr;
+    return sortArr;
 };
 // Пример использования
 let arr = [5, 3, 8, 1, 2];
