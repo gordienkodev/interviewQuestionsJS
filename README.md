@@ -372,6 +372,7 @@ let string = 'Number: ' + number;
 Происходит при арифметических операциях или вызове функции Number().
 let string = '456';
 let number = Number(string);
+let number = +string;
 let number = 2;
 let result = string * number;
 let result = string - number;
