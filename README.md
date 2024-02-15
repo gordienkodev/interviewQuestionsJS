@@ -475,6 +475,17 @@ const copiedArray = originalArray.slice();
 const copiedObject = {...originalObject};
 const copiedObject = Object.assign({}, originalObject);
 
+распарсить строку в объект https://www.youtube.com/watch?student=Vasya&Github=Vasya99&status=true
+const parseString = (string) => {
+    const queryParams = string.split("?")[1].split("&");
+    return queryParams.reduce((acc, currentValue) => {
+        const [key, value] = currentValue.split("=");
+        acc[key] = value;
+        return acc;
+    }, {});
+};
+
+
 
 ### в чем отличие null и underfind
 
