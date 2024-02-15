@@ -449,6 +449,13 @@ Be able to discover cases of implicit data types conversion into boolean, string
 Type conversions
 Strict comparison
 
+## задачки
+как скопировать массив с примитивами
+const copiedArray = [...originalArray];
+const copiedArray = Array.from(originalArray);
+const copiedArray = originalArray.slice();
+
+
 
 ### в чем отличие null и underfind
 
