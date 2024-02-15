@@ -237,7 +237,28 @@ console.log("Отсортированный массив: " + insertionSort(arr)
 
 
 # Быстрая сортировка (Quick Sort):
-Разделяет список на две части вокруг опорного элемента, затем рекурсивно сортирует каждую из частей.
+Разделяет список на две части вокруг опорного элемента, затем рекурсивно сортирует каждую из частей. Сортировка Quick Sort эффективна в большинстве случаев и широко используется из-за своей скорости и производительности. Она особенно полезна для сортировки больших объемов данных. 
+function quickSort(arr) {
+    if (arr.length <= 1) {
+        return arr;
+    }
+    const pivot = arr[0];
+    const left = [];
+    const right = [];
+
+    for (let i = 1; i < arr.length; i++) {
+        if (arr[i] < pivot) {
+            left.push(arr[i]);
+        } else {
+            right.push(arr[i]);
+        }
+    }
+    return quickSort(left).concat(pivot, quickSort(right));
+}
+const arr = [10, 7, 8, 9, 1, 5];
+const sortedArr = quickSort(arr);
+console.log(sortedArr); // Output: [1, 5, 7, 8, 9, 10]
+
 # Сортировка слиянием (Merge Sort):
 Разделяет список на две равные части, рекурсивно сортирует каждую часть, а затем объединяет их в один отсортированный список.
 
