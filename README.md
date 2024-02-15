@@ -451,10 +451,13 @@ Strict comparison
 
 ## задачки
 как скопировать массив с примитивами
-const copiedArray = [...originalArray];
+const copiedArray = [...originalArray]; // оператора spread
 const copiedArray = Array.from(originalArray);
 const copiedArray = originalArray.slice();
 
+как скопировать объект с примитивами
+const copiedObject = {...originalObject};
+const copiedObject = Object.assign({}, originalObject);
 
 
 ### в чем отличие null и underfind
