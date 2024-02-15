@@ -362,6 +362,26 @@ s
 Переменные, объявленные с помощью const, также имеют блочную область видимости (block scope).
 Константы должны быть инициализированы при объявлении и их значение не может быть изменено.
 
+## Type conversions
+Преобразование типов данных (type conversions) в JavaScript происходит при необходимости привести значение одного типа к другому типу. JavaScript автоматически выполняет преобразования типов во время выполнения операций или при сравнении значений разных типов.
+- Преобразование в строку (String Conversion):
+Происходит при конкатенации с строкой (+ оператор).
+let number = 123;
+let string = 'Number: ' + number;
+- Преобразование в число (Number Conversion):
+Происходит при арифметических операциях или вызове функции Number().
+let string = '456';
+let number = Number(string);
+let number = 2;
+let result = string * number;
+let result = string - number;
+- Преобразование в логическое значение (Boolean Conversion):
+Происходит при использовании логических операторов (!, &&, ||), операторов сравнения или вызове функции Boolean().
+let value = 0;
+let boolean = Boolean(value);
+- Явное преобразование (Explicit Conversion):
+Происходит при использовании явных преобразований с помощью методов String(), Number() и Boolean().
+
 
 Number methods
 String methods & String templates
