@@ -383,10 +383,50 @@ let boolean = Boolean(value);
 - Явное преобразование (Explicit Conversion):
 Происходит при использовании явных преобразований с помощью методов String(), Number() и Boolean().
 
+## Ternary, Nullish Coalescing, Optional Chaining, and Logical Operators – Syntax and Use Cases
+Тернарный оператор (Ternary Operator) в JavaScript — это условный оператор, который позволяет выполнить различные действия в зависимости от условия.
+let age = 20;
+let message = (age >= 18) ? 'Совершеннолетний' : 'Несовершеннолетний';
+
+Nullish Coalescing Operator (оператор слияния на основе нулевого значения) в JavaScript используется для выбора значения из двух вариантов, основываясь на том, является ли первый операнд null или undefined. Этот оператор полезен, когда вам нужно выбрать значение по умолчанию, но при этом не следует использовать пустые строки, нулевые значения или другие "ложные" значения. В отличие от оператора ||, который возвращает второй операнд, если первый является "ложным" значением (false, 0, '', NaN, null или undefined), оператор ?? возвращает второй операнд только в случае, если первый строго равен null или undefined.
+let value1 = null;
+let value2 = 'значение по умолчанию';
+let result = value1 ?? value2;
+
+Optional Chaining (опциональная цепочка) - это новая возможность в JavaScript, которая позволяет безопасно доступаться к вложенным свойствам объекта или вызывать методы у объектов, которые могут быть null или undefined, без необходимости проверки каждого уровня вложенности. Основная цель - избежать ошибок TypeError, которые могут возникнуть при попытке доступа к свойствам или вызове методов у нулевых или undefined значений.
+let user = {
+  name: 'John',
+  address: {
+    city: 'New York'
+  }
+};
+// Без optional chaining
+let city = user.address ? user.address.city : 'unknown';
+console.log(city); // Вывод: 'New York'
+// С optional chaining
+let city2 = user.address?.city;
+console.log(city2); // Вывод: 'New York'
+// Если свойство address отсутствует, city будет равен undefined
+let city3 = user.address?.city?.toUpperCase();
+console.log(city3); // Вывод: undefined
+
+Logical Operators – Syntax and Use Cases
+Логические операторы в JavaScript используются для выполнения логических операций с булевыми значениями.
+1. Логическое И (&&)
+Синтаксис: условие1 && условие2
+Использование: Возвращает true, если оба условия истинны, и false в противном случае.
+2. Логическое ИЛИ (||)
+Синтаксис: условие1 || условие2
+Использование: Возвращает true, если хотя бы одно из условий истинно, и false в противном случае.
+3. Логическое НЕ (!)
+Синтаксис: !условие
+Использование: Инвертирует значение условия. Если условие истинно, то !условие будет ложным, и наоборот.
+Логические операторы часто используются в условных выражениях (if, else, while, for и т.д.) для выполнения различных действий в зависимости от условий. Они также могут быть использованы в составных условиях для более сложных логических проверок.
+
 
 Number methods
 String methods & String templates
-Ternary, Nullish Coalescing, Optional Chaining, and Logical Operators – Syntax and Use Cases
+
 Switch case - examples where it can be useful
 Loops - for, while, do while
 Be able to discover cases of implicit data types conversion into boolean, string, number
