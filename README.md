@@ -429,11 +429,22 @@ const b = {c: 5};
 console.log(JSON.stringify(a) === JSON.stringify(b));
 
 
+## Loops - for, while, do while
+Цикл for: Цикл, который выполняет итерации по заданному количеству раз.
+for (инициализация; условие; шаг) {
+}
+Цикл while: Цикл, который выполняет итерации, пока условие истинно.
+while (условие) {
+}
+Цикл do...while: Цикл, который выполняет итерации, пока условие истинно, но по крайней мере одну итерацию выполнит даже если условие неверно.
+do {
+} while (условие);
+
+
 Number methods
 String methods & String templates
 
 Switch case - examples where it can be useful
-Loops - for, while, do while
 Be able to discover cases of implicit data types conversion into boolean, string, number
 Type conversions
 Strict comparison
