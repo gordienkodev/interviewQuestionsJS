@@ -682,11 +682,44 @@ Event Loop - это механизм, который управляет испо
 -Повторение процесса: Этот процесс повторяется снова и снова, пока есть асинхронные операции и колбэки в очереди событий.
 
 
-Number methods
-String methods & String templates
-Be able to discover cases of implicit data types conversion into boolean, string, number
-Type conversions
-Strict comparison
+## Number methods
+
+Number.isFinite(value): Проверяет, является ли переданное значение конечным числом (не Infinity или -Infinity).
+Number.isInteger(value): Проверяет, является ли переданное значение целым числом.
+Number.isNaN(value): Проверяет, является ли переданное значение NaN (не числом).
+Number.isSafeInteger(value): Проверяет, является ли переданное значение "безопасным" целым числом в пределах -(2^53 - 1) и 2^53 - 1.
+Number.parseFloat(string): Преобразует строку в число с плавающей точкой.
+Number.parseInt(string): Преобразует строку в целое число.
+
+## String methods & String templates
+
+charAt(index): Возвращает символ в указанной позиции.
+charCodeAt(index): Возвращает код символа в указанной позиции.
+concat(string2, string3, ..., stringN): Объединяет строки.
+includes(searchString, position): Проверяет, содержит ли строка указанную подстроку.
+indexOf(searchValue, fromIndex): Возвращает индекс первого вхождения подстроки.
+lastIndexOf(searchValue, fromIndex): Возвращает индекс последнего вхождения подстроки.
+slice(start, end): Извлекает часть строки и возвращает новую строку.
+split(separator, limit): Разбивает строку на массив подстрок.
+substring(start, end): Возвращает подстроку между указанными индексами.
+toLowerCase(): Преобразует строку в нижний регистр.
+toUpperCase(): Преобразует строку в верхний регистр.
+trim(): Удаляет пробельные символы в начале и конце строки.
+startsWith(searchString, position): Проверяет, начинается ли строка с указанной подстроки.
+endsWith(searchString, length): Проверяет, заканчивается ли строка указанной подстрокой.
+repeat(count): Повторяет строку указанное количество раз.
+replace(searchValue, replaceValue): Заменяет подстроку другой строкой.
+match(regexp): Выполняет поиск совпадений с указанным регулярным выражением.
+padStart(targetLength, padString): Дополняет строку указанным символом слева до указанной длины.
+padEnd(targetLength, padString): Дополняет строку указанным символом справа до указанной длины.
+trimStart() / trimLeft(): Удаляет пробельные символы в начале строки.
+trimEnd() / trimRight(): Удаляет пробельные символы в конце строки.
+
+## Be able to discover cases of implicit data types conversion into boolean, string, number
+
+## Type conversions
+
+## Strict comparison
 
 
 
