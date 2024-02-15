@@ -168,19 +168,13 @@ console.log(bubbleSort(arr));
 Проходит по списку последовательно и ищет заданный элемент.
 # Бинарный поиск (Binary Search):
 Работает на отсортированном списке и делит его на две части, сравнивая искомый элемент с элементом в середине списка и продолжая поиск только в той части, где может быть найден элемент.
-
-
-Ability to implement a fairly simple algorithm in JavaScript. Example tasks
-
+ 
 ## Binary number system
 Двоичная система счисления, использующая только цифры 0 и 1, является основной для компьютеров, включая JavaScript, по нескольким причинам. В компьютерах все данные хранятся и обрабатываются в виде двоичных чисел, а JavaScript также работает с этой системой. Она поддерживает арифметические операции, хранение данных в памяти и битовые операции, что полезно для работы с флагами и состояниями.
 Можно использовать встроенный метод toString(), указав основание системы счисления в качестве параметра.
 let decimal = 10;
 let binary = decimal.toString(2);
 console.log(binary); // Вывод: "1010"
-
-
-Several questions on tasks solved in stage#1
 
 ## Basics of HTML/CSS:
 HTML (HyperText Markup Language) - это основной язык разметки, используемый для создания веб-страниц. Он представляет собой набор тегов и атрибутов, которые определяют структуру и содержимое веб-страницы.
@@ -440,13 +434,6 @@ while (условие) {
 do {
 } while (условие);
 
-
-Number methods
-String methods & String templates
-Be able to discover cases of implicit data types conversion into boolean, string, number
-Type conversions
-Strict comparison
-
 ## Switch case - examples where it can be useful
 Конструкция switch в JavaScript полезна в ситуациях, когда у вас есть одно выражение, которое нужно сравнить с несколькими возможными значениями.
 switch (new Date().getDay()) {
@@ -486,6 +473,13 @@ const parseString = (string) => {
               return acc;
     		}, {});
 };
+
+
+Number methods
+String methods & String templates
+Be able to discover cases of implicit data types conversion into boolean, string, number
+Type conversions
+Strict comparison
 
 
 
