@@ -260,7 +260,35 @@ const sortedArr = quickSort(arr);
 console.log(sortedArr); // Output: [1, 5, 7, 8, 9, 10]
 
 # Сортировка слиянием (Merge Sort):
-Разделяет список на две равные части, рекурсивно сортирует каждую часть, а затем объединяет их в один отсортированный список.
+Разделяет список на две равные части, рекурсивно сортирует каждую часть, а затем объединяет их в один отсортированный список. Merge Sort является стабильным методом сортировки, что означает, что порядок элементов с одинаковыми значениями не меняется. Это может быть важно для определенных типов данных или сценариев. 
+function mergeSort(arr) {
+    if (arr.length <= 1) {
+        return arr;
+    }
+    const middle = Math.floor(arr.length / 2);
+    const left = arr.slice(0, middle);
+    const right = arr.slice(middle);
+    return merge(mergeSort(left), mergeSort(right));
+}
+
+function merge(left, right) {
+    let result = [];
+    let leftIndex = 0;
+    let rightIndex = 0;
+    while (leftIndex < left.length && rightIndex < right.length) {
+        if (left[leftIndex] < right[rightIndex]) {
+            result.push(left[leftIndex]);
+            leftIndex++;
+        } else {
+            result.push(right[rightIndex]);
+            rightIndex++;
+        }
+    }
+    return result.concat(left.slice(leftIndex), right.slice(rightIndex));
+}
+const arr = [38, 27, 43, 3, 9, 82, 10];
+const sortedArr = mergeSort(arr);
+console.log(sortedArr); // Output: [3, 9, 10, 27, 38, 43, 82]
 
 Основные алгоритмы поиска включают в себя:
 
