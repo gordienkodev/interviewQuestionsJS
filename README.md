@@ -118,12 +118,10 @@ class HashTable {
     constructor() {
         this.table = {};
     }
-
     // Метод для добавления информации о котике в хеш-таблицу
     addCat(name, details) {
         this.table[name] = details;
     }
-
     // Метод для получения информации о котике по его имени
     getCat(name) {
         return this.table[name];
