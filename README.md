@@ -443,11 +443,27 @@ do {
 
 Number methods
 String methods & String templates
-
-Switch case - examples where it can be useful
 Be able to discover cases of implicit data types conversion into boolean, string, number
 Type conversions
 Strict comparison
+
+## Switch case - examples where it can be useful
+Конструкция switch в JavaScript полезна в ситуациях, когда у вас есть одно выражение, которое нужно сравнить с несколькими возможными значениями.
+switch (new Date().getDay()) {
+    case 0:
+        console.log('Воскресенье');
+        break;
+    case 1:
+        console.log('Понедельник');
+        break;
+    case 2:
+        console.log('Вторник');
+        break;
+    // и так далее...
+    default:
+        console.log('Неизвестный день');
+}
+ switch может работать только с определенными типами данных (например, числами, строками и некоторыми другими), в то время как if-else может проверять любые логические условия.
 
 ## задачки
 как скопировать массив с примитивами
