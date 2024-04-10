@@ -788,7 +788,9 @@ JavaScript Topics:
 
 Advanced Expressions
 
-Understanding Object.is (optional).
+### Understanding Object.is (optional).
+Object.is() в JavaScript - это метод, который используется для сравнения двух значений на строгое равенство, без приведения типов. В отличие от операторов сравнения (=== и ==), Object.is() обрабатывает специальные значения, такие как NaN и -0, более точно.
+
 
 Differences between let, var, and const.
 Exploring the Temporal Dead Zone.
