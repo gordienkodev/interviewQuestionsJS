@@ -933,9 +933,28 @@ obj.sayHello(); // Выведет "Hello, undefined!"
 
 ### Working with nested scopes.
 
+Доступ к переменным внешних областей видимости:
+Вложенная функция или блок кода может получить доступ к переменным из внешней области видимости.
+Это происходит благодаря механизму замыканий, когда вложенная функция сохраняет ссылку на область видимости внешней функции.
+Пример:
+function outerFunction() {
+    let outerVar = 'I am from outer function';
+    function innerFunction() {
+        console.log(outerVar); // Доступ к outerVar из внутренней функции
+    }
+    innerFunction();
+}
+outerFunction(); // Выведет "I am from outer function"
+Замыкания (Closures):
+Когда функция объявлена внутри другой функции, она захватывает (замыкает) область видимости внешней функции, что позволяет ей сохранить доступ к переменным этой внешней функции даже после завершения выполнения внешней функции.
+Это позволяет создавать гибкие и мощные конструкции в JavaScript.
+Понимание областей видимости:
+При работе с вложенными областями видимости важно понимать, что внутренняя область видимости имеет доступ к переменным из внешней области, но не наоборот.
+То есть переменные, объявленные внутри вложенной функции, не будут доступны во внешней области видимости.
+
+### Functions Parameters / Arguments
 
 
-Functions Parameters / Arguments
 Defining function parameters.
 Differences in parameters passing by value and by reference.
 Handling a dynamic amount of function parameters.
