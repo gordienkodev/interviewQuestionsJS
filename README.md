@@ -1365,14 +1365,210 @@ let obj = {
 obj.greet(); // Выведет 'Hello, Alex' через 1 секунду
 
 ### Be able to replace this value
+Метод bind():
+function greet() {
+    console.log('Hello, ' + this.name);
+}
+
+let obj = { name: 'John' };
+let boundGreet = greet.bind(obj);
+boundGreet(); // Выведет 'Hello, John'
+1.2. Методы call() и apply():
+function greet() {
+    console.log('Hello, ' + this.name);
+}
+let obj = { name: 'Alice' };
+greet.call(obj); // Выведет 'Hello, Alice'
+greet.apply(obj); // Выведет 'Hello, Alice'
+2. Стрелочные функции:
+let obj = {
+    name: 'Kate',
+    greet: function() {
+        setTimeout(() => {
+            console.log('Hello, ' + this.name);
+        }, 1000);
+    }
+};
+obj.greet(); // Выведет 'Hello, Kate' через 1 секунду
+3. Сохранение контекста в переменной:
+let obj = {
+    name: 'Alex',
+    greet: function() {
+        let self = this; // Сохранение контекста в переменной
+        setTimeout(function() {
+            console.log('Hello, ' + self.name);
+        }, 1000);
+    }
+};
+obj.greet(); // Выведет 'Hello, Alex' через 1 секунду
+Эти методы позволяют явно устанавливать значение this и гарантировать корректное выполнение функций в различных контекстах.
+
+
 ### Be able to use call and apply Function built-in methods
+Метод call():
+Метод call() вызывает функцию с указанным значением this и переданными аргументами. Синтаксис:
+functionName.call(thisArg, arg1, arg2, ...)
+thisArg: Значение, которое будет использоваться в качестве this внутри функции.
+arg1, arg2, ...: Аргументы, которые будут переданы в вызываемую функцию.
+Пример использования call():
+function greet() {
+    console.log('Hello, ' + this.name);
+}
+
+let obj = { name: 'John' };
+greet.call(obj); // Выведет 'Hello, John'
+2. Метод apply():
+Метод apply() работает аналогично методу call(), за исключением того, что аргументы передаются в виде массива. Синтаксис:
+functionName.apply(thisArg, [arg1, arg2, ...])
+thisArg: Значение, которое будет использоваться в качестве this внутри функции.
+[arg1, arg2, ...]: Массив аргументов, который будет передан в вызываемую функцию.
+Пример использования apply():
+function greet() {
+    console.log('Hello, ' + this.name);
+}
+
+let obj = { name: 'Alice' };
+let args = ['Bob'];
+greet.apply(obj, args); // Выведет 'Hello, Alice'
+Общие сведения:
+call() и apply() полезны, когда нужно использовать функцию с определенным контекстом, например, вызвать метод объекта с контекстом этого объекта.
+Оба метода могут быть использованы для вызова функций с контекстом, не связанным с объектом.
+apply() особенно удобен, когда количество аргументов для передачи в функцию заранее неизвестно и они представлены в виде массива.
+
+
 ### Know how to bind this scope to function
+Привязка области видимости this к функции в JavaScript является важным инструментом для управления контекстом выполнения функций. Это позволяет явно указать, к чему должен относиться this внутри функции, независимо от того, как она была вызвана. Давайте рассмотрим несколько способов привязки this к функции:
+1. Метод bind():
+Метод bind() создает новую функцию с указанным значением this, которая не изменяется при ее вызове. Синтаксис:
+const boundFunc = func.bind(thisArg);
+func: Функция, к которой будет привязан контекст this.
+thisArg: Значение, которое будет использоваться в качестве this внутри привязанной функции.
+Пример использования bind():
+const obj = {
+    name: 'John',
+    greet: function() {
+        console.log('Hello, ' + this.name);
+    }
+};
+
+const boundGreet = obj.greet.bind(obj);
+boundGreet(); // Выведет 'Hello, John'
+2. Стрелочные функции:
+Стрелочные функции не создают собственного контекста this и используют контекст окружающего кода. Это делает их удобным способом привязки контекста this. Пример:
+const obj = {
+    name: 'Alice',
+    greet: function() {
+        setTimeout(() => {
+            console.log('Hello, ' + this.name);
+        }, 1000);
+    }
+};
+
+obj.greet(); // Выведет 'Hello, Alice' через 1 секунду
+3. Использование замыканий:
+Можно сохранить контекст this в замыкании и использовать его внутри функции. Пример:
+const obj = {
+    name: 'Kate',
+    greet: function() {
+        const self = this;
+        setTimeout(function() {
+            console.log('Hello, ' + self.name);
+        }, 1000);
+    }
+};
+obj.greet(); // Выведет 'Hello, Kate' через 1 секунду
+Заключение:
+Привязка контекста this к функции позволяет эффективно управлять контекстом выполнения функций в JavaScript. Используйте метод bind(), стрелочные функции или замыкания в зависимости от вашего контекста и требований, чтобы гарантировать корректное поведение функций.
+
+
 ### Binding, binding one function twice
+Привязка одной функции несколько раз:
+Вы можете привязать одну и ту же функцию к разным контекстам несколько раз. Каждый вызов метода bind() создает новую функцию с привязанным контекстом. Рассмотрим пример:
+const obj1 = { name: 'Alice' };
+const obj2 = { name: 'Bob' };
+function greet() {
+    console.log('Hello, ' + this.name);
+}
+// Привязываем функцию greet к объектам obj1 и obj2
+const greetToAlice = greet.bind(obj1);
+const greetToBob = greet.bind(obj2);
+// Вызываем привязанные функции с разными контекстами
+greetToAlice(); // Выведет 'Hello, Alice'
+greetToBob();   // Выведет 'Hello, Bob'
+В этом примере функция greet привязывается дважды к разным объектам obj1 и obj2, создавая две новые функции greetToAlice и greetToBob. Каждая из этих функций вызывается с соответствующим контекстом this.
+
 
 ECMAScript Intermediate
 ### Function default parameters.
+Функциональные параметры по умолчанию (default parameters) - это возможность задать значения по умолчанию для аргументов функции. Если аргумент не был передан при вызове функции, его значение будет заменено значением по умолчанию. Это удобно, когда вы хотите обеспечить гибкость функции, предоставив значения по умолчанию для некоторых аргументов.
+Вот пример использования параметров по умолчанию:
+function greet(name = 'World') {
+    console.log('Hello, ' + name + '!');
+}
+greet();         // Выведет 'Hello, World!'
+greet('Alice');  // Выведет 'Hello, Alice!'
+В этом примере функция greet() имеет один аргумент name, для которого задано значение по умолчанию 'World'. Если аргумент name не передается при вызове функции, он автоматически принимает значение 'World'.
+Подробнее о функциональных параметрах по умолчанию:
+Значения по умолчанию могут быть любыми выражениями:
+function sum(a, b = 2 * a) {
+    return a + b;
+}
+console.log(sum(2)); // Выведет 6, так как b = 2 * 2 = 4
+Параметры по умолчанию могут ссылаться на предыдущие параметры:
+function greet(name, greeting = 'Hello') {
+    console.log(greeting + ', ' + name + '!');
+}
+greet('Alice'); // Выведет 'Hello, Alice!'
+Параметры по умолчанию не ограничены только примитивными значениями:
+function getDefault() {
+    return 'World';
+}
+function greet(name = getDefault()) {
+    console.log('Hello, ' + name + '!');
+}
+greet(); // Выведет 'Hello, World!'
+Параметры по умолчанию вычисляются только при необходимости:
+let defaultValue = 'World';
+function greet(name = defaultValue) {
+    console.log('Hello, ' + name + '!');
+}
+greet(); // Выведет 'Hello, World!'
+defaultValue = 'Alice';
+greet(); // Выведет 'Hello, Alice!'
+
 ### Using spread operator for function arguments.
+Оператор расширения (spread operator) для аргументов функции в JavaScript позволяет передавать переменное количество аргументов в функцию без явного определения их количества. Это делает функции более гибкими и удобными для использования с различными типами данных. Давайте рассмотрим, как использовать оператор расширения для аргументов функции подробнее:
+Оператор расширения для массивов:
+function sum(a, b, c) {
+    return a + b + c;
+}
+const numbers = [1, 2, 3];
+console.log(sum(...numbers)); // Выведет 6
+В этом примере массив numbers расширяется в качестве аргументов функции sum(). Это эквивалентно вызову sum(1, 2, 3), где значения из массива numbers используются в качестве аргументов.
+Оператор расширения для объединения массивов:
+const arr1 = [1, 2, 3];
+const arr2 = [4, 5, 6];
+const combinedArray = [...arr1, ...arr2];
+console.log(combinedArray); // Выведет [1, 2, 3, 4, 5, 6]
+В этом примере массивы arr1 и arr2 объединяются в один массив combinedArray с использованием оператора расширения.
+Оператор расширения для объектов:
+const obj1 = { foo: 'bar' };
+const obj2 = { baz: 'qux' };
+const mergedObject = { ...obj1, ...obj2 };
+console.log(mergedObject); // Выведет { foo: 'bar', baz: 'qux' }
+В этом примере объекты obj1 и obj2 объединяются в один объект mergedObject с использованием оператора расширения.
+Применение оператора расширения в функциях:
+function greet(...names) {
+    names.forEach(name => {
+        console.log('Hello, ' + name + '!');
+    });
+}
+greet('Alice', 'Bob', 'Charlie'); // Выведет 'Hello, Alice!', 'Hello, Bob!', 'Hello, Charlie!'
+В этом примере оператор расширения ...names позволяет передавать переменное количество аргументов в функцию greet(). Все переданные аргументы сохраняются в массиве names, который затем можно перебрать и обработать.
+
 ### Comparing arguments and rest parameters.
+
+
 ### Array concatenation with spread operator.
 ### Destructuring assignments for variables and function arguments.
 ### for..of loop (optional).
