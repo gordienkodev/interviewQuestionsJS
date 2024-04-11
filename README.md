@@ -1681,6 +1681,8 @@ Objects Built-in Methods
 
 
 ### Working with static Object methods.
+
+
 ### Property flags and descriptors.
 ### Creating iterable objects and using Symbol.iterator (optional).
 
