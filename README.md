@@ -903,9 +903,13 @@ obj.sayHello(); // Выведет "Hello, undefined!"
 
 ### Functional Scope
 
+Функциональная область видимости (Functional Scope) относится к области видимости переменных, определенных внутри функций в JavaScript. Каждая функция создает свою собственную область видимости, в которой переменные, объявленные внутри функции, могут быть доступны только из этой функции и из вложенных функций.
+
+### Global scope vs. functional scope.
 
 
-Global scope vs. functional scope.
+
+
 Variable visibility areas.
 Working with nested scopes.
 Functions Parameters / Arguments
