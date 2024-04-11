@@ -1101,69 +1101,127 @@ obj.greet(); // Выведет 'Hello, John', здесь this ссылается
 Область видимости (scope) определяет доступность переменных в программе, в то время как контекст (context) определяет значение this внутри функций и методов. 
 
 ### The mechanism of lexical environment traversal.
+Механизм обхода лексической среды (lexical environment traversal) относится к способу, с помощью которого JavaScript ищет переменные в лексических областях видимости во время выполнения кода. Давайте разберемся, как это происходит более подробно:
+Создание лексической среды:
+Когда функция создается в JavaScript, ей присваивается своя собственная лексическая среда (lexical environment).
+Эта лексическая среда содержит информацию о всех переменных, объявленных внутри функции, а также ссылку на лексическую среду внешней функции (если такая имеется).
+Обход лексической среды:
+При выполнении кода JavaScript интерпретатор ищет переменные в лексической среде текущей функции.
+Если переменная не найдена в текущей лексической среде, интерпретатор переходит к родительской лексической среде и продолжает поиск там.
+Этот процесс продолжается до тех пор, пока переменная не будет найдена или до тех пор, пока не будет достигнута глобальная область видимости.
+Использование ссылки на родительскую лексическую среду:
+Каждая лексическая среда сохраняет ссылку на свою родительскую лексическую среду.
+Это позволяет JavaScript обеспечивать цепочку обхода лексических сред, когда переменные не могут быть найдены в текущей области видимости.
+Завершение поиска:
+Если переменная найдена в лексической среде, поиск завершается, и переменная используется в соответствующем контексте.
+Если переменная не найдена ни в одной лексической среде, это приведет к ошибке ReferenceError.
+Пример:
+let globalVar = 'Global Variable';
+function outerFunction() {
+    let outerVar = 'Outer Variable';
 
-Connection between function and its lexical environment.
+    function innerFunction() {
+        console.log(globalVar); // Найдет переменную в глобальной области видимости
+        console.log(outerVar); // Найдет переменную во внешней лексической среде
+    }
+
+    innerFunction();
+}
+outerFunction();
+В этом примере при вызове innerFunction, JavaScript сначала ищет переменную globalVar в глобальной области видимости, а затем переменную outerVar во внешней лексической среде outerFunction, поскольку она не найдена внутри innerFunction.
+
+
+### Connection between function and its lexical environment.
+Создание лексической среды:
+Когда функция создается в JavaScript, ей автоматически присваивается своя собственная лексическая среда.
+Лексическая среда функции включает в себя все переменные, объявленные внутри функции, а также ссылку на лексическую среду внешней функции, в которой эта функция была определена.
+Захват переменных (Variable capturing):
+Когда функция сохраняет ссылку на переменную из внешней области видимости, этот процесс называется захватом переменной (variable capturing).
+При создании замыкания (closure) функция сохраняет ссылку на переменные из своей лексической среды, которые ей могут понадобиться в будущем.
+Использование переменных из лексической среды:
+Функция может использовать переменные из своей лексической среды независимо от того, где она вызывается.
+Это позволяет функциям сохранять доступ к переменным и значениям из контекста, в котором они были определены, даже после того, как этот контекст завершил свою работу.
+Пример:
+function outerFunction() {
+    let outerVar = 'Outer Variable';
+
+    function innerFunction() {
+        console.log(outerVar); // Функция innerFunction имеет доступ к переменной outerVar из лексической среды outerFunction
+    }
+
+    return innerFunction;
+}
+let closure = outerFunction();
+closure(); // Выведет 'Outer Variable'
+В этом примере функция innerFunction является замыканием, потому что она сохраняет ссылку на переменную outerVar из лексической среды outerFunction, даже после того, как outerFunction завершила свою работу. Когда closure() вызывается в глобальной области видимости, она все еще имеет доступ к переменной outerVar, что позволяет ей вывести её значение.
 
 Advanced Functions
+### this in functions
 
-this in functions
-Reference Type & losing this
-Understand difference between function and method
-Understand how this works, realize this possible issues
-Manage this
-Be able to replace this value
-Be able to use call and apply Function built-in methods
-Know how to bind this scope to function
-Binding, binding one function twice
+
+### Reference Type & losing this
+### Understand difference between function and method
+### Understand how this works, realize this possible issues
+### Manage this
+### Be able to replace this value
+### Be able to use call and apply Function built-in methods
+### Know how to bind this scope to function
+### Binding, binding one function twice
+
 ECMAScript Intermediate
-Function default parameters.
-Using spread operator for function arguments.
-Comparing arguments and rest parameters.
-Array concatenation with spread operator.
-Destructuring assignments for variables and function arguments.
-for..of loop (optional).
+### Function default parameters.
+### Using spread operator for function arguments.
+### Comparing arguments and rest parameters.
+### Array concatenation with spread operator.
+### Destructuring assignments for variables and function arguments.
+### for..of loop (optional).
+
 Objects Built-in Methods
-Utilizing Object.keys and Object.values.
-Working with static Object methods.
-Property flags and descriptors.
-Creating iterable objects and using Symbol.iterator (optional).
+### Utilizing Object.keys and Object.values.
+### Working with static Object methods.
+### Property flags and descriptors.
+### Creating iterable objects and using Symbol.iterator (optional).
+
 ECMAScript Data Types & Expressions
-Working with Object computed properties.
-Iterating through Object keys.
+### Working with Object computed properties.
+### Iterating through Object keys.
+
 Arrays Built-in Methods
-Copying and modifying arrays.
-Flattening nested arrays.
+### Copying and modifying arrays.
+### Flattening nested arrays.
+
 Arrays Iterating, Sorting, Filtering
-Sorting and custom sorting arrays.
-Filtering array elements.
+### Sorting and custom sorting arrays.
+### Filtering array elements.
+
 JavaScript in Browser:
-Global Object Window
-Understanding the Document Object Model (DOM).
+### Global Object Window
+### Understanding the Document Object Model (DOM).
+
 Events Basics
-Types of DOM Events.
-Working with Mouse and Keyboard Events.
-Handling Form and Input Events.
-Event Listeners.
-Event Phases and their differences.
-Custom events (optional).
+### Types of DOM Events.
+### Working with Mouse and Keyboard Events.
+### Handling Form and Input Events.
+### Event Listeners.
+### Event Phases and their differences.
+### Custom events (optional).
 Events Propagation / Preventing
-Event propagation cycle.
-Stopping event propagation.
-Preventing default browser behavior.
-Event delegation and its pros/cons.
+### Event propagation cycle.
+### Stopping event propagation.
+### Preventing default browser behavior.
+### Event delegation and its pros/cons.
 Timers
-Usage of setTimeout / setInterval.
-Clearing timers with clearTimeout / clearInterval.
+### Usage of setTimeout / setInterval.
+### Clearing timers with clearTimeout / clearInterval.
 Web Storage API & Cookies
-Differences between LocalStorage, SessionStorage, and Cookies.
+### Differences between LocalStorage, SessionStorage, and Cookies.
 Date & Time (optional)
-Working with the Date object.
-Timezones and Internationalization in JavaScript (Intl).
+### Working with the Date object.
+### Timezones and Internationalization in JavaScript (Intl).
 
 Design Patterns
-
 Intermediate Knowledge
-Understanding and applying KISS, DRY, and YAGNI principles.
+### Understanding and applying KISS, DRY, and YAGNI principles.
 
 Coding tasks:
 
