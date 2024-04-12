@@ -838,7 +838,7 @@ console.log(y); // Throws a ReferenceError
 let y = 10;
 
 ### The role of polyfills.
-олифиллы представляют собой кодовые фрагменты или скрипты, которые эмулируют функциональность новых функций в старых браузерах, что позволяет разработчикам писать код с использованием последних стандартов и обеспечивать совместимость с широким спектром браузеров.
+Полифиллы представляют собой кодовые фрагменты или скрипты, которые эмулируют функциональность новых функций в старых браузерах, что позволяет разработчикам писать код с использованием последних стандартов и обеспечивать совместимость с широким спектром браузеров.
 
 Вот более подробное объяснение роли полифиллов:
 Заполнение пробелов в поддержке браузеров:
@@ -863,7 +863,6 @@ this: Привязка this зависит от того, как функция 
 function greet() {
     console.log("Hello, " + this.name + "!");
 }
-
 const obj = {
     name: "John",
     sayHello: greet
@@ -878,12 +877,10 @@ this: Привязка this также зависит от контекста в
 const greet = function() {
     console.log("Hello, " + this.name + "!");
 };
-
 const obj = {
     name: "John",
     sayHello: greet
 };
-
 obj.sayHello(); // Выведет "Hello, John!"
 Стрелочные функции (arrow functions):
 Синтаксис: Стрелочные функции имеют более короткий синтаксис с использованием оператора =>.
@@ -1144,11 +1141,9 @@ outerFunction();
 Пример:
 function outerFunction() {
     let outerVar = 'Outer Variable';
-
     function innerFunction() {
         console.log(outerVar); // Функция innerFunction имеет доступ к переменной outerVar из лексической среды outerFunction
     }
-
     return innerFunction;
 }
 let closure = outerFunction();
@@ -2041,7 +2036,6 @@ document.body.appendChild(newElement); // Добавление элемента 
 DOM предоставляет множество методов и свойств для взаимодействия с элементами документа, что делает его мощным инструментом для динамического изменения веб-страницы.
 Понимание DOM важно для разработчиков веб-приложений, так как это позволяет им создавать интерактивные и динамические пользовательские интерфейсы.
 
-
 Events Basics
 ### Types of DOM Events.
 События DOM (Document Object Model) представляют собой действия или сигналы, которые браузер отправляет в ваше веб-приложение при определенных действиях пользователя или изменениях веб-страницы. События играют важную роль в создании интерактивных веб-приложений, так как позволяют реагировать на действия пользователя. Вот некоторые из наиболее распространенных типов событий DOM:
@@ -2500,7 +2494,26 @@ if (!Array.prototype.flat) {
 
 ### Array.reduce Polyfill
 Write a polyfill for the Array.reduce method. Ensure your implementation handles all the functionalities of the native reduce method, including the accumulator and current value parameters, as well as the optional initial value.
-
+if (!Array.prototype.reduce) {
+    // Если метод reduce еще не определен в прототипе массивов
+    Array.prototype.reduce = function(callback, initialValue) {
+        // Проверяем, что переданный callback является функцией
+        if (typeof callback !== 'function') {
+            throw new TypeError(callback + ' is not a function');
+        }
+        // Инициализируем переменные
+        const array = this; // Получаем текущий массив
+        let accumulator = initialValue !== undefined ? initialValue : array[0]; // Инициализируем аккумулятор начальным значением
+        // Проходим по массиву и вызываем callback для каждого элемента
+        for (let i = initialValue !== undefined ? 0 : 1; i < array.length; i++) {
+            if (i in array) {
+                accumulator = callback.call(undefined, accumulator, array[i], i, array);
+            }
+        }
+        // Возвращаем итоговое значение аккумулятора
+        return accumulator;
+    };
+}
 
 ### String Repeater
 Create a method that extends the String prototype to repeat a given string a specified number of times. For example, calling 'hello world'.repeating(3) should return 'hello world hello world hello world'. The method should handle edge cases like non-integer repeat times and negative numbers.
