@@ -2564,11 +2564,27 @@ console.log('abc'.padStart(10, '123')); // Выводит '1231231abc'
 
 ### Custom setTimeout Implementation
 Implement a custom version of setTimeout using only Date and a while loop, without using the native setTimeout function.
-
+function customSetTimeout(callback, delay) {
+    // Получаем текущее время
+    const startTime = new Date().getTime();
+    // Запускаем цикл, который будет выполняться, пока не истечет время ожидания
+    while (new Date().getTime() < startTime + delay) {
+        // Пустое тело цикла, ничего не делаем
+    }
+    // Как только время ожидания истекло, вызываем функцию обратного вызова
+    callback();
+}
+// Пример использования:
+console.log('Start');
+customSetTimeout(() => {
+    console.log('Hello after 2000 milliseconds');
+}, 2000);
+console.log('End');
 
 ### Memoization Function
 Create a function that implements memoization to cache and return the results of expensive function calls.
 Currying Logger: Develop a curryLogger function that takes a logging function and returns a curried version of this function.
+
 
 ### Arguments Reverser
 Implement a function that reverses the order of arguments it receives, returning a new function with reversed arguments.
