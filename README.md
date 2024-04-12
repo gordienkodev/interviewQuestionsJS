@@ -2517,7 +2517,23 @@ if (!Array.prototype.reduce) {
 
 ### String Repeater
 Create a method that extends the String prototype to repeat a given string a specified number of times. For example, calling 'hello world'.repeating(3) should return 'hello world hello world hello world'. The method should handle edge cases like non-integer repeat times and negative numbers.
-
+String.prototype.repeating = function(times) {
+    // Проверяем, является ли times числом и не является ли отрицательным
+    if (typeof times !== 'number' || !Number.isInteger(times) || times <= 0) {
+        throw new Error('Invalid repeat times');
+    }
+    // Инициализируем пустую строку, в которую будем добавлять повторения
+    let repeatedString = '';
+    // Повторяем исходную строку указанное количество раз
+    for (let i = 0; i < times; i++) {
+        repeatedString += this + ' '; // Добавляем пробел после каждого повторения
+    }
+    // Удаляем лишний пробел в конце строки
+    repeatedString = repeatedString.trim();
+    return repeatedString;
+};
+// Пример использования:
+console.log('hello world'.repeating(3));
 
 
 ### String.prototype.padStart Polyfill
