@@ -2727,7 +2727,30 @@ console.log(chunkedArray); // Выведет [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
 
 ### Custom Array Filter
 Implement your own version of the array filter function without using the built-in Array.prototype.filter method.
+Для решения этой задачи мы можем создать свою собственную функцию customFilter, которая будет принимать массив и функцию обратного вызова (callback) и возвращать новый массив, содержащий только те элементы, для которых функция обратного вызова возвращает true.
+Вот пример такой функции на JavaScript:
+function customFilter(arr, callback) {
+    const filteredArray = []; // Результирующий массив
+    // Проходим по каждому элементу массива
+    for (let i = 0; i < arr.length; i++) {
+        // Проверяем, соответствует ли текущий элемент условиям функции обратного вызова
+        if (callback(arr[i], i, arr)) {
+            filteredArray.push(arr[i]); // Добавляем элемент в результирующий массив
+        }
+    }
 
+    return filteredArray;
+}
+Эта функция customFilter принимает массив arr и функцию обратного вызова callback. Затем она проходит по каждому элементу массива arr и вызывает функцию callback для каждого элемента с передачей текущего элемента, индекса и самого массива. Если функция callback вернет true для текущего элемента, то он добавляется в результирующий массив filteredArray.
+Теперь вы можете использовать эту функцию для фильтрации массива:
+const array = [1, 2, 3, 4, 5];
+// Функция обратного вызова для проверки четности элементов
+function isEven(num) {
+    return num % 2 === 0;
+}
+const filteredArray = customFilter(array, isEven);
+console.log(filteredArray); // Выведет [2, 4]
+Таким образом, функция customFilter предоставляет альтернативный способ фильтрации массива без использования встроенного метода filter массива.
 
 ### DOM Element Selector
 Write a function for selecting DOM elements with a specific data attribute and applying a given callback function to them.
