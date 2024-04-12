@@ -2619,15 +2619,93 @@ curriedLogger("Hello, World!"); // Выводит "Hello, World!"
 
 ### Arguments Reverser
 Implement a function that reverses the order of arguments it receives, returning a new function with reversed arguments.
+Для этой задачи вам нужно реализовать функцию, которая принимает другую функцию в качестве аргумента и возвращает новую функцию, которая принимает аргументы в обратном порядке.
+
+Вот пример того, как это можно сделать на JavaScript:
+function reverseArguments(func) {
+    return function(...args) {
+        return func(...args.reverse());
+    };
+}
+Это решение включает в себя:
+Функция reverseArguments, которая принимает функцию func в качестве аргумента.
+Возвращение анонимной функции, которая принимает любое количество аргументов через оператор ...args.
+Внутри анонимной функции вызывается функция func с аргументами, которые были развернуты с помощью метода reverse().
+Теперь вы можете использовать эту функцию для создания новой функции с аргументами, переданными в обратном порядке:
+function exampleFunc(a, b, c) {
+    console.log(a, b, c);
+}
+const reversedFunc = reverseArguments(exampleFunc);
+reversedFunc(1, 2, 3); // Выведет "3 2 1"
 
 ### Private Counter Closure
 Craft a function that uses closures to create a private counter, which can only be modified through specific methods.
+Для этой задачи вам нужно создать функцию, которая будет использовать замыкания для создания приватного счетчика, который может быть изменен только через определенные методы. Это означает, что счетчик будет доступен только внутри этой функции, и его значение можно будет изменить только с помощью специальных методов, которые мы предоставим.
+
+Вот пример, как это можно сделать на JavaScript:
+function createCounter() {
+    let count = 0; // Приватная переменная счетчика
+
+    return {
+        increment: function() { // Метод для увеличения счетчика на 1
+            count++;
+        },
+        decrement: function() { // Метод для уменьшения счетчика на 1
+            count--;
+        },
+        getCount: function() { // Метод для получения текущего значения счетчика
+            return count;
+        }
+    };
+}
+// Создаем экземпляр объекта счетчика
+const counter = createCounter();
+// Увеличиваем счетчик на 1
+counter.increment();
+console.log(counter.getCount()); // Выведет 1
+// Уменьшаем счетчик на 1
+counter.decrement();
+console.log(counter.getCount()); // Выведет 0
 
 ### Rest Parameters Sum
 Write a function that uses rest parameters to calculate and return the sum of an indefinite number of arguments.
+Для решения этой задачи вам нужно создать функцию, которая использует rest-параметры для получения неопределенного количества аргументов и вычисления их суммы.
+Вот пример такой функции на JavaScript:
+function sum(...args) {
+    return args.reduce((total, current) => total + current, 0);
+}
 
 ### Object Freeze Deep
 Create a function that deeply freezes an object, ensuring all nested objects are also frozen.
+Для решения этой задачи вам нужно создать функцию, которая рекурсивно замораживает объект, включая все вложенные объекты внутри него.
+Вот пример такой функции на JavaScript:
+function deepFreeze(obj) {
+    // Замораживаем текущий объект
+    Object.freeze(obj);
+    // Рекурсивно замораживаем все свойства объекта, которые являются объектами
+    for (let key in obj) {
+        if (obj.hasOwnProperty(key) && typeof obj[key] === 'object' && !Object.isFrozen(obj[key])) {
+            deepFreeze(obj[key]);
+        }
+    }
+    return obj;
+}
+Эта функция deepFreeze принимает объект obj и сначала замораживает его с помощью Object.freeze(). Затем она проходит через все свойства этого объекта и, если какое-то свойство является объектом и не заморожено, рекурсивно замораживает его вызовом deepFreeze.
+Теперь вы можете использовать эту функцию, чтобы глубоко заморозить любой объект:
+const obj = {
+    a: 1,
+    b: {
+        c: 2,
+        d: {
+            e: 3
+        }
+    }
+};
+deepFreeze(obj);
+// Попытка изменить значения объекта
+obj.a = 10; // Не сработает, так как объект заморожен
+obj.b.c = 20; // Не сработает, так как объект заморожен
+obj.b.d.e = 30; // Не сработает, так как объект заморожен
 
 ### Array Chunker
 Develop a function that divides an array into chunks of a specified size and returns them.
