@@ -2583,7 +2583,19 @@ console.log('End');
 
 ### Memoization Function
 Create a function that implements memoization to cache and return the results of expensive function calls.
-Currying Logger: Develop a curryLogger function that takes a logging function and returns a curried version of this function.
+function memoization(func) {
+    const cache = {}; // Объект для кэширования результатов
+    return function(...args) {
+        const key = JSON.stringify(args); // Создаем ключ на основе аргументов функции
+        if (!(key in cache)) { // Проверяем, есть ли результат в кэше
+            cache[key] = func.apply(this, args); // Вызываем функцию с переданными аргументами и сохраняем результат в кэше
+        }
+        return cache[key]; // Возвращаем результат из кэша
+    };
+}
+
+### Currying Logger:
+Develop a curryLogger function that takes a logging function and returns a curried version of this function.
 
 
 ### Arguments Reverser
