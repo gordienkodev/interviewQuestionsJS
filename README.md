@@ -2754,6 +2754,25 @@ console.log(filteredArray); // Выведет [2, 4]
 
 ### DOM Element Selector
 Write a function for selecting DOM elements with a specific data attribute and applying a given callback function to them.
+Для решения этой задачи мы можем создать функцию selectElementsWithAttribute, которая будет принимать имя атрибута и значение этого атрибута, а также функцию обратного вызова (callback). Функция будет находить все элементы с указанным атрибутом и его значением, применять к ним функцию обратного вызова и возвращать их.
+Вот пример такой функции на JavaScript:
+function selectElementsWithAttribute(attribute, value, callback) {
+    const elements = document.querySelectorAll(`[${attribute}="${value}"]`); // Находим элементы с указанным атрибутом и значением
+
+    // Применяем callback к каждому найденному элементу
+    elements.forEach(element => {
+        callback(element);
+    });
+}
+Теперь вы можете использовать эту функцию для выбора элементов по их атрибуту и значению, а затем применения к ним функции обратного вызова:
+// Пример использования:
+// Функция обратного вызова для добавления класса
+function addClass(element) {
+    element.classList.add('highlight');
+}
+// Выбираем все элементы с атрибутом data-type и значением 'button' и добавляем им класс 'highlight'
+selectElementsWithAttribute('data-type', 'button', addClass);
+Этот пример выберет все элементы, у которых атрибут data-type имеет значение 'button', и добавит им класс highlight.
 
 
 ### Что такое политика CORS про что она?
