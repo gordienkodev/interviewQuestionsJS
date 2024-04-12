@@ -2538,9 +2538,33 @@ console.log('hello world'.repeating(3));
 
 ### String.prototype.padStart Polyfill
 Write a polyfill for the String.prototype.padStart method. It should pad the current string from the start with another string (multiple times if necessary) until the resulting string reaches the given length.
+if (!String.prototype.padStart) {
+    String.prototype.padStart = function(targetLength, padString) {
+        // Преобразуем текущую строку в строку
+        let str = String(this);
+        // Проверяем, если нужно добавлять пустые пространства
+        if (padString === undefined) {
+            padString = ' ';
+        }
+        // Проверяем, если строка уже длиннее или равна целевой длине
+        if (str.length >= targetLength) {
+            return str;
+        }
+        // Вычисляем, сколько символов нужно добавить
+        const padLength = targetLength - str.length;
+        // Строим строку с пустыми пространствами
+        const padding = padString.repeat(Math.ceil(padLength / padString.length)).substring(0, padLength);
+        // Возвращаем объединенную строку
+        return padding + str;
+    };
+}
+// Пример использования:
+console.log('abc'.padStart(10)); // Выводит '       abc'
+console.log('abc'.padStart(10, '123')); // Выводит '1231231abc'
 
 ### Custom setTimeout Implementation
 Implement a custom version of setTimeout using only Date and a while loop, without using the native setTimeout function.
+
 
 ### Memoization Function
 Create a function that implements memoization to cache and return the results of expensive function calls.
