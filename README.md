@@ -2596,7 +2596,26 @@ function memoization(func) {
 
 ### Currying Logger:
 Develop a curryLogger function that takes a logging function and returns a curried version of this function.
-
+Функция "curryLogger" должна принимать функцию журналирования (например, console.log) и возвращать каррированную версию этой функции. Каррированная функция позволяет вызывать исходную функцию с частичным набором аргументов и возвращает новую функцию, которая ожидает оставшиеся аргументы.
+Вот пример решения на JavaScript:
+function curryLogger(logger) {
+    return function(...args) {
+        return function(...innerArgs) {
+            logger(...args, ...innerArgs); // Вызываем функцию журналирования с аргументами и внутренними аргументами
+        };
+    };
+}
+В этом решении:
+Функция curryLogger принимает функцию журналирования (logger) в качестве аргумента.
+Возвращается анонимная функция, которая принимает аргументы (args).
+Внутри анонимной функции создается еще одна анонимная функция, которая принимает внутренние аргументы (innerArgs).
+Внутренняя анонимная функция вызывает функцию журналирования (logger) с объединенными внешними и внутренними аргументами.
+Теперь мы можем использовать curryLogger для каррирования функции журналирования:
+// Создаем каррированную версию функции журналирования console.log
+const curriedLogger = curryLogger(console.log);
+// Журналируем сообщение "Hello, World!" с использованием каррированной функции
+curriedLogger("Hello, World!"); // Выводит "Hello, World!"
+Таким образом, мы можем использовать curryLogger для создания каррированных версий любой функции журналирования, что позволяет нам удобно использовать ее с частичным набором аргументов.
 
 ### Arguments Reverser
 Implement a function that reverses the order of arguments it receives, returning a new function with reversed arguments.
