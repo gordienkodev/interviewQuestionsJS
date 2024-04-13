@@ -2464,31 +2464,27 @@ Implement a polyfill for the Array.flat method. This method should flatten an ar
 
 // Проверяем, существует ли метод flat в массивах
 if (!Array.prototype.flat) {
-    // Определяем полифилл для метода flat
     Array.prototype.flat = function(depth = 1) {
-        // Создаем функцию flatten для рекурсивного сглаживания массива
-        const flatten = (arr, currDepth) => {
-            // Если текущая глубина достигла максимальной глубины или массив пуст, возвращаем массив
-            if (currDepth === depth || arr.length === 0) {
-                return arr;
-            }
-
-            // Используем метод reduce для сбора всех элементов массива в один массив
-            return arr.reduce((acc, val) => {
-                // Если текущий элемент является массивом, вызываем функцию flatten рекурсивно
-                if (Array.isArray(val)) {
-                    // Сглаживаем вложенный массив с увеличением текущей глубины на 1
-                    acc.push(...flatten(val, currDepth + 1));
+        // Создаем новый массив для хранения результата
+        const flattenedArray = [];
+        // Рекурсивная функция для сглаживания массива
+        function flatten(array, currentDepth) {
+            // Проходим по каждому элементу массива
+            array.forEach(item => {
+                // Если текущий элемент является массивом и мы еще не достигли максимальной глубины
+                if (Array.isArray(item) && currentDepth < depth) {
+                    // Рекурсивно вызываем flatten для этого элемента с увеличенной глубиной
+                    flatten(item, currentDepth + 1);
                 } else {
-                    // Если текущий элемент не является массивом, добавляем его в результирующий массив
-                    acc.push(val);
+                    // В противном случае добавляем элемент в результирующий массив
+                    flattenedArray.push(item);
                 }
-                return acc;
-            }, []);
-        };
-
-        // Вызываем функцию flatten для текущего массива с начальной глубиной 0
-        return flatten(this, 0);
+            });
+        }
+        // Начинаем сглаживание массива с глубиной 1
+        flatten(this, 1);
+        // Возвращаем сглаженный массив
+        return flattenedArray;
     };
 }
 
