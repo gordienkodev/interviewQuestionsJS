@@ -2491,21 +2491,21 @@ if (!Array.prototype.flat) {
 ### Array.reduce Polyfill
 Write a polyfill for the Array.reduce method. Ensure your implementation handles all the functionalities of the native reduce method, including the accumulator and current value parameters, as well as the optional initial value.
 if (!Array.prototype.reduce) {
-    // Если метод reduce еще не определен в прототипе массивов
     Array.prototype.reduce = function(callback, initialValue) {
-        // Проверяем, что переданный callback является функцией
-        if (typeof callback !== 'function') {
-            throw new TypeError(callback + ' is not a function');
+        // Проверяем, что массив не пустой
+        if (this.length === 0 && initialValue === undefined) {
+            throw new TypeError('Reduce of empty array with no initial value');
         }
-        // Инициализируем переменные
-        const array = this; // Получаем текущий массив
-        let accumulator = initialValue !== undefined ? initialValue : array[0]; // Инициализируем аккумулятор начальным значением
-        // Проходим по массиву и вызываем callback для каждого элемента
-        for (let i = initialValue !== undefined ? 0 : 1; i < array.length; i++) {
-            if (i in array) {
-                accumulator = callback.call(undefined, accumulator, array[i], i, array);
-            }
+
+        // Инициализируем аккумулятор начальным значением или первым элементом массива
+        let accumulator = initialValue !== undefined ? initialValue : this[0];
+        let startIndex = initialValue !== undefined ? 0 : 1;
+
+        // Проходим по оставшимся элементам массива и вызываем callback
+        for (let i = startIndex; i < this.length; i++) {
+            accumulator = callback(accumulator, this[i], i, this);
         }
+
         // Возвращаем итоговое значение аккумулятора
         return accumulator;
     };
