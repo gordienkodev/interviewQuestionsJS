@@ -2496,16 +2496,13 @@ if (!Array.prototype.reduce) {
         if (this.length === 0 && initialValue === undefined) {
             throw new TypeError('Reduce of empty array with no initial value');
         }
-
         // Инициализируем аккумулятор начальным значением или первым элементом массива
         let accumulator = initialValue !== undefined ? initialValue : this[0];
         let startIndex = initialValue !== undefined ? 0 : 1;
-
         // Проходим по оставшимся элементам массива и вызываем callback
         for (let i = startIndex; i < this.length; i++) {
             accumulator = callback(accumulator, this[i], i, this);
         }
-
         // Возвращаем итоговое значение аккумулятора
         return accumulator;
     };
