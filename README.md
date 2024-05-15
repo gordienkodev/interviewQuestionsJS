@@ -2879,6 +2879,128 @@ join(): Создает строку, объединяя все элементы 
 reduce(): Применяет функцию редукции к элементам массива, чтобы получить единое значение. Этот метод возвращает результат редукции, но сам массив не изменяется.
 
  
+CoreJS Interview #2
+
+- Modules in JavaScript
+### Purpose and concept of a module/module pattern.
+
+
+Types of modules (AMD, ES6, CommonJS, UMD).
+Syntax and common features (export default, named exports, exports as).
+
+Dynamic imports.
+Functional Patterns
+Callbacks and IIFE.
+Limitations of callbacks (e.g., callback hell).
+Function currying and partial functions.
+Object-Oriented Programming (OOP)
+new keyword functionality.
+Constructor functions and their properties.
+Public, private, and static members in OOP.
+ECMAScript Classes
+Class declaration and syntax.
+Differences between class declarations and constructor functions.
+Usage of super().
+Prototypal Inheritance
+Properties like __proto__ and prototype.
+Using [Object.create] to define prototypes explicitly.
+ECMAScript Advanced Data Types & Expressions
+Set/Map and WeakSet/WeakMap.
+JavaScript Errors
+Error handling techniques including try..catch.
+Understanding and implementing custom errors.
+ECMAScript Advanced
+Promises, async/await, and the event loop.
+Garbage collection basics.
+JavaScript in Browser:
+Global object window
+Understanding browser's location and history API.
+User agent parsing and platform/browser detection.
+Page Lifecycle
+Parsing, reflow, repaint, and the critical rendering path.
+Network requests
+Using Fetch and understanding XMLHTTPRequest.
+Timers
+Differences between setTimeout and requestAnimationFrame.
+TypeScript:
+Writing efficient TypeScript using basic types, enums, interfaces, and generics:
+basic types
+enums
+type / interface, differences between them
+using interfaces with optional properties, read-only properties, etc...
+function types
+utitily types (optional)
+typeguards (optional)
+creating custom types
+generic types (concept)
+Understanding the module system in ES6 and TypeScript.
+Design Patterns:
+Familiarity with Creational, Structural, and Behavioral Design Patterns.
+SOLID principles and design patterns in project contexts.
+Software Development Methodologies:
+Agile, Scrum, Kanban, and Waterfall methodologies.
+Project estimation techniques.
+Testing:
+Understanding different types of testing (Integration, E2E, Performance).
+Test Pyramid.
+Test-driven development (TDD) and behavior-driven development (BDD).
+Web Communication Protocols:
+Differences between HTTP and HTTPS.
+Understanding HTTP methods, headers, responses, and status codes.
+Concepts of RESTful APIs.
+Common Web-Security Knowledge:
+Basic security concepts including CORS, XSS, and OWASP Top 10.
+Authentication mechanisms (JWT, OAuth).
+Coding Task Examples:
+Polyfills and Extensions
+Function.prototype.bind Polyfill
+
+Implement a polyfill for Function.prototype.bind.
+Object.create Polyfill
+
+Implement a polyfill for Object.create.
+Array.flat Polyfill
+
+Implement a polyfill for Array.flat.
+Array.reduce Polyfill
+
+Implement a polyfill for Array.reduce.
+String Repeating Function
+
+Create a method that allows a string to be repeated a certain number of times, similar to the native String.prototype.repeat.
+Custom Join Function
+
+Implement a function that constructs a string from an array of numbers, separated by a specified delimiter.
+Functional Programming Challenges
+Functional Expressions
+
+Implement a series of functions that allow for functional expressions such as five(plus(seven(minus(three())))).
+Curried Addition Function
+
+Write a function that supports adding numbers in a curried form, such as add(5)(9)(-4)(1).
+Timing Functions
+Periodic Output
+
+Write a function that logs the elapsed time in milliseconds at regular intervals.
+Extended Periodic Output
+
+Implement a function that logs the elapsed time in milliseconds at intervals that increase incrementally.
+Working with Promises
+Sequential Promise Execution
+Write a function to execute an array of functions that return promises sequentially, ensuring each promise resolves before the next begins.
+Promise.all Polyfill
+Implement a function that behaves like Promise.all.
+Race Condition Handling with Promises
+Create a function to handle race conditions, resolving or rejecting with the value of the first promise that settles.
+Promise Chaining and Error Handling
+Write a function that handles promise chaining and catches any errors, useful for data fetching scenarios.
+Promisify Node-style Callbacks
+Convert traditional Node.js callback-style functions to return promises.
+ 
+ 
+ 
+ 
+ 
 
 1. What is JavaScript?
 JavaScript is a high-level, interpreted programming language primarily used for
