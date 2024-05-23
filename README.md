@@ -2983,7 +2983,6 @@ const math = require('./math');
 console.log(math.add(2, 3)); // 5
 console.log(math.subtract(5, 2)); // 3
 
-
 #### UMD Universal Module Definition
 UMD — это формат модулей, предназначенный для совместимости как с AMD, так и с CommonJS средами. Он может использоваться как на клиентской, так и на серверной стороне, что делает его универсальным.
 Преимущества:
