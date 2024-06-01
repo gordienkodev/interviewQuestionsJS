@@ -3077,7 +3077,7 @@ console.log(myModule.add(2, 3)); // 5
 
 ### Syntax and common features (export default, named exports, exports as).
 
-Экспорт в JavaScript:
+#### Экспорт в JavaScript в ES6:
 JavaScript поддерживает несколько способов экспортирования функций, переменных или объектов из модулей для их использования в других модулях.
 
 1. export default:
@@ -3108,9 +3108,164 @@ export { internalName as externalName };
 // другой модуль
 import { externalName } from './module.js';
 
+####Сравнение CommonJS и ES6
+
+Экспорт по умолчанию:
+CommonJS: module.exports = value;
+ES6: export default value;
+
+Именованный экспорт:
+CommonJS: exports.name = value;
+ES6: export const name = value;
+
+Экспорт под псевдонимом:
+CommonJS: exports.alias = value;
+ES6: export { value as alias };
 
 
-Dynamic imports.
+#### Сравнение ES6 и AMD
+
+Экспорт по умолчанию:
+ES6:
+// module.js
+const myFunc = () => { /* реализация */ };
+export default myFunc;
+// другой модуль
+import myFunc from './module.js';
+AMD:
+// module.js
+define(function() {
+    const myFunc = () => { /* реализация */ };
+    return myFunc;
+});
+// другой модуль
+require(['module'], function(myFunc) {
+    myFunc();
+});
+
+Именованный экспорт:
+ES6:
+// module.js
+export const foo = 'foo';
+export const bar = 'bar';
+// другой модуль
+import { foo, bar } from './module.js';
+AMD:
+// module.js
+define(function() {
+    const foo = 'foo';
+    const bar = 'bar';
+    return {
+        foo: foo,
+        bar: bar
+    };
+});
+// другой модуль
+require(['module'], function(module) {
+    const foo = module.foo;
+    const bar = module.bar;
+});
+
+Экспорт под псевдонимом:
+ES6:
+// module.js
+const internalName = 'internal';
+export { internalName as externalName };
+// другой модуль
+import { externalName } from './module.js';
+AMD:
+В AMD, чтобы экспортировать значения под псевдонимом, нужно явно указать имена свойств объекта, возвращаемого из модуля.
+// module.js
+define(function() {
+    const internalName = 'internal';
+    return {
+        externalName: internalName
+    };
+}); 
+// другой модуль
+require(['module'], function(module) {
+    const externalName = module.externalName;
+});
+
+### Dynamic imports
+
+Dynamic imports позволяют загружать модули асинхронно, что особенно полезно для веб-приложений, где время загрузки и производительность имеют критическое значение. В различных системах модулей подходы к динамическому импорту различаются.
+
+1. ES6 (ECMAScript 2015 Modules)
+В ES6 динамические импорты реализуются с помощью функции import(), которая возвращает промис. Это позволяет загружать модули по требованию и обрабатывать их асинхронно.
+
+Пример:
+// Динамический импорт
+import('./module.js').then(module => {
+    module.myFunction();
+}).catch(err => {
+    console.error('Ошибка загрузки модуля', err);
+});
+
+2. AMD (Asynchronous Module Definition)
+В AMD динамические импорты поддерживаются "из коробки", так как AMD была разработана для асинхронной загрузки модулей с самого начала. Для этого используется функция require.
+
+Пример:
+// Динамический импорт
+require(['module'], function(module) {
+    module.myFunction();
+});
+
+3. CommonJS
+CommonJS, изначально разработанная для Node.js, не поддерживает асинхронную загрузку модулей изначально. Однако можно использовать динамические импорты с помощью функции import() или других асинхронных механизмов, доступных в Node.js, таких как require.ensure() (в Webpack).
+
+Пример с import() в Node.js:
+// Динамический импорт
+import('./module.js').then(module => {
+    module.myFunction();
+}).catch(err => {
+    console.error('Ошибка загрузки модуля', err);
+});
+
+Пример с require.ensure() в Webpack:
+// Динамический импорт с Webpack
+require.ensure([], function(require) {
+    const module = require('./module.js');
+    module.myFunction();
+});
+
+4. UMD (Universal Module Definition)
+UMD не имеет встроенной поддержки для динамических импортов, так как UMD является оберткой для совместимости с различными системами модулей. Тем не менее, UMD модули могут использовать динамические импорты, предоставленные конкретной системой модулей, в которой они выполняются (например, AMD или ES6).
+
+Пример с ES6 динамическим импортом:
+// Используем ES6 динамический импорт
+import('./module.js').then(module => {
+    module.myFunction();
+}).catch(err => {
+    console.error('Ошибка загрузки модуля', err);
+});
+
+Пример с AMD динамическим импортом:
+// Используем AMD динамический импорт
+require(['module'], function(module) {
+    module.myFunction();
+});
+
+Основные отличия:
+ES6:
+Использует функцию import().
+Возвращает промис.
+Поддерживается в современных браузерах и Node.js (начиная с версии 13.2.0).
+
+AMD:
+Использует функцию require.
+Поддерживает асинхронную загрузку изначально.
+Требует библиотеку, такую как RequireJS, для работы в браузере.
+
+CommonJS:
+Изначально не поддерживает асинхронную загрузку.
+Можно использовать import() в Node.js или асинхронные механизмы в сборщиках, таких как Webpack (require.ensure).
+
+UMD:
+Нет встроенной поддержки для динамических импортов.
+Может использовать динамические импорты, предоставляемые конкретной системой модулей (например, ES6 или AMD).
+
+
 Functional Patterns
 Callbacks and IIFE.
 Limitations of callbacks (e.g., callback hell).
