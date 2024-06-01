@@ -3924,62 +3924,125 @@ console.log(MathUtils.add(3, 4)); // 7
 
 ### Differences between class declarations and constructor functions
 
+Классы (class declarations) и функции-конструкторы (constructor functions) - это два различных подхода к созданию объектов в JavaScript, хотя оба они используются для определения шаблонов объектов. Давайте рассмотрим основные различия между ними:
+1. Синтаксис:
+
+Class Declaration:
+class ClassName {
+    constructor(/* аргументы конструктора */) {
+        // тело конструктора
+    }
+    // методы класса
+}
+
+Constructor Function:
+function ConstructorName(/* аргументы конструктора */) {
+    // тело конструктора
+}
+ConstructorName.prototype.methodName = function() {
+    // тело метода
+};
+
+2. Объекты прототипа:
+Class Declaration:
+В классах методы определяются непосредственно в теле класса, а не на его прототипе.
+Каждый метод класса является методом прототипа.
+
+Constructor Function:
+Методы определяются на прототипе функции-конструктора.
+Все экземпляры объектов, созданных с помощью функции-конструктора, разделяют общий прототип.
+
+3. Наследование:
+Class Declaration:
+Использует ключевое слово extends для наследования от другого класса.
+Метод super() используется в конструкторе подкласса для вызова конструктора суперкласса.
+
+Constructor Function:
+Для наследования используется установка прототипа на экземпляр суперкласса.
+Метод call() или apply() используется в конструкторе подкласса для вызова конструктора суперкласса.
+
+4. Статические методы:
+Class Declaration:
+Методы, объявленные с использованием ключевого слова static, принадлежат самому классу, а не его экземплярам.
+Constructor Function:
+Статические методы могут быть добавлены к функции-конструктору, но они привязаны к самой функции и не наследуются подклассами.
+
+5. Нотация вызова:
+Class Declaration:
+Создание нового экземпляра класса с использованием ключевого слова new.
+Constructor Function:
+Также создается новый экземпляр объекта с использованием ключевого слова new.
+
+Преимущества и недостатки:
+Class Declaration:
+Преимущества: Более чистый и понятный синтаксис, поддержка наследования через extends, возможность объявления статических методов.
+Недостатки: Не поддерживается в IE и некоторых устаревших версиях браузеров.
+
+Constructor Function:
+Преимущества: Более широкая совместимость с браузерами, более гибкий в использовании.
+Недостатки: Менее читаемый синтаксис, более сложное наследование без использования сторонних библиотек.
+
+Оба подхода имеют свои достоинства и недостатки, и выбор между ними зависит от конкретной задачи и предпочтений разработчика. Однако с появлением новых стандартов ECMAScript и улучшением поддержки браузерами, классы становятся более предпочтительным вариантом для создания объектов и определения их поведения в JavaScript.
+
+### Usage of super()
 
 
-Usage of super().
-Prototypal Inheritance
-Properties like __proto__ and prototype.
-Using [Object.create] to define prototypes explicitly.
-ECMAScript Advanced Data Types & Expressions
-Set/Map and WeakSet/WeakMap.
-JavaScript Errors
-Error handling techniques including try..catch.
-Understanding and implementing custom errors.
-ECMAScript Advanced
-Promises, async/await, and the event loop.
-Garbage collection basics.
-JavaScript in Browser:
-Global object window
-Understanding browser's location and history API.
-User agent parsing and platform/browser detection.
-Page Lifecycle
-Parsing, reflow, repaint, and the critical rendering path.
-Network requests
-Using Fetch and understanding XMLHTTPRequest.
-Timers
-Differences between setTimeout and requestAnimationFrame.
+
+### Prototypal Inheritance
+
+
+### Properties like __proto__ and prototype.
+### Using [Object.create] to define prototypes explicitly.
+### ECMAScript Advanced Data Types & Expressions
+### Set/Map and WeakSet/WeakMap.
+### JavaScript Errors
+### Error handling techniques including try..catch.
+### Understanding and implementing custom errors.
+### ECMAScript Advanced
+### Promises, async/await, and the event loop.
+### Garbage collection basics.
+### JavaScript in Browser:
+### Global object window
+### Understanding browser's location and history API.
+### User agent parsing and platform/browser detection.
+### Page Lifecycle
+### Parsing, reflow, repaint, and the critical rendering path.
+### Network requests
+### Using Fetch and understanding XMLHTTPRequest.
+### Timers
+### Differences between setTimeout and requestAnimationFrame.
 
 
 ### TypeScript
 
-Writing efficient TypeScript using basic types, enums, interfaces, and generics:
-basic types
-enums
-type / interface, differences between them
-using interfaces with optional properties, read-only properties, etc...
-function types
-utitily types (optional)
-typeguards (optional)
-creating custom types
-generic types (concept)
-Understanding the module system in ES6 and TypeScript.
-Design Patterns:
-Familiarity with Creational, Structural, and Behavioral Design Patterns.
-SOLID principles and design patterns in project contexts.
-Software Development Methodologies:
-Agile, Scrum, Kanban, and Waterfall methodologies.
-Project estimation techniques.
-Testing:
-Understanding different types of testing (Integration, E2E, Performance).
-Test Pyramid.
-Test-driven development (TDD) and behavior-driven development (BDD).
-Web Communication Protocols:
-Differences between HTTP and HTTPS.
-Understanding HTTP methods, headers, responses, and status codes.
-Concepts of RESTful APIs.
-Common Web-Security Knowledge:
-Basic security concepts including CORS, XSS, and OWASP Top 10.
-Authentication mechanisms (JWT, OAuth).
+### Writing efficient TypeScript using basic types, enums, interfaces, and generics:
+### basic types
+### enums
+### type / interface, differences between them
+### using interfaces with optional properties, read-only properties, etc...
+### function types
+### utitily types (optional)
+### typeguards (optional)
+### creating custom types
+### generic types (concept)
+### Understanding the module system in ES6 and TypeScript.
+### Design Patterns:
+### Familiarity with Creational, Structural, and Behavioral Design Patterns.
+### SOLID principles and design patterns in project contexts.
+### Software Development Methodologies:
+### Agile, Scrum, Kanban, and Waterfall methodologies.
+### Project estimation techniques.
+### Testing:
+### Understanding different types of testing (Integration, E2E, Performance).
+### Test Pyramid.
+### Test-driven development (TDD) and behavior-driven development (BDD).
+### Web Communication Protocols:
+### Differences between HTTP and HTTPS.
+### Understanding HTTP methods, headers, responses, and status codes.
+### Concepts of RESTful APIs.
+### Common Web-Security Knowledge:
+### Basic security concepts including CORS, XSS, and OWASP Top 10.
+### Authentication mechanisms (JWT, OAuth).
 
 
 
