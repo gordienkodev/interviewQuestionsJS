@@ -2916,6 +2916,14 @@ AMD — это спецификация для определения модул
 Недостатки:
 Сложный синтаксис: Синтаксис может быть более сложным и менее интуитивно понятным по сравнению с другими системами модулей.
 Основное использование в браузерах: Реже используется в серверных средах.
+
+define(['dependency1', 'dependency2'], function(dep1, dep2) {
+    // код модуля
+    return {
+        // экспортируемые значения
+    };
+});
+
 Пример:
 // math.js
 define([], function() {
@@ -3027,6 +3035,7 @@ console.log(myModule.add(2, 3)); // 5
 console.log(myModule.add(2, 3)); // 5
 
 ### Syntax and common features (export default, named exports, exports as).
+
 
 
 
