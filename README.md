@@ -3987,7 +3987,6 @@ Constructor Function:
 ### Usage of super()
 
 
-
 ### Prototypal Inheritance
 
 
