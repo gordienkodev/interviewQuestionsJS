@@ -3948,7 +3948,10 @@ Network requests
 Using Fetch and understanding XMLHTTPRequest.
 Timers
 Differences between setTimeout and requestAnimationFrame.
-TypeScript:
+
+
+### TypeScript
+
 Writing efficient TypeScript using basic types, enums, interfaces, and generics:
 basic types
 enums
@@ -3977,7 +3980,11 @@ Concepts of RESTful APIs.
 Common Web-Security Knowledge:
 Basic security concepts including CORS, XSS, and OWASP Top 10.
 Authentication mechanisms (JWT, OAuth).
-Coding Task Examples:
+
+
+
+### Coding Task Examples:
+
 Polyfills and Extensions
 Function.prototype.bind Polyfill
 
