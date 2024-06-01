@@ -2951,6 +2951,13 @@ ES6 Модули (также известные как ECMAScript модули) 
 Статический анализ: Позволяет лучше анализировать код, что упрощает оптимизацию и управление зависимостями.
 Недостатки:
 Совместимость: Требует транспиляции (например, с помощью Babel) для работы в старых браузерах, которые не поддерживают ES6 модули.
+
+// Экспорт
+export default myFunction;
+export { myFunction1, myFunction2 };
+// Импорт
+import myFunction, { myFunction1, myFunction2 } from './module.js';
+
 Пример:
 // math.js
 export function add(a, b) {
