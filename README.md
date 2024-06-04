@@ -4217,58 +4217,883 @@ console.log(dictionary.toString); // undefined
 
 Использование Object.create позволяет более гибко и контролируемо создавать объекты и управлять их прототипами и свойствами. Это мощный инструмент в арсенале JavaScript-разработчика, который способствует написанию чистого и понятного кода, особенно когда требуется явное управление прототипами и свойствами объектов.
 
+
+
 ### ECMAScript Advanced Data Types & Expressions
+
+ECMAScript, стандарт языка JavaScript, предоставляет разработчикам широкий набор возможностей для работы с различными типами данных и выражениями. Помимо основных типов данных, таких как числа, строки и объекты, ECMAScript включает в себя более продвинутые типы и механизмы выражений, которые позволяют решать сложные задачи.
+
+Основные и продвинутые типы данных
+ECMAScript определяет несколько основных типов данных:
+
+Примитивные типы:
+Number: Представляет числовые значения.
+String: Представляет строковые значения.
+Boolean: Представляет логические значения (true или false).
+Undefined: Обозначает переменную, которой не было присвоено значение.
+Null: Представляет отсутствие какого-либо объектного значения.
+Symbol: Уникальные и неизменяемые примитивные значения, часто используемые в качестве уникальных идентификаторов.
+BigInt: Позволяет представлять целые числа произвольной точности, что полезно для работы с большими числами.
+
+Объектные типы:
+Object: Коллекция свойств и методов.
+Function: Особый вид объекта, который можно вызывать (использовать как функцию).
+Array: Особый вид объекта для хранения упорядоченных коллекций значений.
+Date: Представляет дату и время.
+RegExp: Регулярные выражения для сопоставления шаблонов в строках.
+Map: Коллекция пар ключ-значение, где ключи могут быть любого типа.
+Set: Коллекция уникальных значений любого типа.
+WeakMap: Коллекция пар ключ-значение, где ключи - объекты с "слабой" ссылкой.
+WeakSet: Коллекция уникальных объектов с "слабыми" ссылками.
+
+Расширенные типы данных и структуры
+Typed Arrays (Типизированные массивы):
+Позволяют работать с бинарными данными, предоставляя представления данных с фиксированными размером и типом.
+Основные типы: Int8Array, Uint8Array, Int16Array, Uint16Array, Int32Array, Uint32Array, Float32Array, Float64Array, и т.д.
+Используются в работе с WebGL, бинарными сетевыми протоколами и другими низкоуровневыми задачами.
+
+ArrayBuffer и DataView:
+ArrayBuffer: Сырые бинарные данные.
+DataView: Позволяет интерпретировать данные в ArrayBuffer с произвольным смещением и типом.
+
+Structured Clone Algorithm:
+Используется для глубокого клонирования объектов, поддерживает большинство стандартных типов данных, включая объекты, массивы, Map, Set и другие.
+Применяется в API, таких как postMessage для передачи данных между воркерами и основным потоком.
+
+Выражения и операторы
+Базовые операторы:
+Арифметические (+, -, *, /, %, **).
+Сравнения (==, !=, ===, !==, >, <, >=, <=).
+Логические (&&, ||, !).
+Побитовые (&, |, ^, ~, <<, >>, >>>).
+
+Расширенные операторы:
+Оператор Spread (...): Раскрывает элементы массива или свойства объекта.
+Деструктуризация: Извлечение значений из массивов или свойств из объектов и присваивание их переменным.
+javascript
+Copy code
+const [a, b] = [1, 2];
+const {name, age} = {name: 'John', age: 30};
+
+Template Literals (Шаблонные строки):
+Позволяют встраивать выражения в строки.
+const name = 'Alice';
+console.log(`Hello, ${name}!`);
+
+Tagged Templates:
+Позволяют вызывать функцию с разделенными частями шаблонной строки.
+function tag(strings, ...values) {
+  console.log(strings);
+  console.log(values);
+}
+tag`Hello, ${name}!`; // ["Hello, ", "!"], ["Alice"]
+
+Обещания (Promises) и асинхронные функции:
+Используются для работы с асинхронным кодом.
+const promise = new Promise((resolve, reject) => {
+  // асинхронная операция
+});
+async function fetchData() {
+  const result = await promise;
+}
+
+Символы (Symbols) и итераторы (Iterators)
+Symbols:
+Уникальные и неизменяемые идентификаторы, часто используемые для определения уникальных свойств объектов.
+const sym = Symbol('description');
+const obj = {
+  [sym]: 'value'
+};
+Итераторы:
+Интерфейс для перебора элементов коллекции.
+const iterable = {
+  [Symbol.iterator]: function* () {
+    yield 1;
+    yield 2;
+    yield 3;
+  }
+};
+for (const value of iterable) {
+  console.log(value); // 1, 2, 3
+}
+
+Генераторы:
+Функции, которые могут быть приостановлены и возобновлены, что позволяет создавать итераторы.
+function* generator() {
+  yield 1;
+  yield 2;
+  yield 3;
+}
+const gen = generator();
+console.log(gen.next().value); // 1
+
+Асинхронные итераторы и генераторы
+Асинхронные итераторы:
+Позволяют перебор асинхронных данных с помощью for await...of.
+const asyncIterable = {
+  async *[Symbol.asyncIterator]() {
+    yield 1;
+    yield 2;
+    yield 3;
+  }
+};
+(async () => {
+  for await (const value of asyncIterable) {
+    console.log(value); // 1, 2, 3
+  }
+})();
+
+Асинхронные генераторы:
+Генераторы, которые могут возвращать промисы и использовать await внутри.
+async function* asyncGenerator() {
+  await new Promise(resolve => setTimeout(resolve, 1000));
+  yield 1;
+  yield 2;
+  yield 3;
+}
+(async () => {
+  for await (const value of asyncGenerator()) {
+    console.log(value); // 1, 2, 3
+  }
+})();
+
+ECMAScript предоставляет мощные инструменты для работы с различными типами данных и выражениями. Понимание и умение использовать эти продвинутые возможности позволяет писать более эффективный, читаемый и поддерживаемый код.
+
 
 
 ### Set/Map and WeakSet/WeakMap.
 
 
+Set - это структура данных, которая хранит уникальные значения любого типа, будь то примитивы или объекты. Она особенно полезна, когда необходимо работать с коллекцией уникальных элементов.
+Создание и основные методы
+const set = new Set();
+// Добавление значений
+set.add(1);
+set.add(5);
+set.add(1); // Игнорируется, так как 1 уже есть в множестве
+console.log(set); // Set { 1, 5 }
+// Проверка наличия значения
+console.log(set.has(1)); // true
+console.log(set.has(3)); // false
+// Удаление значений
+set.delete(5);
+console.log(set); // Set { 1 }
+// Получение размера множества
+console.log(set.size); // 1
+// Очистка множества
+set.clear();
+console.log(set.size); // 0
+Итерация
+Множество поддерживает различные способы перебора его элементов:
+const set = new Set([1, 2, 3]);
+// Использование for...of
+for (const value of set) {
+  console.log(value);
+}
+// Использование forEach
+set.forEach((value) => {
+  console.log(value);
+});
+Преобразование
+Вы можете легко преобразовать Set в массив и наоборот:
+const set = new Set([1, 2, 3]);
+const array = [...set]; // [1, 2, 3]
+const newSet = new Set(array); // Set { 1, 2, 3 }
+
+Map
+Map - это структура данных, которая хранит пары ключ-значение. В отличие от обычных объектов, ключи в Map могут быть любого типа, включая объекты, функции и примитивы.
+Создание и основные методы
+const map = new Map();
+// Добавление пар ключ-значение
+map.set('name', 'Alice');
+map.set('age', 25);
+map.set({ id: 1 }, 'Object as key');
+// Получение значения по ключу
+console.log(map.get('name')); // 'Alice'
+console.log(map.get('age')); // 25
+// Проверка наличия ключа
+console.log(map.has('name')); // true
+console.log(map.has('gender')); // false
+// Удаление пары ключ-значение
+map.delete('age');
+console.log(map.has('age')); // false
+// Получение размера карты
+console.log(map.size); // 2
+// Очистка карты
+map.clear();
+console.log(map.size); // 0
+Итерация
+Map поддерживает различные способы перебора его элементов:
+const map = new Map([
+  ['name', 'Alice'],
+  ['age', 25]
+]);
+// Использование for...of
+for (const [key, value] of map) {
+  console.log(`${key}: ${value}`);
+}
+// Использование forEach
+map.forEach((value, key) => {
+  console.log(`${key}: ${value}`);
+});
+Преобразование
+Вы можете преобразовать Map в массив и наоборот:
+const map = new Map([
+  ['name', 'Alice'],
+  ['age', 25]
+]);
+const array = [...map]; // [['name', 'Alice'], ['age', 25]]
+const newMap = new Map(array); // Map { 'name' => 'Alice', 'age' => 25 }
+
+WeakSet и WeakMap
+
+WeakSet
+WeakSet - это коллекция, которая хранит только объекты и использует "слабые" ссылки на них. Это означает, что если объект, добавленный в WeakSet, больше не доступен из других мест, он может быть удален сборщиком мусора.
+Создание и основные методы
+const weakSet = new WeakSet();
+const obj1 = { a: 1 };
+const obj2 = { b: 2 };
+weakSet.add(obj1);
+weakSet.add(obj2);
+console.log(weakSet.has(obj1)); // true
+console.log(weakSet.has({})); // false ({} - это новый объект, не obj1 и не obj2)
+weakSet.delete(obj1);
+console.log(weakSet.has(obj1)); // false
+Особенности
+WeakSet не итерируем, поэтому его нельзя перебрать с помощью for...of или forEach.
+Нельзя получить размер WeakSet.
+
+WeakMap
+WeakMap - это коллекция пар ключ-значение, где ключи являются объектами и имеют "слабые" ссылки. Это позволяет сборщику мусора удалять записи, если больше нет ссылок на ключи.
+Создание и основные методы
+const weakMap = new WeakMap();
+const key1 = {};
+const key2 = {};
+weakMap.set(key1, 'value1');
+weakMap.set(key2, 'value2');
+console.log(weakMap.get(key1)); // 'value1'
+console.log(weakMap.has(key1)); // true
+weakMap.delete(key1);
+console.log(weakMap.has(key1)); // false
+Особенности
+Ключи должны быть объектами.
+WeakMap не итерируем, поэтому его нельзя перебрать с помощью for...of или forEach.
+Нельзя получить размер WeakMap.
+
+Применение на практике
+Когда использовать Set/Map
+Set: Когда нужно хранить уникальные значения. Примеры: множества уникальных идентификаторов, фильтрация дубликатов.
+Map: Когда нужно хранить пары ключ-значение с ключами любого типа. Примеры: кеширование данных, словари конфигураций.
+
+Когда использовать WeakSet/WeakMap
+WeakSet: Когда нужно хранить коллекцию объектов и хотите, чтобы сборщик мусора автоматически очищал неиспользуемые объекты. Примеры: отслеживание элементов DOM, чтобы предотвратить утечки памяти.
+WeakMap: Когда нужно хранить пары ключ-значение с объектами в качестве ключей и хотите, чтобы сборщик мусора автоматически очищал неиспользуемые ключи. Примеры: ассоциативные массивы для метаданных объектов, кеши с ограниченным временем жизни.
+
+Set, Map, WeakSet и WeakMap являются мощными инструментами для работы с коллекциями данных в JavaScript. Понимание их особенностей и правильное использование помогает создавать более эффективные и надежные приложения.
+
+
+
 ### JavaScript Errors
+
+Основные типы ошибок
+-SyntaxError (Синтаксическая ошибка)
+-ReferenceError (Ошибка ссылки)
+-TypeError (Ошибка типа)
+-RangeError (Ошибка диапазона)
+-EvalError (Ошибка eval)
+-URIError (Ошибка URI)
+-AggregateError (Агрегированная ошибка)
+
+1. SyntaxError
+SyntaxError возникает, когда код содержит синтаксическую ошибку и не может быть выполнен.
+try {
+  eval('foo bar'); // Некорректный синтаксис
+} catch (e) {
+  console.log(e instanceof SyntaxError); // true
+  console.log(e.message); // Сообщение об ошибке
+}
+
+2. ReferenceError
+ReferenceError возникает, когда код ссылается на переменную, которая не была объявлена.
+try {
+  console.log(nonExistentVariable); // Переменная не объявлена
+} catch (e) {
+  console.log(e instanceof ReferenceError); // true
+  console.log(e.message); // Сообщение об ошибке
+}
+
+3. TypeError
+TypeError возникает, когда операция выполняется с несовместимыми типами данных.
+try {
+  null.foo(); // Невозможно вызвать метод на null
+} catch (e) {
+  console.log(e instanceof TypeError); // true
+  console.log(e.message); // Сообщение об ошибке
+}
+
+4. RangeError
+RangeError возникает, когда значение не попадает в допустимый диапазон.
+try {
+  new Array(-1); // Невозможно создать массив отрицательного размера
+} catch (e) {
+  console.log(e instanceof RangeError); // true
+  console.log(e.message); // Сообщение об ошибке
+}
+
+5. EvalError
+EvalError возникает при некорректном использовании функции eval(). В современных реализациях JavaScript эта ошибка редко используется.
+try {
+  throw new EvalError('Eval error example');
+} catch (e) {
+  console.log(e instanceof EvalError); // true
+  console.log(e.message); // Сообщение об ошибке
+}
+
+6. URIError
+
+decodeURI - это встроенная функция в JavaScript, которая декодирует закодированные URI (Uniform Resource Identifier). Она преобразует компоненты URI, которые были закодированы с использованием функции encodeURI или другой функции кодирования URI, обратно в их исходные символы. decodeURI не декодирует символы, которые являются частью синтаксиса URI (например, #, ?, &).
+
+URIError возникает при передаче некорректных параметров в функции encodeURI() или decodeURI().
+try {
+  decodeURI('%'); // Некорректный URI компонент
+} catch (e) {
+  console.log(e instanceof URIError); // true
+  console.log(e.message); // Сообщение об ошибке
+}
+
+7. AggregateError
+AggregateError представляет группу ошибок, обычно возникающих в Promise.any() или других асинхронных операциях.
+try {
+  throw new AggregateError([new Error('Error 1'), new Error('Error 2')], 'Aggregate error example');
+} catch (e) {
+  console.log(e instanceof AggregateError); // true
+  console.log(e.message); // Сообщение об ошибке
+  console.log(e.errors); // Массив ошибок
+}
+
+Обработка ошибок
+
+try...catch...finally
+Конструкция try...catch используется для обработки ошибок. Блок finally выполняется всегда, независимо от того, была ли ошибка или нет.
+try {
+  // Код, который может вызвать ошибку
+  throw new Error('Something went wrong');
+} catch (e) {
+  // Обработка ошибки
+  console.log(e.message); // Сообщение об ошибке
+} finally {
+  // Этот блок выполняется всегда
+  console.log('Execution completed');
+}
+
+throw
+Оператор throw позволяет вручную вызывать ошибки.
+try {
+  throw new Error('Custom error');
+} catch (e) {
+  console.log(e.message); // 'Custom error'
+}
+
+Custom Errors
+Вы можете создавать свои собственные классы ошибок для более точной обработки.
+class CustomError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'CustomError';
+  }
+}
+try {
+  throw new CustomError('This is a custom error');
+} catch (e) {
+  console.log(e.name); // 'CustomError'
+  console.log(e.message); // 'This is a custom error'
+}
+
+Всплытие ошибок
+Ошибки в JavaScript могут всплывать по стеку вызовов. Если ошибка не перехвачена в текущей функции, она передается в вышестоящий контекст.
+function a() {
+  b();
+}
+function b() {
+  c();
+}
+function c() {
+  throw new Error('Error in function c');
+}
+try {
+  a();
+} catch (e) {
+  console.log(e.message); // 'Error in function c'
+}
+
+Работа с асинхронными операциями
+Асинхронные операции требуют особого подхода к обработке ошибок.
+Обработка ошибок в промисах
+const promise = new Promise((resolve, reject) => {
+  reject(new Error('Promise rejected'));
+});
+promise.catch((e) => {
+  console.log(e.message); // 'Promise rejected'
+});
+
+Асинхронные функции
+Асинхронные функции используют try...catch для обработки ошибок.
+async function asyncFunction() {
+  try {
+    await Promise.reject(new Error('Async error'));
+  } catch (e) {
+    console.log(e.message); // 'Async error'
+  }
+}
+asyncFunction();
+
 
 
 ### Error handling techniques including try..catch.
 
+Основными техниками являются использование try...catch...finally, создание собственных ошибок и работа с асинхронными операциями.
 
-### Understanding and implementing custom errors.
+- try...catch...finally
+Конструкция try...catch...finally используется для перехвата и обработки ошибок, которые могут возникнуть в блоке кода.
+try: Блок кода, в котором может возникнуть ошибка.
+catch: Блок кода, который выполняется, если в блоке try возникает ошибка.
+finally: Блок кода, который выполняется независимо от того, возникла ошибка или нет. Используется для выполнения завершающих операций, таких как освобождение ресурсов.
+Пример использования
+try {
+  // Блок кода, который может вызвать ошибку
+  let result = riskyOperation();
+  console.log(result);
+} catch (error) {
+  // Блок кода для обработки ошибки
+  console.error('An error occurred:', error.message);
+} finally {
+  // Блок кода, который выполняется всегда
+  console.log('Operation completed.');
+}
+
+- Создание собственных ошибок
+JavaScript позволяет создавать собственные ошибки с использованием оператора throw и класса Error. Это полезно для генерации ошибок в случае непредвиденных ситуаций или нарушений логики программы.
+
+Пример создания и обработки собственных ошибок
+function validateUser(user) {
+  if (!user.name) {
+    throw new Error('User must have a name');
+  }
+  if (!user.age) {
+    throw new Error('User must have an age');
+  }
+}
+
+try {
+  validateUser({}); // Не валидный пользователь
+} catch (error) {
+  console.error('Validation error:', error.message);
+}
+
+- Пользовательские классы ошибок
+Для создания более специфичных ошибок, вы можете наследовать от класса Error и создавать собственные классы ошибок.
+Пример пользовательского класса ошибок
+class ValidationError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'ValidationError';
+  }
+}
+function validateUser(user) {
+  if (!user.name) {
+    throw new ValidationError('User must have a name');
+  }
+  if (!user.age) {
+    throw new ValidationError('User must have an age');
+  }
+}
+try {
+  validateUser({}); // Не валидный пользователь
+} catch (error) {
+  if (error instanceof ValidationError) {
+    console.error('Validation error:', error.message);
+  } else {
+    console.error('Unknown error:', error.message);
+  }
+}
+
+- Всплытие ошибок (Error Propagation)
+Ошибки могут всплывать по стеку вызовов функций, если они не обрабатываются на текущем уровне. Это позволяет центрально обрабатывать ошибки на более высоком уровне, например, в главной функции приложения.
+Пример всплытия ошибок
+function functionC() {
+  throw new Error('Error in functionC');
+}
+function functionB() {
+  functionC();
+}
+function functionA() {
+  functionB();
+}
+try {
+  functionA();
+} catch (error) {
+  console.error('Caught error:', error.message);
+}
+
+- Асинхронные операции
+Асинхронный код требует особого подхода к обработке ошибок, поскольку ошибки могут возникать в будущих операциях. JavaScript предоставляет несколько способов для обработки ошибок в асинхронных операциях.
+Обработка ошибок в промисах
+Промисы предоставляют методы catch и then для обработки ошибок.
+const promise = new Promise((resolve, reject) => {
+  setTimeout(() => reject(new Error('Promise rejected')), 1000);
+});
+
+promise
+  .then(result => console.log(result))
+  .catch(error => console.error('Promise error:', error.message));
+  
+- Обработка ошибок в async/await
+
+Асинхронные функции (async/await) позволяют использовать конструкцию try...catch для обработки ошибок в асинхронном коде.
+async function asyncFunction() {
+  try {
+    let result = await someAsyncOperation();
+    console.log(result);
+  } catch (error) {
+    console.error('Async error:', error.message);
+  }
+}
+asyncFunction();
+
+-Глобальная обработка ошибок
+JavaScript предоставляет механизмы для глобальной обработки ошибок, которые не были перехвачены на локальном уровне.
+Обработчик ошибок в браузере
+В браузере можно использовать событие window.onerror для перехвата глобальных ошибок.
+window.onerror = function (message, source, lineno, colno, error) {
+  console.error('Global error:', message);
+  return true; // Предотвращает вывод ошибки в консоль браузера
+};
+Обработчик ошибок в Node.js
+В Node.js можно использовать событие process.on('uncaughtException') для перехвата глобальных ошибок.
+process.on('uncaughtException', (error) => {
+  console.error('Uncaught Exception:', error.message);
+});
 
 
-### ECMAScript Advanced
+### Understanding and implementing custom errors
+
+Создание и использование пользовательских ошибок (Custom Errors) в JavaScript позволяет улучшить обработку исключений, делая их более понятными и специфичными для вашего приложения. Это особенно полезно для крупных приложений, где различные модули могут выбрасывать свои собственные типы ошибок, что облегчает их диагностику и обработку.
+
+Понимание пользовательских ошибок
+Пользовательские ошибки позволяют вам создавать собственные типы ошибок, наследуемые от встроенного класса Error. Это позволяет добавлять дополнительные свойства и методы, а также задавать специфичные сообщения об ошибках.
+
+Создание пользовательских ошибок
+Чтобы создать пользовательский тип ошибки, создайте новый класс, который наследует от класса Error. Вы можете добавить любые свойства и методы, которые необходимы для вашей ошибки.
+
+Пример создания пользовательской ошибки
+class ValidationError extends Error {
+  constructor(message) {
+    super(message); // Вызов конструктора суперкласса Error
+    this.name = 'ValidationError'; // Установка имени ошибки
+  }
+}
+
+try {
+  throw new ValidationError('Invalid input data');
+} catch (error) {
+  console.log(error.name); // 'ValidationError'
+  console.log(error.message); // 'Invalid input data'
+  console.log(error.stack); // Стек вызовов
+}
+Добавление дополнительных свойств
+Вы можете добавить дополнительные свойства в ваш класс ошибок, чтобы передавать больше информации о возникшей ошибке.
+Пример пользовательской ошибки с дополнительными свойствами
+class ValidationError extends Error {
+  constructor(message, field) {
+    super(message);
+    this.name = 'ValidationError';
+    this.field = field; // Дополнительное свойство
+  }
+}
+try {
+  throw new ValidationError('Invalid input data', 'username');
+} catch (error) {
+  console.log(error.name); // 'ValidationError'
+  console.log(error.message); // 'Invalid input data'
+  console.log(error.field); // 'username'
+  console.log(error.stack); // Стек вызовов
+}
+Наследование пользовательских ошибок
+Вы можете создавать иерархии пользовательских ошибок, наследуя от ранее созданных классов ошибок. Это позволяет создавать более специфичные ошибки и упрощает их обработку.
+
+Пример наследования пользовательских ошибок
+class ApplicationError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'ApplicationError';
+  }
+}
+class ValidationError extends ApplicationError {
+  constructor(message, field) {
+    super(message);
+    this.name = 'ValidationError';
+    this.field = field;
+  }
+}
+try {
+  throw new ValidationError('Invalid input data', 'email');
+} catch (error) {
+  console.log(error.name); // 'ValidationError'
+  console.log(error.message); // 'Invalid input data'
+  console.log(error.field); // 'email'
+  console.log(error instanceof ValidationError); // true
+  console.log(error instanceof ApplicationError); // true
+  console.log(error instanceof Error); // true
+  console.log(error.stack); // Стек вызовов
+}
+Обработка пользовательских ошибок
+Создание пользовательских ошибок полезно только в том случае, если вы правильно их обрабатываете. Вы можете использовать конструкцию try...catch для перехвата и обработки различных типов ошибок по-разному.
+Пример обработки пользовательских ошибок
+class ApplicationError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'ApplicationError';
+  }
+}
+class ValidationError extends ApplicationError {
+  constructor(message, field) {
+    super(message);
+    this.name = 'ValidationError';
+    this.field = field;
+  }
+}
+function validateUser(user) {
+  if (!user.username) {
+    throw new ValidationError('Username is required', 'username');
+  }
+  if (!user.email) {
+    throw new ValidationError('Email is required', 'email');
+  }
+}
+try {
+  validateUser({ username: 'John' }); // Отсутствует email
+} catch (error) {
+  if (error instanceof ValidationError) {
+    console.error(`Validation error on field: ${error.field} - ${error.message}`);
+  } else if (error instanceof ApplicationError) {
+    console.error(`Application error: ${error.message}`);
+  } else {
+    console.error(`Unexpected error: ${error.message}`);
+  }
+}
+
+Логирование и уведомления
+Вы также можете использовать пользовательские ошибки для улучшения логирования и уведомлений в вашем приложении. Например, вы можете логировать ошибки с дополнительными данными или отправлять уведомления при возникновении критических ошибок.
+Пример логирования пользовательских ошибок
+class CriticalError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'CriticalError';
+    this.timestamp = new Date();
+  }
+}
+function performCriticalOperation() {
+  throw new CriticalError('Critical failure');
+}
+try {
+  performCriticalOperation();
+} catch (error) {
+  if (error instanceof CriticalError) {
+    console.error(`[${error.timestamp}] ${error.name}: ${error.message}`);
+    // Отправка уведомления о критической ошибке
+    sendNotification(error);
+  }
+}
+function sendNotification(error) {
+  // Логика отправки уведомления, например, на email или в систему мониторинга
+  console.log(`Notification sent for error: ${error.message}`);
+}
 
 
-### Promises, async/await, and the event loop.
+ECMAScript Advanced
 
 
-### Garbage collection basics.
+### Promises, async/await, and the event loop
+
+JavaScript - это язык программирования, разработанный для выполнения асинхронных операций, таких как работа с сетью, таймерами и событиями. Для эффективного управления асинхронностью в JavaScript используются Promises, async/await и механизм Event Loop. Рассмотрим их подробно.
+Promises
+Промисы - это объект, представляющий результат асинхронной операции. Промис может находиться в одном из трёх состояний:
+Pending (Ожидание): начальное состояние, операция ещё не завершена.
+Fulfilled (Выполнено): операция успешно завершена, и промис имеет результат.
+Rejected (Отклонено): операция завершена с ошибкой.
+Создание промиса
+Промис создаётся с помощью конструктора Promise, который принимает функцию с двумя аргументами: resolve и reject.
+const promise = new Promise((resolve, reject) => {
+  // Асинхронная операция
+  setTimeout(() => {
+    const success = true;
+    if (success) {
+      resolve('Operation successful');
+    } else {
+      reject('Operation failed');
+    }
+  }, 1000);
+});
+
+Использование промиса
+Промис предоставляет методы then и catch для обработки успешного выполнения и ошибок соответственно.
+promise
+  .then(result => {
+    console.log(result); // 'Operation successful'
+  })
+  .catch(error => {
+    console.error(error); // 'Operation failed'
+  });
+Цепочки промисов
+Метод then возвращает новый промис, что позволяет создавать цепочки промисов для выполнения последовательности асинхронных операций.
+const promise = new Promise((resolve, reject) => {
+  setTimeout(() => resolve(1), 1000);
+});
+promise
+  .then(result => {
+    console.log(result); // 1
+    return result * 2;
+  })
+  .then(result => {
+    console.log(result); // 2
+    return result * 2;
+  })
+  .then(result => {
+    console.log(result); // 4
+  });
+async/await
+async и await - это синтаксический сахар над промисами, который делает асинхронный код более читаемым и последовательным.
+async функции
+Функция, объявленная с ключевым словом async, автоматически возвращает промис. Значение, возвращаемое этой функцией, оборачивается в промис с состоянием fulfilled.
+async function fetchData() {
+  return 'Data received';
+}
+fetchData().then(data => console.log(data)); // 'Data received'
+await
+Ключевое слово await приостанавливает выполнение async функции до тех пор, пока промис не будет выполнен или отклонён. Оно может использоваться только внутри async функции.
+async function fetchData() {
+  const data = await new Promise((resolve, reject) => {
+    setTimeout(() => resolve('Data received'), 1000);
+  });
+  console.log(data); // 'Data received'
+}
+fetchData();
+Обработка ошибок
+Ошибки в async функциях обрабатываются с помощью конструкции try...catch.
+async function fetchData() {
+  try {
+    const data = await new Promise((resolve, reject) => {
+      setTimeout(() => reject('Error occurred'), 1000);
+    });
+  } catch (error) {
+    console.error(error); // 'Error occurred'
+  }
+}
+fetchData();
+Event Loop
+Event Loop (цикл событий) - это механизм, который позволяет JavaScript выполнять асинхронные операции. Он отслеживает стек вызовов, очередь задач и другие структуры данных для управления выполнением кода.
+Основные концепции Event Loop
+Stack (Стек вызовов): стек, содержащий текущие выполняемые функции.
+Queue (Очередь задач): очередь, содержащая функции обратного вызова (callbacks), которые должны быть выполнены после завершения текущего стека вызовов.
+Event Loop (Цикл событий): бесконечный цикл, который проверяет стек вызовов и очередь задач, выполняя функции из очереди задач, когда стек вызовов пуст.
+Пример работы Event Loop
+console.log('Start'); // 1
+setTimeout(() => {
+  console.log('Timeout'); // 4
+}, 0);
+Promise.resolve()
+  .then(() => {
+    console.log('Promise'); // 3
+  });
+console.log('End'); // 2
+Сначала выполняется console.log('Start').
+Функция setTimeout ставит функцию в очередь задач.
+Промис ставит функцию в очередь микрозадач.
+Выполняется console.log('End').
+Event Loop выполняет задачи из очереди микрозадач (Promise).
+Event Loop выполняет задачи из очереди задач (Timeout).
+
+Очереди задач и микрозадач
+В JavaScript есть две основные очереди: очередь задач (macrotask queue) и очередь микрозадач (microtask queue). Микрозадачи выполняются перед макрозадачами.
+Микрозадачи: промисы, process.nextTick (в Node.js).
+Макрозадачи: setTimeout, setInterval, setImmediate (в Node.js), I/O операции.
+Пример с микрозадачами и макрозадачами
+console.log('Start'); // 1
+setTimeout(() => {
+  console.log('setTimeout'); // 5
+}, 0);
+Promise.resolve()
+  .then(() => {
+    console.log('Promise 1'); // 3
+  })
+  .then(() => {
+    console.log('Promise 2'); // 4
+  });
+console.log('End'); // 2
+Выполняется console.log('Start').
+Функция setTimeout ставит функцию в очередь задач (макрозадач).
+Промис ставит функцию в очередь микрозадач.
+Выполняется console.log('End').
+Event Loop выполняет задачи из очереди микрозадач (Promise 1, Promise 2).
+Event Loop выполняет задачи из очереди задач (setTimeout).
+
+Понимание Promises, async/await и Event Loop в JavaScript позволяет более эффективно управлять асинхронным кодом, делая его более понятным и поддерживаемым. Эти механизмы являются ключевыми для разработки современных веб-приложений и серверных решений.
 
 
-### JavaScript in Browser:
+### Garbage collection basics
+
+
+
+
+### JavaScript in Browser
+
+
 
 
 ### Global object window
 
 
-### Understanding browser's location and history API.
 
 
-### User agent parsing and platform/browser detection.
+### Understanding browser's location and history API
+
+
+
+
+### User agent parsing and platform/browser detection
+
+
+
 
 
 ### Page Lifecycle
 
 
-### Parsing, reflow, repaint, and the critical rendering path.
+
+
+### Parsing, reflow, repaint, and the critical rendering path
+
+
 
 
 ### Network requests
 
 
-### Using Fetch and understanding XMLHTTPRequest.
+
+
+### Using Fetch and understanding XMLHTTPRequest
+
+
 
 
 ### Timers
 
 
-### Differences between setTimeout and requestAnimationFrame.
+
+
+### Differences between setTimeout and requestAnimationFrame
+
+
 
 
 
