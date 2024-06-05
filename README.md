@@ -3628,6 +3628,7 @@ console.log(greetHello('Alice')); // Выведет: Hello, Alice!
 
 
 ### Object-Oriented Programming (OOP)
+
 Объектно-ориентированное программирование (ООП) в JavaScript представляет собой подход к разработке программного обеспечения, который основан на концепциях объектов и классов. ООП позволяет структурировать код в виде объектов, которые могут содержать данные в виде свойств и функции в виде методов. В JavaScript ООП реализуется с использованием прототипного наследования.
 
 Основные концепции ООП в JavaScript:
@@ -3647,7 +3648,20 @@ console.log(greetHello('Alice')); // Выведет: Hello, Alice!
 Конструкторы - это функции, которые используются для создания экземпляров классов с определенными свойствами и методами.
 Ключевое слово class позволяет определять классы, а ключевое слово new используется для создания экземпляров классов.
 
+Функции-конструкторы
+```javascript
+function Person(name, age) {
+    this.name = name;
+    this.age = age;
+}
+Person.prototype.greet = function() {
+    console.log(`Hello, my name is ${this.name} and I am ${this.age} years old.`);
+}
+const person1 = new Person('Alice', 30);
+person1.greet(); // Hello, my name is Alice and I am 30 years old.
+```
 Пример использования ООП в JavaScript:
+```javascript
 // Определение класса Person с конструктором и методом
 class Person {
     constructor(name, age) {
@@ -3662,6 +3676,7 @@ class Person {
 const person1 = new Person('Алиса', 30);
 // Вызов метода объекта
 person1.greet(); // Выведет: Привет, меня зовут Алиса и мне 30 лет.
+```
 
 Преимущества ООП в JavaScript:
 
