@@ -6172,8 +6172,307 @@ console.log(result); // Вывод: 9
 Этот подход позволяет объединять функции для создания сложных функциональных выражений. Каждая функция для числа принимает другую функцию в качестве аргумента и применяет ее к соответствующему числу, что позволяет создавать сложные арифметические выражения.
   
   
+### Curried Addition Function Write a function that supports adding numbers in a curried form, such as add(5)(9)(-4)(1).
+
+Для реализации функции, которая поддерживает сложение чисел в каррированной форме, мы можем воспользоваться замыканиями. Вот пример реализации:
+function add(x) {
+    // Создаем внутреннюю функцию, которая принимает следующее число для сложения
+    var innerAdd = function(y) {
+        // Если y не передано, возвращаем текущую сумму
+        if (y === undefined) {
+            return x;
+        }
+        // Возвращаем новую функцию, которая будет прибавлять следующее число к текущей сумме
+        return add(x + y);
+    };
+    // Возвращаем внутреннюю функцию, чтобы обеспечить каррирование
+    return innerAdd;
+}
+// Пример использования
+var result = add(5)(9)(-4)(1)();
+console.log(result); // Выведет: 11 (5 + 9 - 4 + 1)
+Эта функция add принимает первое число x, а затем возвращает внутреннюю функцию innerAdd. Каждый раз, когда мы вызываем innerAdd с числом y, она прибавляет его к предыдущему значению x. Если y не передается, innerAdd возвращает текущее значение x. Таким образом, мы можем вызывать add с последовательными числами в каррированной форме.
+
+  
+Timing Functions
   
  
+### Periodic Output Write a function that logs the elapsed time in milliseconds at regular intervals.
+  
+Вы можете использовать функцию setInterval в JavaScript для этого. Вот функция, которая регулярно выводит в консоль прошедшее время в миллисекундах:
+function periodicOutput(interval) {
+    var startTime = Date.now(); // Получаем текущее время при запуске функции
+    // Функция для вывода прошедшего времени
+    function logElapsedTime() {
+        var elapsedTime = Date.now() - startTime; // Вычисляем прошедшее время
+        console.log('Прошло времени:', elapsedTime, 'миллисекунд');
+    }
+    // Выводим прошедшее время через заданный интервал
+    var intervalId = setInterval(logElapsedTime, interval);
+    // Останавливаем вывод после 10 секунд
+    setTimeout(function() {
+        clearInterval(intervalId);
+        console.log('Вывод остановлен после 10 секунд');
+    }, 10000);
+}
+// Пример использования: Вывод прошедшего времени каждую секунду
+periodicOutput(1000);
+В этой функции:
+Мы получаем текущее время с помощью Date.now() при вызове функции.
+Внутри функции logElapsedTime вычисляем прошедшее время, вычитая из текущего времени стартовое время.
+Мы используем setInterval для вызова logElapsedTime через определенные интервалы, указанные параметром interval.
+Вывод прекращается через 10 секунд с помощью setTimeout и clearInterval.
+Вы можете изменить параметр interval, чтобы изменить интервал вывода прошедшего времени.
+
+  
+###  Extended Periodic Output Implement a function that logs the elapsed time in milliseconds at intervals that increase incrementally.
+
+Для реализации функции, которая выводит прошедшее время в миллисекундах с интервалами, увеличивающимися с каждым вызовом, вы можете использовать рекурсивный подход с setTimeout. Вот пример реализации:
+function extendedPeriodicOutput(initialInterval, increment) {
+    var startTime = Date.now(); // Получаем текущее время при запуске функции
+    // Внутренняя функция для вывода прошедшего времени
+    function logElapsedTime(interval) {
+        var elapsedTime = Date.now() - startTime; // Вычисляем прошедшее время
+        console.log('Прошло времени:', elapsedTime, 'миллисекунд');
+        // Увеличиваем интервал и вызываем logElapsedTime снова через новый интервал
+        setTimeout(function() {
+            logElapsedTime(interval + increment);
+        }, interval);
+    }
+    // Запускаем вывод с начальным интервалом
+    logElapsedTime(initialInterval);
+}
+// Пример использования: Вывод прошедшего времени с начальным интервалом 1000 мс и увеличением на 500 мс
+extendedPeriodicOutput(1000, 500);
+В этой функции:
+Мы получаем текущее время с помощью Date.now() при запуске функции.
+Функция logElapsedTime выводит прошедшее время и вызывает себя же снова через увеличенный интервал с помощью setTimeout.
+Мы начинаем с начальным интервалом и увеличиваем его на величину increment с каждым вызовом.
+Этот подход позволяет реализовать функцию с интервалами, которые увеличиваются по мере работы программы.
+
+  
+Working with Promises
+  
+### Sequential Promise Execution Write a function to execute an array of functions that return promises sequentially, ensuring each promise resolves before the next begins.
+  
+  цепляя промисы последовательно, используя рекурсию или метод Array.reduce. Вот пример с использованием Array.reduce:
+function executeSequentially(funcArray) {
+    return funcArray.reduce(function(promiseChain, currentFunction) {
+        // Используем Promise.then для привязки текущей функции к концу цепочки
+        return promiseChain.then(function() {
+            // Выполняем текущую функцию и возвращаем ее промис
+            return currentFunction();
+        });
+    }, Promise.resolve()); // Начинаем с разрешенного промиса
+}
+// Пример использования:
+function asyncFunction1() {
+    return new Promise(function(resolve) {
+        setTimeout(function() {
+            console.log('Асинхронная Функция 1');
+            resolve();
+        }, 1000);
+    });
+}
+function asyncFunction2() {
+    return new Promise(function(resolve) {
+        setTimeout(function() {
+            console.log('Асинхронная Функция 2');
+            resolve();
+        }, 1500);
+    });
+}
+function asyncFunction3() {
+    return new Promise(function(resolve) {
+        setTimeout(function() {
+            console.log('Асинхронная Функция 3');
+            resolve();
+        }, 500);
+    });
+}
+var funcArray = [asyncFunction1, asyncFunction2, asyncFunction3];
+executeSequentially(funcArray);
+Эта функция executeSequentially принимает массив функций, которые возвращают промисы. Она использует Array.reduce для последовательного цепления промисов, гарантируя, что каждый промис разрешится перед тем, как начнется следующий. Promise.resolve() в конце инициализирует цепочку промисов.
+ 
+  
+###  Promise.all Polyfill Implement a function that behaves like Promise.all.
+  
+пример полифилла для Promise.all:
+function promiseAll(polyfillPromises) {
+    return new Promise(function(resolve, reject) {
+        if (!Array.isArray(polyfillPromises)) {
+            reject(new TypeError('Arguments must be an array'));
+        }
+
+        var results = [];
+        var completedPromises = 0;
+
+        polyfillPromises.forEach(function(promise, index) {
+            // Ensure each element in the array is a promise
+            Promise.resolve(promise).then(function(result) {
+                results[index] = result;
+                completedPromises++;
+                // If all promises are resolved, resolve the Promise.all
+                if (completedPromises === polyfillPromises.length) {
+                    resolve(results);
+                }
+            }).catch(function(error) {
+                // If any promise is rejected, reject the Promise.all
+                reject(error);
+            });
+        });
+
+        // If the input array is empty, resolve immediately
+        if (polyfillPromises.length === 0) {
+            resolve(results);
+        }
+    });
+}
+Эта функция promiseAll принимает массив промисов polyfillPromises и возвращает новый промис. Внутри создается массив для хранения результатов каждого промиса и переменная completedPromises для отслеживания количества завершенных промисов. Затем проходим по каждому промису во входном массиве, используя Promise.resolve для обработки значений и отклонений. Когда все промисы завершены, мы вызываем resolve с массивом результатов. Если хотя бы один промис отклонен, мы вызываем reject с соответствующей ошибкой.
+Вы можете использовать этот полифилл так же, как и встроенный Promise.all:
+var promise1 = Promise.resolve('First');
+var promise2 = Promise.resolve('Second');
+var promise3 = Promise.resolve('Third');
+promiseAll([promise1, promise2, promise3])
+    .then(function(results) {
+        console.log(results); // Output: ['First', 'Second', 'Third']
+    })
+    .catch(function(error) {
+        console.error(error);
+    });
+
+  
+### Race Condition Handling with Promises Create a function to handle race conditions, resolving or rejecting with the value of the first promise that settles.
+
+функция, которая обрабатывает гонку промисов, разрешая или отклоняя с результатом первого промиса, который завершается:
+function raceConditions(promises) {
+    return new Promise(function(resolve, reject) {
+        promises.forEach(function(promise) {
+            Promise.resolve(promise).then(function(result) {
+                // Если любой из промисов разрешается, разрешаем промис raceConditions с этим результатом
+                resolve(result);
+            }).catch(function(error) {
+                // Если любой из промисов отклоняется, отклоняем промис raceConditions с этой ошибкой
+                reject(error);
+            });
+        });
+    });
+}
+Эта функция raceConditions принимает массив промисов и возвращает новый промис. Внутри функции мы перебираем каждый промис во входном массиве. Мы используем Promise.resolve, чтобы обработать значения, которые не являются промисами. Когда любой промис разрешается, мы разрешаем промис raceConditions с этим результатом. Если какой-либо промис отклоняется, мы отклоняем промис raceConditions с этой ошибкой.
+Вы можете использовать эту функцию для обработки гонки промисов следующим образом:
+var promise1 = new Promise(function(resolve) {
+    setTimeout(function() {
+        resolve('Первый');
+    }, 1000);
+});
+var promise2 = new Promise(function(resolve) {
+    setTimeout(function() {
+        resolve('Второй');
+    }, 500);
+});
+var promise3 = new Promise(function(_, reject) {
+    setTimeout(function() {
+        reject(new Error('Третий промис отклонен'));
+    }, 1500);
+});
+raceConditions([promise1, promise2, promise3])
+    .then(function(result) {
+        console.log('Гонка разрешена:', result); // Вывод: 'Второй' (так как он разрешается первым)
+    })
+    .catch(function(error) {
+        console.error('Гонка отклонена:', error); // Вывод: 'Третий промис отклонен'
+    });
+В этом примере функция raceConditions разрешает или отклоняет с результатом первого промиса, который завершается (разрешается или отклоняется).
+
+  
+  
+  
+### Promise Chaining and Error Handling Write a function that handles promise chaining and catches any errors, useful for data fetching scenarios.
+  
+  
+ функция, которая выполняет цепочку промисов и обрабатывает ошибки:
+function fetchData(url) {
+    return fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Обработка полученных данных
+            console.log('Received data:', data);
+            return data;
+        })
+        .catch(error => {
+            // Обработка ошибок
+            console.error('Error fetching data:', error);
+            throw error; // Пробрасываем ошибку дальше для дальнейшей обработки
+        });
+}
+Эта функция fetchData отправляет запрос по заданному URL с помощью fetch. Затем она проверяет статус ответа: если он не является успешным (response.ok равен false), функция выбрасывает ошибку. Если запрос проходит успешно, она преобразует ответ в JSON и возвращает его. Если происходит какая-либо ошибка в процессе выполнения цепочки промисов, она перехватывается в блоке catch, выводится сообщение об ошибке и ошибка пробрасывается дальше для дальнейшей обработки.
+Вы можете использовать эту функцию для выполнения цепочки промисов для получения данных и обработки возможных ошибок:
+fetchData('https://api.example.com/data')
+    .then(data => {
+        // Используем полученные данные
+        console.log('Data processing:', data);
+    })
+    .catch(error => {
+        // Обрабатываем любые ошибки, возникшие во время выполнения цепочки промисов
+        console.error('Data fetching error:', error);
+    });
+В этом примере мы используем fetchData для отправки запроса и обработки данных. Если в процессе выполнения цепочки промисов происходит ошибка, она перехватывается блоком catch и обрабатывается.
+  
+  
+  
+### Promisify Node-style Callbacks Convert traditional Node.js callback-style functions to return promises.
+  
+В Node.js часто используется стиль обратных вызовов (callback-style), когда функции принимают последним аргументом функцию обратного вызова, которая будет вызвана после завершения операции. Однако, использование промисов вместо обратных вызовов может сделать код более читаемым и управляемым. Давайте напишем функцию, которая преобразует традиционные Node.js функции возвращающие обратные вызовы в функции, возвращающие промисы:
+const util = require('util');
+const fs = require('fs');
+// Функция, которая преобразует традиционные Node.js функции в промисы
+function promisify(nodeFunction) {
+    // Возвращаем новую функцию, которая возвращает промис
+    return function(...args) {
+        // Используем утилиту promisify из модуля 'util' для преобразования функции в промис
+        return new Promise((resolve, reject) => {
+            // Вызываем оригинальную функцию с аргументами и добавляем обработку результата
+            nodeFunction.call(this, ...args, (error, data) => {
+                if (error) {
+                    reject(error); // Если возникла ошибка, отклоняем промис
+                } else {
+                    resolve(data); // Если все прошло успешно, разрешаем промис
+                }
+            });
+        });
+    };
+}
+// Пример использования: преобразование функции чтения файла в промис
+const readFilePromise = promisify(fs.readFile);
+// Теперь можно использовать функцию readFilePromise, чтобы получить данные из файла в виде промиса
+readFilePromise('example.txt', 'utf8')
+    .then(data => {
+        console.log('Data from file:', data);
+    })
+    .catch(error => {
+        console.error('Error reading file:', error);
+    });
+В этом примере мы создали функцию promisify, которая принимает традиционные Node.js функции, возвращающие обратные вызовы, и возвращает новые функции, возвращающие промисы. Мы используем утилиту util.promisify из модуля util, чтобы автоматически преобразовать функцию в промис. Теперь мы можем использовать readFilePromise, чтобы читать файлы в виде промисов, что делает код более читаемым и удобным для обработки ошибок.
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
 1. What is JavaScript?
 JavaScript is a high-level, interpreted programming language primarily used for
