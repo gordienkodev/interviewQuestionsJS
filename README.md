@@ -5987,6 +5987,190 @@ console.log(student.studentId); // Выведет "12345"
 В этом примере student создается с прототипом person и дополнительным свойством studentId, заданным вторым аргументом метода Object.create.
  
  
+### Array.flat Polyfill Implement a polyfill for Array.flat.
+
+Вот пример полифилла для метода flat массивов:
+// Полифилл для метода flat массивов
+if (!Array.prototype.flat) {
+    Array.prototype.flat = function(depth = 1) {
+        var flattenedArray = []; // Инициализируем массив, в который будем собирать элементы
+        function flatten(arr, currentDepth) {
+            for (var i = 0; i < arr.length; i++) {
+                if (Array.isArray(arr[i]) && currentDepth < depth) {
+                    flatten(arr[i], currentDepth + 1); // Рекурсивно обрабатываем вложенные массивы
+                } else {
+                    flattenedArray.push(arr[i]); // Добавляем элемент в выходной массив
+                }
+            }
+        }
+        flatten(this, 0); // Начинаем обход с текущего массива (this) и текущей глубины 0
+        return flattenedArray; // Возвращаем собранный массив
+    };
+}
+Этот полифилл расширяет объект Array.prototype, добавляя метод flat, если он отсутствует в среде выполнения JavaScript. Метод flat используется для "сглаживания" (уплощения) массива до указанной глубины.
+Пример использования:
+var arr = [1, 2, [3, 4, [5, 6]]];
+var flatArr = arr.flat(2); // Уплощаем массив до глубины 2
+console.log(flatArr); // Выведет [1, 2, 3, 4, 5, 6]
+В этом примере flat используется для "сглаживания" массива arr до глубины 2.
+  
+  
+### Array.reduce Polyfill Implement a polyfill for Array.reduce.
+  
+пример полифилла для метода reduce массивов:
+
+javascript
+Copy code
+// Полифилл для метода reduce массивов
+if (!Array.prototype.reduce) {
+    Array.prototype.reduce = function(callback, initialValue) {
+        if (this === null || this === undefined) {
+            throw new TypeError('Array.prototype.reduce called on null or undefined');
+        }
+        if (typeof callback !== 'function') {
+            throw new TypeError(callback + ' is not a function');
+        }
+        var arr = Object(this); // Преобразуем массив в объект
+        var len = arr.length >>> 0; // Получаем длину массива, используя беззнаковый сдвиг
+        var k = 0; // Инициализируем счетчик
+        var accumulator = initialValue; // Инициализируем аккумулятор
+
+        if (accumulator === undefined) {
+            // Если начальное значение не передано, берем первый элемент массива
+            while (k < len && !(k in arr)) {
+                k++;
+            }
+            if (k >= len) {
+                throw new TypeError('Reduce of empty array with no initial value');
+            }
+            accumulator = arr[k++]; // Начальное значение - первый элемент массива
+        }
+
+        while (k < len) {
+            if (k in arr) {
+                accumulator = callback.call(undefined, accumulator, arr[k], k, arr);
+            }
+            k++;
+        }
+        return accumulator;
+    };
+}
+                       >
+Этот полифилл расширяет объект Array.prototype, добавляя метод reduce, если он отсутствует в среде выполнения JavaScript. Метод reduce используется для последовательной обработки элементов массива с сохранением промежуточного результата.
+Пример использования:
+var arr = [1, 2, 3, 4, 5];
+var sum = arr.reduce(function(acc, val) {
+    return acc + val;
+}, 0); // Начальное значение аккумулятора - 0
+console.log(sum); // Выведет 15
+В этом примере reduce используется для вычисления суммы элементов массива arr. Начальное значение аккумулятора равно 0, и к нему последовательно добавляются значения элементов массива.
+                                      
+  
+### String Repeating Function  Create a method that allows a string to be repeated a certain number of times, similar to the native String.prototype.repeat.
+  
+можно создать метод для повторения строки, расширив String.prototype:
+// Создание метода для повторения строки
+if (!String.prototype.repeatCustom) {
+    String.prototype.repeatCustom = function(count) {
+        if (count < 0) {
+            throw new RangeError('Количество должно быть неотрицательным');
+        }
+        var result = '';
+        for (var i = 0; i < count; i++) {
+            result += this; // Добавляем исходную строку к результату
+        }
+        return result;
+    };
+}
+Теперь вы можете использовать метод repeatCustom для любой строки, чтобы повторить ее определенное количество раз:
+var str = 'Привет ';
+var repeatedStr = str.repeatCustom(3); // Повторить строку 'Привет ' 3 раза
+console.log(repeatedStr); // Вывод: 'Привет Привет Привет '
+Этот пользовательский метод работает аналогично встроенному методу repeat, но реализован как полифилл для сред выполнения JavaScript, не поддерживающих метод repeat, или в случаях, когда требуется дополнительный функционал.
+  
+  
+### Custom Join Function Implement a function that constructs a string from an array of numbers, separated by a specified delimiter.
+
+  
+функцию, которая конструирует строку из массива чисел, разделенных указанным разделителем:
+// Функция для объединения массива чисел в строку с заданным разделителем
+function customJoin(arr, delimiter) {
+    if (!Array.isArray(arr)) {
+        throw new TypeError('Первый аргумент должен быть массивом');
+    }
+
+    // Преобразуем каждый элемент массива в строку и объединяем их с разделителем
+    return arr.map(String).join(delimiter);
+}
+Теперь вы можете использовать эту функцию для объединения массива чисел с помощью определенного разделителя:
+var numbers = [1, 2, 3, 4, 5];
+var result = customJoin(numbers, '-'); // Разделитель '-'
+console.log(result); // Выведет: '1-2-3-4-5'
+Эта функция берет массив чисел arr и разделитель delimiter, преобразует каждый элемент массива в строку и объединяет их в одну строку с использованием разделителя.
+
+  
+Functional Programming Challenges
+  
+### Functional Expressions Implement a series of functions that allow for functional expressions such as five(plus(seven(minus(three())))).
+  
+Чтобы реализовать эту функциональность, можно определить функции для каждой арифметической операции (плюс, минус, умножить, делить) и числа (ноль, один, два, ..., девять) и объединить их для построения нужного выражения. Вот как это можно сделать:
+// Функции для арифметических операций
+function plus(num) {
+    return function(x) {
+        return x + num;
+    };
+}
+function minus(num) {
+    return function(x) {
+        return x - num;
+    };
+}
+function multiply(num) {
+    return function(x) {
+        return x * num;
+    };
+}
+function divide(num) {
+    return function(x) {
+        return x / num;
+    };
+}
+// Функции для чисел
+function zero(func) {
+    return func ? func(0) : 0;
+}
+function one(func) {
+    return func ? func(1) : 1;
+}
+function two(func) {
+    return func ? func(2) : 2;
+}
+function three(func) {
+    return func ? func(3) : 3;
+}
+function four(func) {
+    return func ? func(4) : 4;
+}
+function five(func) {
+    return func ? func(5) : 5;
+}
+function six(func) {
+    return func ? func(6) : 6;
+}
+function seven(func) {
+    return func ? func(7) : 7;
+}
+function eight(func) {
+    return func ? func(8) : 8;
+}
+function nine(func) {
+    return func ? func(9) : 9;
+}
+Теперь вы можете создавать функциональные выражения, например five(plus(seven(minus(three())))):
+var result = five(plus(seven(minus(three())))); // 5 + 7 - 3 = 9
+console.log(result); // Вывод: 9
+Этот подход позволяет объединять функции для создания сложных функциональных выражений. Каждая функция для числа принимает другую функцию в качестве аргумента и применяет ее к соответствующему числу, что позволяет создавать сложные арифметические выражения.
+  
   
   
  
