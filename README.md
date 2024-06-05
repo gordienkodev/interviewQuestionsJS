@@ -3013,7 +3013,7 @@ UMD — это формат модулей, предназначенный дл�
 Таким образом, UMD обеспечивает универсальность и совместимость модулей, но может иметь некоторые сложности в использовании и понимании из-за его универсальной природы.
 
 (function (root, factory) {
-    if (typeof define === 'function' && define.amd) {
+    if (typeof define === 'function' && define.amd) {  // define.amd - это проверка на наличие среды AMD
         // AMD
         define(factory);
     } else if (typeof module === 'object' && module.exports) {
@@ -3065,7 +3065,6 @@ require(['myModule'], function(myModule) {
 // CommonJS
 const myModule = require('./myModule');
 console.log(myModule.add(2, 3)); // 5
-
 // Глобальная переменная браузера
 console.log(myModule.add(2, 3)); // 5
 
