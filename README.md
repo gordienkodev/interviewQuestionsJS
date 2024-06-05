@@ -5918,56 +5918,77 @@ OAuth - это протокол авторизации, который позв�
 Выдача доступа: Если токен действителен и подлинен, сервер разрешает доступ к защищенным ресурсам и выполняет запрос от имени пользователя.
 Оба механизма - JWT и OAuth - предоставляют безопасные и эффективные способы аутентификации и авторизации веб-приложений. Выбор между ними зависит от требований конкретного проекта и контекста его использования.
 
-### Coding Task Examples:
+  
+## Coding Task Examples:
 
-Polyfills and Extensions
-Function.prototype.bind Polyfill
+  
+Polyfills and Extensions 
 
-Implement a polyfill for Function.prototype.bind.
-Object.create Polyfill
+### Function.prototype.bind Polyfill Implement a polyfill for Function.prototype.bind.
 
-Implement a polyfill for Object.create.
-Array.flat Polyfill
+ реализации полифилла для метода bind объекта Function.prototype:
+// Полифилл для метода bind
+if (!Function.prototype.bind) {
+    Function.prototype.bind = function (context) {
+        if (typeof this !== 'function') {
+            throw new TypeError('Function.prototype.bind - what is trying to be bound is not callable');
+        }
+        var fn = this; // Сохраняем ссылку на вызываемую функцию
+        var args = Array.prototype.slice.call(arguments, 1); // Получаем аргументы, переданные в bind
+        return function () {
+            var bindArgs = Array.prototype.slice.call(arguments); // Получаем аргументы, переданные при вызове связанной функции
+            return fn.apply(context, args.concat(bindArgs)); // Вызываем функцию с объединенными аргументами
+        };
+    };
+}
+Этот полифилл расширяет объект Function.prototype, добавляя метод bind, если он отсутствует в среде выполнения JavaScript. Метод bind используется для привязки контекста выполнения функции и определения начальных аргументов.
+Пример использования:
+function greet(name) {
+    console.log('Hello, ' + name);
+}
+var greetBob = greet.bind(null, 'Bob');
+greetBob(); // Выведет "Hello, Bob"
+В этом примере bind используется для создания новой функции greetBob, которая всегда будет вызывать greet с аргументом 'Bob' в качестве первого аргумента.
+ 
+  
+### Object.create Polyfill Implement a polyfill for Object.create.
 
-Implement a polyfill for Array.flat.
-Array.reduce Polyfill
-
-Implement a polyfill for Array.reduce.
-String Repeating Function
-
-Create a method that allows a string to be repeated a certain number of times, similar to the native String.prototype.repeat.
-Custom Join Function
-
-Implement a function that constructs a string from an array of numbers, separated by a specified delimiter.
-Functional Programming Challenges
-Functional Expressions
-
-Implement a series of functions that allow for functional expressions such as five(plus(seven(minus(three())))).
-Curried Addition Function
-
-Write a function that supports adding numbers in a curried form, such as add(5)(9)(-4)(1).
-Timing Functions
-Periodic Output
-
-Write a function that logs the elapsed time in milliseconds at regular intervals.
-Extended Periodic Output
-
-Implement a function that logs the elapsed time in milliseconds at intervals that increase incrementally.
-Working with Promises
-Sequential Promise Execution
-Write a function to execute an array of functions that return promises sequentially, ensuring each promise resolves before the next begins.
-Promise.all Polyfill
-Implement a function that behaves like Promise.all.
-Race Condition Handling with Promises
-Create a function to handle race conditions, resolving or rejecting with the value of the first promise that settles.
-Promise Chaining and Error Handling
-Write a function that handles promise chaining and catches any errors, useful for data fetching scenarios.
-Promisify Node-style Callbacks
-Convert traditional Node.js callback-style functions to return promises.
+ пример полифилла для метода Object.create:
+// Полифилл для метода Object.create
+if (!Object.create) {
+    Object.create = function (proto, propertiesObject) {
+        if (typeof proto !== 'object' && typeof proto !== 'function') {
+            throw new TypeError('Object prototype may only be an Object or null');
+        }
+        function F() {} // Создаем временный конструктор
+        F.prototype = proto; // Устанавливаем прототип
+        var obj = new F(); // Создаем объект с прототипом
+        if (propertiesObject !== undefined) {
+            Object.defineProperties(obj, propertiesObject); // Устанавливаем свойства объекта
+        }
+        return obj; // Возвращаем созданный объект
+    };
+}
+Этот полифилл расширяет объект Object, добавляя метод create, если он отсутствует в среде выполнения JavaScript. Метод create используется для создания нового объекта с указанным прототипом и набором свойств.
+Пример использования:
+var person = {
+    name: 'John',
+    age: 30
+};
+var student = Object.create(person, {
+    studentId: {
+        value: '12345',
+        enumerable: true
+    }
+});
+console.log(student.name); // Выведет "John"
+console.log(student.age); // Выведет 30
+console.log(student.studentId); // Выведет "12345"
+В этом примере student создается с прототипом person и дополнительным свойством studentId, заданным вторым аргументом метода Object.create.
  
  
- 
- 
+  
+  
  
 
 1. What is JavaScript?
