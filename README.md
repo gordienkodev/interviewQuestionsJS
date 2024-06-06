@@ -3805,7 +3805,7 @@ console.log(person._name); // undefined (приватное свойство н�
 console.log(person.getName()); // Alice
 ```
 Использование WeakMap:
-```
+```javascript
 const privateData = new WeakMap();
 function Person(name) {
     privateData.set(this, { name }); // Приватное свойство
