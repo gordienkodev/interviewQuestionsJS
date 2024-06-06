@@ -4020,12 +4020,49 @@ Constructor Function:
 
 3. Наследование:
 Class Declaration:
-Использует ключевое слово extends для наследования от другого класса.
-Метод super() используется в конструкторе подкласса для вызова конструктора суперкласса.
-
+При использовании объявления класса (class declaration) для наследования от другого класса используется ключевое слово extends. В конструкторе подкласса метод super() используется для вызова конструктора суперкласса.
+```javascript
+// Суперкласс
+class Animal {
+  constructor(name) {
+    this.name = name;
+  }
+  sayHello() {
+    console.log('Привет, я ' + this.name);
+  }
+}
+// Подкласс, наследующий от Animal
+class Cat extends Animal {
+  constructor(name, color) {
+    super(name); // Вызываем конструктор суперкласса Animal с аргументом name
+    this.color = color;
+  }
+}
+// Создаем экземпляр кота
+const myCat = new Cat('Барсик', 'рыжий');
+myCat.sayHello(); // Вывод: Привет, я Барсик
+```
 Constructor Function:
-Для наследования используется установка прототипа на экземпляр суперкласса.
-Метод call() или apply() используется в конструкторе подкласса для вызова конструктора суперкласса.
+При использовании функции-конструктора (constructor function) для наследования, устанавливается прототип на экземпляр суперкласса. В конструкторе подкласса методы call() или apply() используются для вызова конструктора суперкласса.
+```javascript
+// Суперкласс
+function Animal(name) {
+  this.name = name;
+}
+Animal.prototype.sayHello = function() {
+  console.log('Привет, я ' + this.name);
+};
+// Подкласс, наследующий от Animal
+function Cat(name, color) {
+  Animal.call(this, name); // Вызываем конструктор суперкласса Animal с текущим значением this и передаем ему аргумент name
+  this.color = color;
+}
+Cat.prototype = Object.create(Animal.prototype); // Наследование прототипа
+Cat.prototype.constructor = Cat; // Восстанавливаем ссылку на конструктор
+// Создаем экземпляр кота
+const myCat = new Cat('Барсик', 'рыжий');
+myCat.sayHello(); // Вывод: Привет, я Барсик
+```
 
 4. Статические методы:
 Class Declaration:
