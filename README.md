@@ -3991,7 +3991,7 @@ console.log(MathUtils.add(3, 4)); // 7
 
 Классы (class declarations) и функции-конструкторы (constructor functions) - это два различных подхода к созданию объектов в JavaScript, хотя оба они используются для определения шаблонов объектов. Давайте рассмотрим основные различия между ними:
 1. Синтаксис:
-
+```javascript
 Class Declaration:
 class ClassName {
     constructor(/* аргументы конструктора */) {
@@ -3999,15 +3999,16 @@ class ClassName {
     }
     // методы класса
 }
-
+```
 Constructor Function:
+```javascript
 function ConstructorName(/* аргументы конструктора */) {
     // тело конструктора
 }
 ConstructorName.prototype.methodName = function() {
     // тело метода
 };
-
+```
 2. Объекты прототипа:
 Class Declaration:
 В классах методы определяются непосредственно в теле класса, а не на его прототипе.
