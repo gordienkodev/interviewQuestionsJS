@@ -3838,6 +3838,7 @@ ECMAScript Classes - это синтаксический сахар в JavaScrip
 Вот основные концепции и возможности ECMAScript Classes:
 1. Определение классов
 Синтаксис определения классов в ECMAScript Classes выглядит следующим образом:
+```javascript
 class ClassName {
     constructor(/* аргументы конструктора */) {
         // инициализация объекта
@@ -3845,16 +3846,20 @@ class ClassName {
 
     /* методы класса */
 }
+```
 2. Конструкторы
 Конструктор класса вызывается при создании нового экземпляра класса. Он определяется с помощью метода constructor.
+```javascript
 class Person {
     constructor(name, age) {
         this.name = name;
         this.age = age;
     }
 }
+```
 3. Методы класса
 Методы класса определяются внутри тела класса и предоставляют функциональность для объектов, созданных на основе этого класса.
+```javascript
 class Person {
     constructor(name, age) {
         this.name = name;
@@ -3865,8 +3870,10 @@ class Person {
         console.log(`Привет, меня зовут ${this.name} и мне ${this.age} лет.`);
     }
 }
+```
 4. Наследование
 Классы в ECMAScript Classes поддерживают наследование с помощью ключевого слова extends. Подклассы могут наследовать методы и свойства суперклассов.
+```javascript
 class Student extends Person {
     constructor(name, age, grade) {
         super(name, age);
@@ -3877,16 +3884,20 @@ class Student extends Person {
         console.log(`${this.name} учится в ${this.grade} классе.`);
     }
 }
+```
 5. Статические методы
 Статические методы принадлежат самому классу, а не его экземплярам, и вызываются непосредственно из класса.
+```javascript
 class MathUtils {
     static add(a, b) {
         return a + b;
     }
 }
 console.log(MathUtils.add(3, 4)); // 7
+```
 6. Геттеры и сеттеры
 Геттеры и сеттеры позволяют устанавливать и получать значения свойств объекта с помощью специальных методов.
+```javascript
 class Rectangle {
     constructor(width, height) {
         this._width = width;
@@ -3903,6 +3914,7 @@ const rect = new Rectangle(5, 10);
 console.log(rect.area); // 50
 rect.width = 8;
 console.log(rect.area); // 80
+```
 
 Преимущества ECMAScript Classes
 
