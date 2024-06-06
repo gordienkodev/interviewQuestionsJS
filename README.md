@@ -4823,14 +4823,15 @@ ECMAScript Advanced
 
 ### Promises, async/await, and the event loop
 
-JavaScript - это язык программирования, разработанный для выполнения асинхронных операций, таких как работа с сетью, таймерами и событиями. Для эффективного управления асинхронностью в JavaScript используются Promises, async/await и механизм Event Loop. Рассмотрим их подробно.
+ 
 Promises
 Промисы - это объект, представляющий результат асинхронной операции. Промис может находиться в одном из трёх состояний:
-Pending (Ожидание): начальное состояние, операция ещё не завершена.
-Fulfilled (Выполнено): операция успешно завершена, и промис имеет результат.
-Rejected (Отклонено): операция завершена с ошибкой.
+-Pending (Ожидание): начальное состояние, операция ещё не завершена.
+-Fulfilled (Выполнено): операция успешно завершена, и промис имеет результат.
+-Rejected (Отклонено): операция завершена с ошибкой.
 Создание промиса
 Промис создаётся с помощью конструктора Promise, который принимает функцию с двумя аргументами: resolve и reject.
+```javascript
 const promise = new Promise((resolve, reject) => {
   // Асинхронная операция
   setTimeout(() => {
@@ -4842,9 +4843,10 @@ const promise = new Promise((resolve, reject) => {
     }
   }, 1000);
 });
-
+```
 Использование промиса
 Промис предоставляет методы then и catch для обработки успешного выполнения и ошибок соответственно.
+```javascript
 promise
   .then(result => {
     console.log(result); // 'Operation successful'
@@ -4852,8 +4854,10 @@ promise
   .catch(error => {
     console.error(error); // 'Operation failed'
   });
+  ```
 Цепочки промисов
 Метод then возвращает новый промис, что позволяет создавать цепочки промисов для выполнения последовательности асинхронных операций.
+```javascript
 const promise = new Promise((resolve, reject) => {
   setTimeout(() => resolve(1), 1000);
 });
@@ -4869,16 +4873,22 @@ promise
   .then(result => {
     console.log(result); // 4
   });
-async/await
+  ```
+  
+#### async/await
+
 async и await - это синтаксический сахар над промисами, который делает асинхронный код более читаемым и последовательным.
 async функции
 Функция, объявленная с ключевым словом async, автоматически возвращает промис. Значение, возвращаемое этой функцией, оборачивается в промис с состоянием fulfilled.
+  ```javascript
 async function fetchData() {
   return 'Data received';
 }
 fetchData().then(data => console.log(data)); // 'Data received'
+ ```
 await
 Ключевое слово await приостанавливает выполнение async функции до тех пор, пока промис не будет выполнен или отклонён. Оно может использоваться только внутри async функции.
+ ```javascript
 async function fetchData() {
   const data = await new Promise((resolve, reject) => {
     setTimeout(() => resolve('Data received'), 1000);
@@ -4886,8 +4896,10 @@ async function fetchData() {
   console.log(data); // 'Data received'
 }
 fetchData();
+  ```
 Обработка ошибок
 Ошибки в async функциях обрабатываются с помощью конструкции try...catch.
+```javascript
 async function fetchData() {
   try {
     const data = await new Promise((resolve, reject) => {
@@ -4898,13 +4910,18 @@ async function fetchData() {
   }
 }
 fetchData();
-Event Loop
+```
+
+#### Event Loop
+
+
 Event Loop (цикл событий) - это механизм, который позволяет JavaScript выполнять асинхронные операции. Он отслеживает стек вызовов, очередь задач и другие структуры данных для управления выполнением кода.
 Основные концепции Event Loop
 Stack (Стек вызовов): стек, содержащий текущие выполняемые функции.
 Queue (Очередь задач): очередь, содержащая функции обратного вызова (callbacks), которые должны быть выполнены после завершения текущего стека вызовов.
 Event Loop (Цикл событий): бесконечный цикл, который проверяет стек вызовов и очередь задач, выполняя функции из очереди задач, когда стек вызовов пуст.
 Пример работы Event Loop
+```javascript
 console.log('Start'); // 1
 setTimeout(() => {
   console.log('Timeout'); // 4
@@ -4914,6 +4931,7 @@ Promise.resolve()
     console.log('Promise'); // 3
   });
 console.log('End'); // 2
+```
 Сначала выполняется console.log('Start').
 Функция setTimeout ставит функцию в очередь задач.
 Промис ставит функцию в очередь микрозадач.
@@ -4926,6 +4944,7 @@ Event Loop выполняет задачи из очереди задач (Timeo
 Микрозадачи: промисы, process.nextTick (в Node.js).
 Макрозадачи: setTimeout, setInterval, setImmediate (в Node.js), I/O операции.
 Пример с микрозадачами и макрозадачами
+```javascript
 console.log('Start'); // 1
 setTimeout(() => {
   console.log('setTimeout'); // 5
@@ -4938,14 +4957,13 @@ Promise.resolve()
     console.log('Promise 2'); // 4
   });
 console.log('End'); // 2
+```
 Выполняется console.log('Start').
 Функция setTimeout ставит функцию в очередь задач (макрозадач).
 Промис ставит функцию в очередь микрозадач.
 Выполняется console.log('End').
 Event Loop выполняет задачи из очереди микрозадач (Promise 1, Promise 2).
 Event Loop выполняет задачи из очереди задач (setTimeout).
-
-Понимание Promises, async/await и Event Loop в JavaScript позволяет более эффективно управлять асинхронным кодом, делая его более понятным и поддерживаемым. Эти механизмы являются ключевыми для разработки современных веб-приложений и серверных решений.
 
 
 ### Garbage collection basics
