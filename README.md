@@ -5367,13 +5367,14 @@ class Animal {
 ```
 3. Интерфейсы
 TypeScript позволяет определять интерфейсы, которые могут быть использованы для описания формы объектов. Это помогает обеспечить соответствие типов в различных частях кода и улучшает понимание структуры данных.
-// TypeScript
+```typeScript
 interface Shape {
   color: string;
 }
 function draw(shape: Shape): void {
   console.log(`Drawing a ${shape.color} shape.`);
 }
+```
 4. Расширенная поддержка ESNext
 TypeScript поддерживает многие новые возможности JavaScript, которые были представлены в последних версиях ECMAScript, такие как стрелочные функции, шаблонные строки, деструктуризация и многое другое. Однако TypeScript также добавляет свои собственные возможности, которых нет в чистом JavaScript.
 5. Транспиляция
@@ -5383,17 +5384,19 @@ TypeScript код не может быть напрямую исполнен в 
 
 ### Writing efficient TypeScript using basic types, enums, interfaces, and generics:
 
-Написание эффективного TypeScript с использованием базовых типов, перечислений (enums), интерфейсов и обобщений (generics) является важным аспектом разработки в TypeScript. Давайте рассмотрим каждый из этих элементов подробно:
 1. Базовые типы
 TypeScript предоставляет набор базовых типов данных, таких как number, string, boolean, null, undefined и object, которые представляют основные типы данных в JavaScript.
+```typeScript
 let num: number = 10;
 let str: string = 'Hello';
 let bool: boolean = true;
 let nul: null = null;
 let undef: undefined = undefined;
 let obj: object = {};
+```
 2. Перечисления (enums)
 Перечисления в TypeScript представляют собой набор именованных числовых значений. Они помогают создавать более понятный и читаемый код, предоставляя имена для числовых значений.
+```typeScript
 enum Direction {
   Up = 1,
   Down,
@@ -5402,8 +5405,10 @@ enum Direction {
 }
 let dir: Direction = Direction.Up;
 console.log(dir); // Вывод: 1
+```
 3. Интерфейсы
 Интерфейсы в TypeScript используются для определения структуры объекта. Они описывают форму объекта, указывая типы свойств и методов, которые объект должен реализовать.
+```typeScript
 interface Person {
   name: string;
   age: number;
@@ -5413,13 +5418,16 @@ function greet(person: Person): void {
 }
 let user = { name: 'Alice', age: 30 };
 greet(user);
+```
 4. Обобщения (generics)
 Обобщения позволяют создавать компоненты, которые могут работать с разными типами данных, сохраняя при этом тип безопасности. Они полезны для написания универсального кода, который может быть использован с различными типами данных.
+```typeScript
 function identity<T>(arg: T): T {
   return arg;
 }
 let output = identity<string>('hello');
 console.log(output); // Вывод: hello
+```
 Преимущества использования
 Безопасность типов: Использование типов данных и интерфейсов помогает предотвратить ошибки на этапе компиляции.
 Читаемость кода: Перечисления и интерфейсы делают код более понятным и облегчают его поддержку.
