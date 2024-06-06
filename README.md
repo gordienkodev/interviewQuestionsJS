@@ -4650,6 +4650,7 @@ try: Блок кода, в котором может возникнуть оши
 catch: Блок кода, который выполняется, если в блоке try возникает ошибка.
 finally: Блок кода, который выполняется независимо от того, возникла ошибка или нет. Используется для выполнения завершающих операций, таких как освобождение ресурсов.
 Пример использования
+```javascript
 try {
   // Блок кода, который может вызвать ошибку
   let result = riskyOperation();
@@ -4661,95 +4662,7 @@ try {
   // Блок кода, который выполняется всегда
   console.log('Operation completed.');
 }
-
-- Создание собственных ошибок
-JavaScript позволяет создавать собственные ошибки с использованием оператора throw и класса Error. Это полезно для генерации ошибок в случае непредвиденных ситуаций или нарушений логики программы.
-
-Пример создания и обработки собственных ошибок
-function validateUser(user) {
-  if (!user.name) {
-    throw new Error('User must have a name');
-  }
-  if (!user.age) {
-    throw new Error('User must have an age');
-  }
-}
-
-try {
-  validateUser({}); // Не валидный пользователь
-} catch (error) {
-  console.error('Validation error:', error.message);
-}
-
-- Пользовательские классы ошибок
-Для создания более специфичных ошибок, вы можете наследовать от класса Error и создавать собственные классы ошибок.
-Пример пользовательского класса ошибок
-class ValidationError extends Error {
-  constructor(message) {
-    super(message);
-    this.name = 'ValidationError';
-  }
-}
-function validateUser(user) {
-  if (!user.name) {
-    throw new ValidationError('User must have a name');
-  }
-  if (!user.age) {
-    throw new ValidationError('User must have an age');
-  }
-}
-try {
-  validateUser({}); // Не валидный пользователь
-} catch (error) {
-  if (error instanceof ValidationError) {
-    console.error('Validation error:', error.message);
-  } else {
-    console.error('Unknown error:', error.message);
-  }
-}
-
-- Всплытие ошибок (Error Propagation)
-Ошибки могут всплывать по стеку вызовов функций, если они не обрабатываются на текущем уровне. Это позволяет центрально обрабатывать ошибки на более высоком уровне, например, в главной функции приложения.
-Пример всплытия ошибок
-function functionC() {
-  throw new Error('Error in functionC');
-}
-function functionB() {
-  functionC();
-}
-function functionA() {
-  functionB();
-}
-try {
-  functionA();
-} catch (error) {
-  console.error('Caught error:', error.message);
-}
-
-- Асинхронные операции
-Асинхронный код требует особого подхода к обработке ошибок, поскольку ошибки могут возникать в будущих операциях. JavaScript предоставляет несколько способов для обработки ошибок в асинхронных операциях.
-Обработка ошибок в промисах
-Промисы предоставляют методы catch и then для обработки ошибок.
-const promise = new Promise((resolve, reject) => {
-  setTimeout(() => reject(new Error('Promise rejected')), 1000);
-});
-
-promise
-  .then(result => console.log(result))
-  .catch(error => console.error('Promise error:', error.message));
-  
-- Обработка ошибок в async/await
-
-Асинхронные функции (async/await) позволяют использовать конструкцию try...catch для обработки ошибок в асинхронном коде.
-async function asyncFunction() {
-  try {
-    let result = await someAsyncOperation();
-    console.log(result);
-  } catch (error) {
-    console.error('Async error:', error.message);
-  }
-}
-asyncFunction();
+```
 
 -Глобальная обработка ошибок
 JavaScript предоставляет механизмы для глобальной обработки ошибок, которые не были перехвачены на локальном уровне.
@@ -4769,14 +4682,12 @@ process.on('uncaughtException', (error) => {
 ### Understanding and implementing custom errors
 
 Создание и использование пользовательских ошибок (Custom Errors) в JavaScript позволяет улучшить обработку исключений, делая их более понятными и специфичными для вашего приложения. Это особенно полезно для крупных приложений, где различные модули могут выбрасывать свои собственные типы ошибок, что облегчает их диагностику и обработку.
-
 Понимание пользовательских ошибок
 Пользовательские ошибки позволяют вам создавать собственные типы ошибок, наследуемые от встроенного класса Error. Это позволяет добавлять дополнительные свойства и методы, а также задавать специфичные сообщения об ошибках.
-
 Создание пользовательских ошибок
 Чтобы создать пользовательский тип ошибки, создайте новый класс, который наследует от класса Error. Вы можете добавить любые свойства и методы, которые необходимы для вашей ошибки.
-
 Пример создания пользовательской ошибки
+```javascript
 class ValidationError extends Error {
   constructor(message) {
     super(message); // Вызов конструктора суперкласса Error
@@ -4791,9 +4702,11 @@ try {
   console.log(error.message); // 'Invalid input data'
   console.log(error.stack); // Стек вызовов
 }
+```
 Добавление дополнительных свойств
 Вы можете добавить дополнительные свойства в ваш класс ошибок, чтобы передавать больше информации о возникшей ошибке.
 Пример пользовательской ошибки с дополнительными свойствами
+```javascript
 class ValidationError extends Error {
   constructor(message, field) {
     super(message);
@@ -4809,10 +4722,11 @@ try {
   console.log(error.field); // 'username'
   console.log(error.stack); // Стек вызовов
 }
+```
 Наследование пользовательских ошибок
 Вы можете создавать иерархии пользовательских ошибок, наследуя от ранее созданных классов ошибок. Это позволяет создавать более специфичные ошибки и упрощает их обработку.
-
 Пример наследования пользовательских ошибок
+```javascript
 class ApplicationError extends Error {
   constructor(message) {
     super(message);
@@ -4837,9 +4751,11 @@ try {
   console.log(error instanceof Error); // true
   console.log(error.stack); // Стек вызовов
 }
+```
 Обработка пользовательских ошибок
 Создание пользовательских ошибок полезно только в том случае, если вы правильно их обрабатываете. Вы можете использовать конструкцию try...catch для перехвата и обработки различных типов ошибок по-разному.
 Пример обработки пользовательских ошибок
+```javascript
 class ApplicationError extends Error {
   constructor(message) {
     super(message);
@@ -4872,7 +4788,7 @@ try {
     console.error(`Unexpected error: ${error.message}`);
   }
 }
-
+```
 Логирование и уведомления
 Вы также можете использовать пользовательские ошибки для улучшения логирования и уведомлений в вашем приложении. Например, вы можете логировать ошибки с дополнительными данными или отправлять уведомления при возникновении критических ошибок.
 Пример логирования пользовательских ошибок
