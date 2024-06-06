@@ -4618,15 +4618,17 @@ try {
 Работа с асинхронными операциями
 Асинхронные операции требуют особого подхода к обработке ошибок.
 Обработка ошибок в промисах
+```javascript
 const promise = new Promise((resolve, reject) => {
   reject(new Error('Promise rejected'));
 });
 promise.catch((e) => {
   console.log(e.message); // 'Promise rejected'
 });
-
+```
 Асинхронные функции
 Асинхронные функции используют try...catch для обработки ошибок.
+```javascript
 async function asyncFunction() {
   try {
     await Promise.reject(new Error('Async error'));
@@ -4635,7 +4637,7 @@ async function asyncFunction() {
   }
 }
 asyncFunction();
-
+```
 
 
 ### Error handling techniques including try..catch.
