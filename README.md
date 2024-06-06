@@ -4552,9 +4552,11 @@ try {
   console.log(e.errors); // Массив ошибок
 }
 ```
+
 Обработка ошибок
-try...catch...finally
+- try...catch...finally
 Конструкция try...catch используется для обработки ошибок. Блок finally выполняется всегда, независимо от того, была ли ошибка или нет.
+```javascript
 try {
   // Код, который может вызвать ошибку
   throw new Error('Something went wrong');
@@ -4565,17 +4567,21 @@ try {
   // Этот блок выполняется всегда
   console.log('Execution completed');
 }
+```
 
-throw
+- throw
 Оператор throw позволяет вручную вызывать ошибки.
+```javascript
 try {
   throw new Error('Custom error');
 } catch (e) {
   console.log(e.message); // 'Custom error'
 }
+```
 
-Custom Errors
+- Custom Errors
 Вы можете создавать свои собственные классы ошибок для более точной обработки.
+```javascript
 class CustomError extends Error {
   constructor(message) {
     super(message);
@@ -4588,9 +4594,11 @@ try {
   console.log(e.name); // 'CustomError'
   console.log(e.message); // 'This is a custom error'
 }
+```
 
-Всплытие ошибок
+- Всплытие ошибок
 Ошибки в JavaScript могут всплывать по стеку вызовов. Если ошибка не перехвачена в текущей функции, она передается в вышестоящий контекст.
+```javascript
 function a() {
   b();
 }
@@ -4605,6 +4613,7 @@ try {
 } catch (e) {
   console.log(e.message); // 'Error in function c'
 }
+```
 
 Работа с асинхронными операциями
 Асинхронные операции требуют особого подхода к обработке ошибок.
