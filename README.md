@@ -5907,6 +5907,8 @@ Polyfills and Extensions
 ### Function.prototype.bind Polyfill Implement a polyfill for Function.prototype.bind.
 
  реализации полифилла для метода bind объекта Function.prototype:
+  
+  ```
 // Полифилл для метода bind
 if (!Function.prototype.bind) {
     Function.prototype.bind = function (context) {
@@ -5921,19 +5923,25 @@ if (!Function.prototype.bind) {
         };
     };
 }
+  ```
+  
 Этот полифилл расширяет объект Function.prototype, добавляя метод bind, если он отсутствует в среде выполнения JavaScript. Метод bind используется для привязки контекста выполнения функции и определения начальных аргументов.
 Пример использования:
+  ```
 function greet(name) {
     console.log('Hello, ' + name);
 }
 var greetBob = greet.bind(null, 'Bob');
 greetBob(); // Выведет "Hello, Bob"
+  ```
+  
 В этом примере bind используется для создания новой функции greetBob, которая всегда будет вызывать greet с аргументом 'Bob' в качестве первого аргумента.
  
   
 ### Object.create Polyfill Implement a polyfill for Object.create.
 
  пример полифилла для метода Object.create:
+  ```
 // Полифилл для метода Object.create
 if (!Object.create) {
     Object.create = function (proto, propertiesObject) {
@@ -5949,8 +5957,10 @@ if (!Object.create) {
         return obj; // Возвращаем созданный объект
     };
 }
+  ```
 Этот полифилл расширяет объект Object, добавляя метод create, если он отсутствует в среде выполнения JavaScript. Метод create используется для создания нового объекта с указанным прототипом и набором свойств.
 Пример использования:
+  ```
 var person = {
     name: 'John',
     age: 30
@@ -5964,12 +5974,14 @@ var student = Object.create(person, {
 console.log(student.name); // Выведет "John"
 console.log(student.age); // Выведет 30
 console.log(student.studentId); // Выведет "12345"
+  ```
 В этом примере student создается с прототипом person и дополнительным свойством studentId, заданным вторым аргументом метода Object.create.
  
  
 ### Array.flat Polyfill Implement a polyfill for Array.flat.
 
 Вот пример полифилла для метода flat массивов:
+  ```
 // Полифилл для метода flat массивов
 if (!Array.prototype.flat) {
     Array.prototype.flat = function(depth = 1) {
@@ -5987,11 +5999,14 @@ if (!Array.prototype.flat) {
         return flattenedArray; // Возвращаем собранный массив
     };
 }
+  ```
 Этот полифилл расширяет объект Array.prototype, добавляя метод flat, если он отсутствует в среде выполнения JavaScript. Метод flat используется для "сглаживания" (уплощения) массива до указанной глубины.
 Пример использования:
+  ```
 var arr = [1, 2, [3, 4, [5, 6]]];
 var flatArr = arr.flat(2); // Уплощаем массив до глубины 2
 console.log(flatArr); // Выведет [1, 2, 3, 4, 5, 6]
+  ```
 В этом примере flat используется для "сглаживания" массива arr до глубины 2.
   
   
@@ -5999,8 +6014,7 @@ console.log(flatArr); // Выведет [1, 2, 3, 4, 5, 6]
   
 пример полифилла для метода reduce массивов:
 
-javascript
-Copy code
+```
 // Полифилл для метода reduce массивов
 if (!Array.prototype.reduce) {
     Array.prototype.reduce = function(callback, initialValue) {
@@ -6035,20 +6049,24 @@ if (!Array.prototype.reduce) {
         return accumulator;
     };
 }
+```                       
                        >
 Этот полифилл расширяет объект Array.prototype, добавляя метод reduce, если он отсутствует в среде выполнения JavaScript. Метод reduce используется для последовательной обработки элементов массива с сохранением промежуточного результата.
 Пример использования:
+  ```
 var arr = [1, 2, 3, 4, 5];
 var sum = arr.reduce(function(acc, val) {
     return acc + val;
 }, 0); // Начальное значение аккумулятора - 0
 console.log(sum); // Выведет 15
+  ```
 В этом примере reduce используется для вычисления суммы элементов массива arr. Начальное значение аккумулятора равно 0, и к нему последовательно добавляются значения элементов массива.
                                       
   
 ### String Repeating Function  Create a method that allows a string to be repeated a certain number of times, similar to the native String.prototype.repeat.
   
 можно создать метод для повторения строки, расширив String.prototype:
+  ```
 // Создание метода для повторения строки
 if (!String.prototype.repeatCustom) {
     String.prototype.repeatCustom = function(count) {
@@ -6062,10 +6080,13 @@ if (!String.prototype.repeatCustom) {
         return result;
     };
 }
+  ```
 Теперь вы можете использовать метод repeatCustom для любой строки, чтобы повторить ее определенное количество раз:
+  ```
 var str = 'Привет ';
 var repeatedStr = str.repeatCustom(3); // Повторить строку 'Привет ' 3 раза
 console.log(repeatedStr); // Вывод: 'Привет Привет Привет '
+  ```
 Этот пользовательский метод работает аналогично встроенному методу repeat, но реализован как полифилл для сред выполнения JavaScript, не поддерживающих метод repeat, или в случаях, когда требуется дополнительный функционал.
   
   
@@ -6073,6 +6094,7 @@ console.log(repeatedStr); // Вывод: 'Привет Привет Привет
 
   
 функцию, которая конструирует строку из массива чисел, разделенных указанным разделителем:
+  ```
 // Функция для объединения массива чисел в строку с заданным разделителем
 function customJoin(arr, delimiter) {
     if (!Array.isArray(arr)) {
@@ -6086,6 +6108,7 @@ function customJoin(arr, delimiter) {
 var numbers = [1, 2, 3, 4, 5];
 var result = customJoin(numbers, '-'); // Разделитель '-'
 console.log(result); // Выведет: '1-2-3-4-5'
+  ```
 Эта функция берет массив чисел arr и разделитель delimiter, преобразует каждый элемент массива в строку и объединяет их в одну строку с использованием разделителя.
 
   
@@ -6094,6 +6117,7 @@ Functional Programming Challenges
 ### Functional Expressions Implement a series of functions that allow for functional expressions such as five(plus(seven(minus(three())))).
   
 Чтобы реализовать эту функциональность, можно определить функции для каждой арифметической операции (плюс, минус, умножить, делить) и числа (ноль, один, два, ..., девять) и объединить их для построения нужного выражения. Вот как это можно сделать:
+  ```
 // Функции для арифметических операций
 function plus(num) {
     return function(x) {
@@ -6146,15 +6170,20 @@ function eight(func) {
 function nine(func) {
     return func ? func(9) : 9;
 }
-Теперь вы можете создавать функциональные выражения, например five(plus(seven(minus(three())))):
+  ```
+Теперь вы можете создавать функциональные выражения, например 
+  ```
+  five(plus(seven(minus(three())))):
 var result = five(plus(seven(minus(three())))); // 5 + 7 - 3 = 9
 console.log(result); // Вывод: 9
+  ```
 Этот подход позволяет объединять функции для создания сложных функциональных выражений. Каждая функция для числа принимает другую функцию в качестве аргумента и применяет ее к соответствующему числу, что позволяет создавать сложные арифметические выражения.
   
   
 ### Curried Addition Function Write a function that supports adding numbers in a curried form, such as add(5)(9)(-4)(1).
 
 Для реализации функции, которая поддерживает сложение чисел в каррированной форме, мы можем воспользоваться замыканиями. Вот пример реализации:
+  ```
 function add(x) {
     // Создаем внутреннюю функцию, которая принимает следующее число для сложения
     var innerAdd = function(y) {
@@ -6171,6 +6200,7 @@ function add(x) {
 // Пример использования
 var result = add(5)(9)(-4)(1)();
 console.log(result); // Выведет: 11 (5 + 9 - 4 + 1)
+  ```
 Эта функция add принимает первое число x, а затем возвращает внутреннюю функцию innerAdd. Каждый раз, когда мы вызываем innerAdd с числом y, она прибавляет его к предыдущему значению x. Если y не передается, innerAdd возвращает текущее значение x. Таким образом, мы можем вызывать add с последовательными числами в каррированной форме.
 
   
@@ -6180,6 +6210,7 @@ Timing Functions
 ### Periodic Output Write a function that logs the elapsed time in milliseconds at regular intervals.
   
 Вы можете использовать функцию setInterval в JavaScript для этого. Вот функция, которая регулярно выводит в консоль прошедшее время в миллисекундах:
+  ```
 function periodicOutput(interval) {
     var startTime = Date.now(); // Получаем текущее время при запуске функции
     // Функция для вывода прошедшего времени
@@ -6197,6 +6228,7 @@ function periodicOutput(interval) {
 }
 // Пример использования: Вывод прошедшего времени каждую секунду
 periodicOutput(1000);
+  ```
 В этой функции:
 Мы получаем текущее время с помощью Date.now() при вызове функции.
 Внутри функции logElapsedTime вычисляем прошедшее время, вычитая из текущего времени стартовое время.
@@ -6208,6 +6240,7 @@ periodicOutput(1000);
 ###  Extended Periodic Output Implement a function that logs the elapsed time in milliseconds at intervals that increase incrementally.
 
 Для реализации функции, которая выводит прошедшее время в миллисекундах с интервалами, увеличивающимися с каждым вызовом, вы можете использовать рекурсивный подход с setTimeout. Вот пример реализации:
+  ```
 function extendedPeriodicOutput(initialInterval, increment) {
     var startTime = Date.now(); // Получаем текущее время при запуске функции
     // Внутренняя функция для вывода прошедшего времени
@@ -6224,6 +6257,7 @@ function extendedPeriodicOutput(initialInterval, increment) {
 }
 // Пример использования: Вывод прошедшего времени с начальным интервалом 1000 мс и увеличением на 500 мс
 extendedPeriodicOutput(1000, 500);
+  ```
 В этой функции:
 Мы получаем текущее время с помощью Date.now() при запуске функции.
 Функция logElapsedTime выводит прошедшее время и вызывает себя же снова через увеличенный интервал с помощью setTimeout.
@@ -6236,6 +6270,7 @@ Working with Promises
 ### Sequential Promise Execution Write a function to execute an array of functions that return promises sequentially, ensuring each promise resolves before the next begins.
   
   цепляя промисы последовательно, используя рекурсию или метод Array.reduce. Вот пример с использованием Array.reduce:
+  ```
 function executeSequentially(funcArray) {
     return funcArray.reduce(function(promiseChain, currentFunction) {
         // Используем Promise.then для привязки текущей функции к концу цепочки
@@ -6272,12 +6307,14 @@ function asyncFunction3() {
 }
 var funcArray = [asyncFunction1, asyncFunction2, asyncFunction3];
 executeSequentially(funcArray);
+  ```
 Эта функция executeSequentially принимает массив функций, которые возвращают промисы. Она использует Array.reduce для последовательного цепления промисов, гарантируя, что каждый промис разрешится перед тем, как начнется следующий. Promise.resolve() в конце инициализирует цепочку промисов.
  
   
 ###  Promise.all Polyfill Implement a function that behaves like Promise.all.
   
 пример полифилла для Promise.all:
+  ```
 function promiseAll(polyfillPromises) {
     return new Promise(function(resolve, reject) {
         if (!Array.isArray(polyfillPromises)) {
@@ -6308,8 +6345,10 @@ function promiseAll(polyfillPromises) {
         }
     });
 }
+  ```
 Эта функция promiseAll принимает массив промисов polyfillPromises и возвращает новый промис. Внутри создается массив для хранения результатов каждого промиса и переменная completedPromises для отслеживания количества завершенных промисов. Затем проходим по каждому промису во входном массиве, используя Promise.resolve для обработки значений и отклонений. Когда все промисы завершены, мы вызываем resolve с массивом результатов. Если хотя бы один промис отклонен, мы вызываем reject с соответствующей ошибкой.
 Вы можете использовать этот полифилл так же, как и встроенный Promise.all:
+  ```
 var promise1 = Promise.resolve('First');
 var promise2 = Promise.resolve('Second');
 var promise3 = Promise.resolve('Third');
@@ -6320,11 +6359,12 @@ promiseAll([promise1, promise2, promise3])
     .catch(function(error) {
         console.error(error);
     });
-
+```
   
 ### Race Condition Handling with Promises Create a function to handle race conditions, resolving or rejecting with the value of the first promise that settles.
 
 функция, которая обрабатывает гонку промисов, разрешая или отклоняя с результатом первого промиса, который завершается:
+  ```
 function raceConditions(promises) {
     return new Promise(function(resolve, reject) {
         promises.forEach(function(promise) {
@@ -6338,8 +6378,10 @@ function raceConditions(promises) {
         });
     });
 }
+  ```
 Эта функция raceConditions принимает массив промисов и возвращает новый промис. Внутри функции мы перебираем каждый промис во входном массиве. Мы используем Promise.resolve, чтобы обработать значения, которые не являются промисами. Когда любой промис разрешается, мы разрешаем промис raceConditions с этим результатом. Если какой-либо промис отклоняется, мы отклоняем промис raceConditions с этой ошибкой.
 Вы можете использовать эту функцию для обработки гонки промисов следующим образом:
+  ```
 var promise1 = new Promise(function(resolve) {
     setTimeout(function() {
         resolve('Первый');
@@ -6362,6 +6404,7 @@ raceConditions([promise1, promise2, promise3])
     .catch(function(error) {
         console.error('Гонка отклонена:', error); // Вывод: 'Третий промис отклонен'
     });
+  ```
 В этом примере функция raceConditions разрешает или отклоняет с результатом первого промиса, который завершается (разрешается или отклоняется).
 
   
@@ -6371,6 +6414,7 @@ raceConditions([promise1, promise2, promise3])
   
   
  функция, которая выполняет цепочку промисов и обрабатывает ошибки:
+  ```
 function fetchData(url) {
     return fetch(url)
         .then(response => {
@@ -6390,8 +6434,10 @@ function fetchData(url) {
             throw error; // Пробрасываем ошибку дальше для дальнейшей обработки
         });
 }
+  ```
 Эта функция fetchData отправляет запрос по заданному URL с помощью fetch. Затем она проверяет статус ответа: если он не является успешным (response.ok равен false), функция выбрасывает ошибку. Если запрос проходит успешно, она преобразует ответ в JSON и возвращает его. Если происходит какая-либо ошибка в процессе выполнения цепочки промисов, она перехватывается в блоке catch, выводится сообщение об ошибке и ошибка пробрасывается дальше для дальнейшей обработки.
 Вы можете использовать эту функцию для выполнения цепочки промисов для получения данных и обработки возможных ошибок:
+  ```
 fetchData('https://api.example.com/data')
     .then(data => {
         // Используем полученные данные
@@ -6401,6 +6447,7 @@ fetchData('https://api.example.com/data')
         // Обрабатываем любые ошибки, возникшие во время выполнения цепочки промисов
         console.error('Data fetching error:', error);
     });
+  ```
 В этом примере мы используем fetchData для отправки запроса и обработки данных. Если в процессе выполнения цепочки промисов происходит ошибка, она перехватывается блоком catch и обрабатывается.
   
   
@@ -6408,6 +6455,7 @@ fetchData('https://api.example.com/data')
 ### Promisify Node-style Callbacks Convert traditional Node.js callback-style functions to return promises.
   
 В Node.js часто используется стиль обратных вызовов (callback-style), когда функции принимают последним аргументом функцию обратного вызова, которая будет вызвана после завершения операции. Однако, использование промисов вместо обратных вызовов может сделать код более читаемым и управляемым. Давайте напишем функцию, которая преобразует традиционные Node.js функции возвращающие обратные вызовы в функции, возвращающие промисы:
+  ```
 const util = require('util');
 const fs = require('fs');
 // Функция, которая преобразует традиционные Node.js функции в промисы
@@ -6427,9 +6475,11 @@ function promisify(nodeFunction) {
         });
     };
 }
+  ```
 // Пример использования: преобразование функции чтения файла в промис
 const readFilePromise = promisify(fs.readFile);
 // Теперь можно использовать функцию readFilePromise, чтобы получить данные из файла в виде промиса
+  ```
 readFilePromise('example.txt', 'utf8')
     .then(data => {
         console.log('Data from file:', data);
@@ -6437,6 +6487,7 @@ readFilePromise('example.txt', 'utf8')
     .catch(error => {
         console.error('Error reading file:', error);
     });
+  ```
 В этом примере мы создали функцию promisify, которая принимает традиционные Node.js функции, возвращающие обратные вызовы, и возвращает новые функции, возвращающие промисы. Мы используем утилиту util.promisify из модуля util, чтобы автоматически преобразовать функцию в промис. Теперь мы можем использовать readFilePromise, чтобы читать файлы в виде промисов, что делает код более читаемым и удобным для обработки ошибок.
 
 
