@@ -5909,20 +5909,29 @@ Polyfills and Extensions
  реализации полифилла для метода bind объекта Function.prototype:
   
   ```
-// Полифилл для метода bind
+// Проверяем, существует ли метод bind в прототипе функций
 if (!Function.prototype.bind) {
+    // Определяем полифилл для bind
     Function.prototype.bind = function (context) {
+        // Проверяем, является ли текущий контекст функцией
         if (typeof this !== 'function') {
+            // Если текущий контекст не является функцией, выбрасываем исключение
             throw new TypeError('Function.prototype.bind - what is trying to be bound is not callable');
         }
-        var fn = this; // Сохраняем ссылку на вызываемую функцию
-        var args = Array.prototype.slice.call(arguments, 1); // Получаем аргументы, переданные в bind
+        // Сохраняем ссылку на вызываемую функцию
+        var fn = this;
+        // Получаем аргументы, переданные в bind, за исключением первого аргумента (контекста)
+        var args = Array.prototype.slice.call(arguments, 1);
+        // Возвращаем функцию-обертку
         return function () {
-            var bindArgs = Array.prototype.slice.call(arguments); // Получаем аргументы, переданные при вызове связанной функции
-            return fn.apply(context, args.concat(bindArgs)); // Вызываем функцию с объединенными аргументами
+            // Получаем аргументы, переданные при вызове связанной функции
+            var bindArgs = Array.prototype.slice.call(arguments);
+            // Вызываем функцию с переданным контекстом и объединенными аргументами
+            return fn.apply(context, args.concat(bindArgs));
         };
     };
 }
+
   ```
   
 Этот полифилл расширяет объект Function.prototype, добавляя метод bind, если он отсутствует в среде выполнения JavaScript. Метод bind используется для привязки контекста выполнения функции и определения начальных аргументов.
