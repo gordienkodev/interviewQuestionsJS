@@ -5468,6 +5468,46 @@ interface Shape {
 }
 ```
 
+####  using interfaces with optional properties, read-only properties, etc...
+
+-Опциональные свойства (Optional Properties)
+Опциональные свойства обозначаются знаком вопроса (?) после имени свойства. Эти свойства могут быть либо указаны, либо отсутствовать в объекте, который реализует интерфейс.
+Пример:
+```typescript
+interface User {
+  name: string;
+  age?: number; // Опциональное свойство
+}
+const user1: User = { name: "Alice" }; // Допустимо
+const user2: User = { name: "Bob", age: 30 }; // Допустимо
+```
+
+-Свойства только для чтения (Read-Only Properties)
+Свойства только для чтения обозначаются ключевым словом readonly перед именем свойства. Эти свойства могут быть установлены только при инициализации объекта и не могут быть изменены после этого.
+Пример:
+```typescript
+interface User {
+  readonly id: number; // Свойство только для чтения
+  name: string;
+  age?: number;
+}
+const user: User = { id: 1, name: "Alice" };
+user.id = 2; // Ошибка: нельзя изменить свойство, только для чтения
+```
+-Комбинация опциональных и только для чтения свойств
+Свойства могут быть одновременно и опциональными, и только для чтения.
+Пример:
+```typescript
+Copy code
+interface User {
+  readonly id: number;
+  name: string;
+  readonly age?: number; // Опциональное и только для чтения свойство
+}
+const user: User = { id: 1, name: "Alice" };
+user.age = 30; // Ошибка: нельзя изменить свойство, только для чтения
+```
+
   
 #### Function Types (Типы функций)
 
