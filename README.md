@@ -4275,6 +4275,7 @@ child.greet(); // Привет от дедушки
 
 Подробности о втором аргументе
 Второй аргумент метода Object.create может быть использован для определения свойств нового объекта с помощью дескрипторов свойств:
+```javascript
 const newObj = Object.create(proto, {
   property1: {
     value: true,
@@ -4289,7 +4290,7 @@ const newObj = Object.create(proto, {
     configurable: false
   }
 });
-
+```
 Различия между Object.create и new
 Object.create:
 Создает новый объект с указанным прототипом.
@@ -5952,20 +5953,31 @@ greetBob(); // Выведет "Hello, Bob"
  пример полифилла для метода Object.create:
   ```
 // Полифилл для метода Object.create
+// Проверяем, существует ли метод create в прототипе объектов
 if (!Object.create) {
+    // Определяем полифилл для create
     Object.create = function (proto, propertiesObject) {
+        // Проверяем, что первый аргумент является объектом или null
         if (typeof proto !== 'object' && typeof proto !== 'function') {
+            // Если первый аргумент не объект и не функция, выбрасываем исключение TypeError
             throw new TypeError('Object prototype may only be an Object or null');
         }
-        function F() {} // Создаем временный конструктор
-        F.prototype = proto; // Устанавливаем прототип
-        var obj = new F(); // Создаем объект с прототипом
+        // Создаем временную функцию-конструктор
+        function F() {}
+        // Устанавливаем прототип для временной функции-конструктора равным переданному прототипу
+        F.prototype = proto;
+        // Создаем новый объект с прототипом, установленным в переданный прототип
+        var obj = new F();
+        // Если передан объект с описанием свойств, устанавливаем эти свойства на новом объекте
         if (propertiesObject !== undefined) {
-            Object.defineProperties(obj, propertiesObject); // Устанавливаем свойства объекта
+            // Устанавливаем свойства объекта с помощью метода Object.defineProperties
+            Object.defineProperties(obj, propertiesObject);
         }
-        return obj; // Возвращаем созданный объект
+        // Возвращаем созданный объект
+        return obj;
     };
 }
+
   ```
 Этот полифилл расширяет объект Object, добавляя метод create, если он отсутствует в среде выполнения JavaScript. Метод create используется для создания нового объекта с указанным прототипом и набором свойств.
 Пример использования:
