@@ -6582,13 +6582,6 @@ readFilePromise('example.txt', 'utf8')
   
   
   
-  
-  
-  
-  
-  
-  
-  
 
 1. What is JavaScript?
 JavaScript is a high-level, interpreted programming language primarily used for
@@ -6978,3 +6971,6 @@ floating-point number into a number value.
 Согласны ли они на мою вилку?
 Какие этапы собеса, что на них будут спрашивать? будут ли алгоритмы? будут ли практические задачи?
 (если много этапов, много подготовки и маленькая вилка -)
+
+  
+Что предлагают компании: 
