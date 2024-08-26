@@ -857,40 +857,39 @@ function Counter() {
 
 
 
-What is the component lifecycle?
-How do you update lifecycle in function components? Controlled/uncontrolled components Statefull vs stateless components
+### What is the component lifecycle?
 
-Ref
-What is the difference between refs and state variables?
-When is the best time to use refs?
-What is the proper way to update a ref in a function component?
+### How do you update lifecycle in function components? Controlled/uncontrolled components Statefull vs stateless components
 
-Context
-What is the difference between the context API and prop drilling?
-When shouldn't you use the context API?
+## Ref
 
-Redux
-Enumerate base principles
-What is the typical flow of data in a React + Redux app?
-Benefits of Redux? Async Redux flow
+### What is the difference between refs and state variables?
+### When is the best time to use refs?
+### What is the proper way to update a ref in a function component?
 
-State Management by managers
-Mobx Reflux
+## Context
+### What is the difference between the context API and prop drilling?
+### When shouldn't you use the context API?
 
-Routing
-React Router History
+## Redux
+### Enumerate base principles
+### What is the typical flow of data in a React + Redux app?
+### Benefits of Redux? Async Redux flow
 
-Other
-Is it a good idea to use Math.random for keys?
-What are the limitations of React?
-What is a higher order component?
-What are uncontrolled and controlled components?
-React optimizations
+## State Management by managers
+### Mobx Reflux
 
-Coding task
-Small react app: form, button, results list
+## Routing
+### React Router History
 
-### 
+## Other
+### Is it a good idea to use Math.random for keys?
+### What are the limitations of React?
+### What is a higher order component?
+### What are uncontrolled and controlled components?
+### React optimizations
+
+
 
 ## Какие есть state менеджеры?
 
