@@ -1,1 +1,6 @@
-go to https://gordienkonotes.notion.site/3b43a4f8952e4231bd68b6a04f469f11?v=e4c7f8a56af04ac5b803b218847695df&pvs=74
+- [CSS](https://github.com/guz86/interviewQuestionsJS/blob/main/CSS.md)  
+- [JS](https://github.com/guz86/interviewQuestionsJS/blob/main/JS.md)  
+- [TS](https://github.com/guz86/interviewQuestionsJS/blob/main/TS.md)  
+- [OOP](https://github.com/guz86/interviewQuestionsJS/blob/main/React%2BNEXT.md)  
+- [REACT+NEXT](https://github.com/guz86/interviewQuestionsJS/blob/main/React%2BNEXT.md)  
+- [HR](https://github.com/guz86/interviewQuestionsJS/blob/main/HR.md)  
