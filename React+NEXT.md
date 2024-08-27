@@ -1038,8 +1038,91 @@ function MyComponent() {
 
 ### Controlled/uncontrolled components Управляемые/неуправляемые компоненты
 
+В React компоненты можно разделить на два типа: управляемые и неуправляемые.
 
+Неуправляемые компоненты
+Неуправляемым компонентом называют компонент, который управляет своим состоянием локально, и это состояние не может контролироваться родительским компонентом. Например, если компонент Panel имеет внутреннее состояние isActive, которое определяет, активна ли панель, то родительский компонент не может изменять это состояние:
 
+```jsx 
+class Panel extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { isActive: false };
+  } 
+  toggleActive = () => {
+    this.setState({ isActive: !this.state.isActive });
+  }; 
+  render() {
+    return (
+      <div>
+        <button onClick={this.toggleActive}>
+          {this.state.isActive ? 'Deactivate' : 'Activate'}
+        </button>
+        <div>{this.state.isActive ? 'Panel is active' : 'Panel is inactive'}</div>
+      </div>
+    );
+  }
+}
+```
+В этом примере компонент Panel неуправляемый, потому что его состояние isActive полностью контролируется внутри компонента, и родительский компонент не может влиять на его изменение.
+
+Управляемые компоненты
+Управляемым компонентом называют компонент, который получает важные данные через пропсы от родительского компонента, а не использует собственное состояние. Это позволяет родительскому компоненту полностью контролировать поведение дочернего компонента. Например, если Panel будет получать состояние isActive через пропсы от родительского компонента Accordion, то он станет управляемым:
+
+```jsx 
+function Panel({ isActive, onToggle }) {
+  return (
+    <div>
+      <button onClick={onToggle}>
+        {isActive ? 'Deactivate' : 'Activate'}
+      </button>
+      <div>{isActive ? 'Panel is active' : 'Panel is inactive'}</div>
+    </div>
+  );
+} 
+class Accordion extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { isActive: false };
+  } 
+  toggleActive = () => {
+    this.setState({ isActive: !this.state.isActive });
+  }; 
+  render() {
+    return (
+      <Panel isActive={this.state.isActive} onToggle={this.toggleActive} />
+    );
+  }
+}
+```
+Здесь компонент Panel управляемый, так как его поведение полностью определяется родительским компонентом Accordion.
+
+Ключевые различия:
+Неуправляемые компоненты:
+Легче использовать, так как они не требуют конфигурации со стороны родителя.
+Менее гибкие, так как их внутреннее состояние не может быть легко синхронизировано или изменено внешним образом.
+Управляемые компоненты:
+Максимально гибкие, так как их поведение полностью определяется родительским компонентом.
+Требуют больше конфигурации со стороны родителя, так как состояние передается через пропсы.
+Пример смешанного подхода
+В реальной практике часто используют смешанный подход, когда компонент частично управляем, а частично неуправляем. Например:
+
+```jsx 
+function Input({ value, onChange }) {
+  const [localValue, setLocalValue] = useState(value || '');
+
+  const handleChange = (e) => {
+    setLocalValue(e.target.value);
+    if (onChange) {
+      onChange(e.target.value);
+    }
+  }; 
+  return <input value={localValue} onChange={handleChange} />;
+}
+```
+Здесь компонент Input управляемый, если value и onChange передаются через пропсы, но также имеет локальное состояние localValue, если пропсы не заданы.
+  
+  
 ### Statefull vs stateless components  Компоненты с полным и нестационарным состоянием
 
 
