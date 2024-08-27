@@ -1329,6 +1329,13 @@ Access-Control-Allow-Headers: Content-Type
 создать кастомный хук
 оптимизация компонентов
 
+из вакансии
+понимание разницу между функциональными компонентами и компонентами-классами. В каких случаях стоит писать те или другие;
+понимание, что такое hoc (higher order component);
+знания хуки React, какие ограничения у них есть;
+понимание, как React отслеживает изменения в DOM;
+понимание в чем разница между React.Component и React.PureComponent;
+
 ## **Next.js Interview Questions**
 
 General Questions:
