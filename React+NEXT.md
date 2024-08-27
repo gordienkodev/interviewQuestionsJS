@@ -855,9 +855,63 @@ function Counter() {
  
 ### How does state in a class component differ from state in a functional component? Чем состояние в компоненте класса отличается от состояния в функциональном компоненте?
 
+Классовые компоненты
+В классовом компоненте состояние принадлежит экземпляру класса, инициализируется в конструкторе и доступно через this.state. Для изменения состояния используется метод this.setState(). Например:
+
+```jsx
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    // Инициализация состояния
+    this.state = {
+      count: 0
+    };
+  }
+  increment = () => {
+    // Обновление состояния
+    this.setState({ count: this.state.count + 1 });
+  };
+  render() {
+    return (
+      <div>
+        <p>Count: {this.state.count}</p>
+        <button onClick={this.increment}>Increment</button>
+      </div>
+    );
+  }
+}
+```
+Здесь состояние count принадлежит экземпляру компонента и управляется с использованием this.state и this.setState().
+
+Функциональные компоненты
+В функциональном компоненте состояние управляется с помощью хука useState. Хук useState принимает начальное состояние и возвращает пару: текущее состояние и функцию для его обновления. Пример:
+
+```jsx
+import React, { useState } from 'react';
+function MyComponent() {
+  // Инициализация состояния
+  const [count, setCount] = useState(0);
+  const increment = () => {
+    // Обновление состояния
+    setCount(count + 1);
+  };
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={increment}>Increment</button>
+    </div>
+  );
+}
+```
+Здесь состояние count и функция setCount создаются с помощью useState. Хук обеспечивает сохранение состояния между рендерами и его восстановление при каждом вызове компонента.
+
+Ключевые различия
+Классовые компоненты: Состояние принадлежит экземпляру класса, инициализируется в конструкторе и управляется через this.state и this.setState().
+Функциональные компоненты: Состояние управляется с помощью хука useState, который React сохраняет и восстанавливает между рендерами.
 
 
 ### What is the component lifecycle?
+
 
 ### How do you update lifecycle in function components? Controlled/uncontrolled components Statefull vs stateless components
 
