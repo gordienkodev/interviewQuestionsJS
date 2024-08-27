@@ -981,11 +981,15 @@ componentWillUnmount(): Вызывается перед размонтирова
 componentDidCatch(error, info): Вызывается, когда произошла ошибка в рендеринге. Позволяет обработать ошибки.
 
 
-### How do you update lifecycle in function components? Controlled/uncontrolled components Statefull vs stateless components Как обновить жизненный цикл в функциональных компонентах? Управляемые/неуправляемые компоненты Компоненты с полным и нестационарным состоянием
+### How do you update lifecycle in function components? Как обновить жизненный цикл в функциональных компонентах?  
 
 
 
+### Controlled/uncontrolled components Управляемые/неуправляемые компоненты
 
+
+
+### Statefull vs stateless components  Компоненты с полным и нестационарным состоянием
 
 
 
