@@ -1786,7 +1786,107 @@ Redux предлагает множество преимуществ, таких
 
 ### Async Redux flow Асинхронный поток Redux
 
+В стандартном потоке данных Redux, все изменения состояния происходят синхронно и предсказуемо. Когда мы добавляем асинхронную логику в Redux, например, при работе с HTTP-запросами, процесс становится немного сложнее, но управляемым благодаря использованию middleware.
 
+Как это работает
+Событие пользователя (Dispatch): 
+Всё начинается с того, что пользователь взаимодействует с приложением, например, нажимает кнопку. Это взаимодействие вызывает функцию dispatch(), которая отправляет действие (action) в Redux хранилище.
+Middleware обрабатывает асинхронный код:
+
+Обычно мы используем middleware, такой как redux-thunk или redux-saga, чтобы обрабатывать асинхронные действия.
+Middleware перехватывает действия, которые могут быть функциями или объектами с дополнительной мета-информацией. Например, с redux-thunk, действие может быть функцией, которая делает асинхронный запрос и затем отправляет обычные действия в зависимости от результата запроса.
+Асинхронный запрос:
+
+Middleware выполняет асинхронные операции, такие как HTTP-запросы, и после завершения запроса отправляет дополнительные действия для обновления состояния приложения.
+Редьюсеры обрабатывают действия:
+
+Редьюсеры получают стандартные действия (обычно с результатами асинхронных запросов) и обновляют состояние на основе этих действий.
+Обновление UI:
+
+После обновления состояния, React компоненты, подключенные к Redux, автоматически перерисовываются с новыми данными.
+Пример с использованием redux-thunk
+Установка redux-thunk: 
+Убедитесь, что у вас установлен redux-thunk:
+
+```bash 
+npm install redux-thunk
+```
+Настройка хранилища (store):
+
+Подключите redux-thunk к хранилищу Redux:
+
+```javascript 
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import rootReducer from './reducers'; 
+const store = createStore(rootReducer, applyMiddleware(thunk));
+```
+Создание асинхронного действия: 
+Используйте redux-thunk для создания асинхронного действия. Например, загрузка данных пользователей с сервера:
+
+```javascript 
+// actions.js
+export function fetchUsers() {
+  return async (dispatch) => {
+    dispatch({ type: 'FETCH_USERS_REQUEST' });
+
+    try {
+      const response = await fetch('https://api.example.com/users');
+      const data = await response.json();
+      dispatch({ type: 'FETCH_USERS_SUCCESS', payload: data });
+    } catch (error) {
+      dispatch({ type: 'FETCH_USERS_FAILURE', error });
+    }
+  };
+}
+```
+Обработка действий в редьюсерах:
+
+Редьюсеры будут обрабатывать стандартные действия, созданные в асинхронных действиях:
+
+```javascript 
+// reducers.js
+function users(state = { loading: false, data: [], error: null }, action) {
+  switch (action.type) {
+    case 'FETCH_USERS_REQUEST':
+      return { ...state, loading: true };
+    case 'FETCH_USERS_SUCCESS':
+      return { ...state, loading: false, data: action.payload };
+    case 'FETCH_USERS_FAILURE':
+      return { ...state, loading: false, error: action.error };
+    default:
+      return state;
+  }
+} 
+export default users;
+```
+Обновление UI: 
+Подключите ваш компонент к Redux и используйте данные из состояния:
+
+```javascript 
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUsers } from './actions';
+function UserList() {
+  const dispatch = useDispatch();
+  const { loading, data, error } = useSelector(state => state.users);
+  useEffect(() => {
+    dispatch(fetchUsers());
+  }, [dispatch]);
+  if (loading) return <p>Загрузка...</p>;
+  if (error) return <p>Ошибка: {error.message}</p>;
+  return (
+    <ul>
+      {data.map(user => (
+        <li key={user.id}>{user.name}</li>
+      ))}
+    </ul>
+  );
+}
+export default UserList;
+```
+Итог
+Когда вы добавляете асинхронную логику в приложение Redux, вы встраиваете дополнительный уровень обработки с помощью middleware. Это позволяет выполнять асинхронные операции, такие как HTTP-запросы, и затем отправлять обычные действия для обновления состояния. Основные этапы остаются прежними: событие пользователя вызывает действие, middleware обрабатывает асинхронный код, редьюсеры обновляют состояние, и компоненты React перерисовываются с новыми данными.
 
 
 
