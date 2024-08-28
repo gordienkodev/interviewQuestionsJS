@@ -1821,6 +1821,7 @@ import thunk from 'redux-thunk';
 import rootReducer from './reducers'; 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 ```
+
 Создание асинхронного действия: 
 Используйте redux-thunk для создания асинхронного действия. Например, загрузка данных пользователей с сервера:
 
@@ -1829,7 +1830,6 @@ const store = createStore(rootReducer, applyMiddleware(thunk));
 export function fetchUsers() {
   return async (dispatch) => {
     dispatch({ type: 'FETCH_USERS_REQUEST' });
-
     try {
       const response = await fetch('https://api.example.com/users');
       const data = await response.json();
@@ -1895,7 +1895,139 @@ export default UserList;
 
 ### Mobx
 
+MobX - это библиотека управления состоянием, которая фокусируется на простоте и производительности. Вот основные концепции, которые она использует:
+1. Определение состояния и его наблюдаемость
+Состояние - это данные, которые управляют вашим приложением. Обычно это включает в себя как состояние домена (например, список задач), так и состояние представления (например, текущий выбранный элемент). В MobX состояние можно представить как ячейки в таблице, содержащие значения.
 
+Состояние можно хранить в любых структурах данных: обычных объектах, массивах, классах и т.д. Важно, чтобы все свойства, которые вы хотите изменять, были помечены как наблюдаемые, чтобы MobX мог отслеживать их изменения.
+
+Пример:
+
+```javascript 
+import { makeObservable, observable, action } from "mobx";
+class Todo {
+    id = Math.random();
+    title = "";
+    finished = false;
+    constructor(title) {
+        makeObservable(this, {
+            title: observable,
+            finished: observable,
+            toggle: action
+        });
+        this.title = title;
+    }
+    toggle() {
+        this.finished = !this.finished;
+    }
+}
+```
+
+В этом примере мы используем observable, чтобы сделать свойства title и finished наблюдаемыми, а toggle - это метод, который изменяет состояние и помечен как action.
+
+2. Обновление состояния с помощью действий
+Действие (Action) - это любой код, который изменяет состояние. Действия могут быть вызваны событиями пользователя, сетевыми запросами и другими источниками. Действия помогают структурировать код и предотвращают случайные изменения состояния.
+
+Пример:
+
+```javascript 
+import { makeObservable, observable, action } from "mobx";
+class Todo {
+    // ... (определение класса Todo из предыдущего примера)
+    toggle() {
+        this.finished = !this.finished;
+    }
+}
+```
+Метод toggle - это действие, которое изменяет состояние объекта Todo.
+
+3. Создание производных значений, автоматически реагирующих на изменения состояния
+Производные значения (Derivations) - это вычисления или действия, которые зависят от состояния и автоматически обновляются, когда состояние изменяется. В MobX есть два типа производных значений:
+
+Вычисленные значения (Computed) - это значения, которые можно вычислить на основе текущего состояния, используя чистые функции.
+Реакции (Reactions) - это побочные эффекты, которые должны автоматически срабатывать при изменении состояния.
+3.1. Моделирование вычисленных значений с помощью computed
+Пример:
+
+```javascript
+import { makeObservable, observable, computed } from "mobx";
+class TodoList {
+    todos = [];
+    get unfinishedTodoCount() {
+        return this.todos.filter(todo => !todo.finished).length;
+    }
+    constructor(todos) {
+        makeObservable(this, {
+            todos: observable,
+            unfinishedTodoCount: computed
+        });
+        this.todos = todos;
+    }
+}
+```
+В этом примере свойство unfinishedTodoCount автоматически обновляется при изменении состояния todos.
+
+3.2. Моделирование побочных эффектов с помощью реакций
+Реакции - это способ выполнения побочных эффектов при изменении состояния.
+
+Пример:
+
+```javascript 
+import { autorun } from "mobx";
+autorun(() => {
+    console.log("Tasks left: " + todos.unfinishedTodoCount);
+});
+```
+Этот autorun будет выводить количество незавершённых задач в консоль каждый раз, когда значение unfinishedTodoCount изменяется.
+
+3.3. Реактивные компоненты React
+Если вы используете React, вы можете сделать ваши компоненты реактивными, обернув их в функцию observer из библиотеки mobx-react-lite.
+
+Пример:
+
+```javascript 
+import * as React from "react";
+import { render } from "react-dom";
+import { observer } from "mobx-react-lite";
+const TodoListView = observer(({ todoList }) => (
+    <div>
+        <ul>
+            {todoList.todos.map(todo => (
+                <TodoView todo={todo} key={todo.id} />
+            ))}
+        </ul>
+        Tasks left: {todoList.unfinishedTodoCount}
+    </div>
+));
+const TodoView = observer(({ todo }) => (
+    <li>
+        <input type="checkbox" checked={todo.finished} onClick={() => todo.toggle()} />
+        {todo.title}
+    </li>
+));
+
+const store = new TodoList([new Todo("Get Coffee"), new Todo("Write simpler code")]);
+render(<TodoListView todoList={store} />, document.getElementById("root"));
+```
+
+Здесь observer делает ваши компоненты реактивными и обновляет их автоматически, когда изменяется состояние.
+
+3.4. Пользовательские реакции
+Вы можете создавать пользовательские реакции с помощью функций autorun, reaction или when для специфических ситуаций.
+
+Пример:
+
+```javascript
+import { autorun } from "mobx";
+autorun(() => {
+    console.log("Tasks left: " + todos.unfinishedTodoCount);
+});
+```
+Принципы
+Односторонний поток данных: действия изменяют состояние, которое в свою очередь обновляет все затронутые представления.
+Синхронное обновление: все производные значения обновляются синхронно и атомарно при изменении состояния.
+Ленивая актуализация: вычисленные значения обновляются только тогда, когда они действительно необходимы.
+Чистота вычислений: вычисленные значения должны быть чистыми функциями и не должны изменять состояние.
 
 
 
