@@ -1891,7 +1891,20 @@ export default UserList;
 
 
 ## State Management by managers
-### Mobx Reflux
+
+
+### Mobx
+
+
+
+
+
+### Reflux
+
+
+
+
+
 
 ## Routing
 ### React Router History
@@ -1967,22 +1980,18 @@ State менеджеры — это инструменты, которые по�
 ```jsx
 // Создание контекста
 const ThemeContext = React.createContext('light');
-
 // Компонент-поставщик
 function ThemeProvider({ children }) {
   const [theme, setTheme] = React.useState('light');
-
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
       {children}
     </ThemeContext.Provider>
   );
 }
-
 // Компонент-потребитель
 function ThemedComponent() {
   const { theme, setTheme } = React.useContext(ThemeContext);
-
   return (
     <div style={{ background: theme === 'light' ? '#fff' : '#333', color: theme === 'light' ? '#000' : '#fff' }}>
       <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>Toggle Theme</button>
@@ -2011,7 +2020,6 @@ function ThemedComponent() {
 ```jsx
 // actions.js
 export const increment = () => ({ type: 'INCREMENT' });
-
 // reducers.js
 const counter = (state = 0, action) => {
   switch (action.type) {
@@ -2025,17 +2033,13 @@ const counter = (state = 0, action) => {
 // store.js
 import { createStore } from 'redux';
 import counter from './reducers';
-
 const store = createStore(counter);
-
 // App.js
 import { Provider, useSelector, useDispatch } from 'react-redux';
 import { increment } from './actions';
-
 function App() {
   const count = useSelector(state => state);
   const dispatch = useDispatch();
-
   return (
     <div>
       <p>Count: {count}</p>
@@ -2043,7 +2047,6 @@ function App() {
     </div>
   );
 }
-
 export default function Root() {
   return (
     <Provider store={store}>
@@ -2060,33 +2063,27 @@ export default function Root() {
 ```jsx
 // store.js
 import { makeAutoObservable } from 'mobx';
-
 class CounterStore {
   count = 0;
-
   constructor() {
     makeAutoObservable(this);
   }
-
   increment() {
     this.count++;
   }
 }
-
 export const counterStore = new CounterStore();
 
 // App.js
 import React from 'react';
 import { observer } from 'mobx-react';
 import { counterStore } from './store';
-
 const App = observer(() => (
   <div>
     <p>Count: {counterStore.count}</p>
     <button onClick={() => counterStore.increment()}>Increment</button>
   </div>
 ));
-
 export default App;
 ```
 
@@ -2097,12 +2094,10 @@ export default App;
 ```jsx
 // store.js
 import { atom, selector, useRecoilState } from 'recoil';
-
 export const countState = atom({
   key: 'countState',
   default: 0,
 });
-
 export const doubleCountState = selector({
   key: 'doubleCountState',
   get: ({ get }) => {
@@ -2115,11 +2110,9 @@ export const doubleCountState = selector({
 import React from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { countState, doubleCountState } from './store';
-
 function App() {
   const [count, setCount] = useRecoilState(countState);
   const doubleCount = useRecoilValue(doubleCountState);
-
   return (
     <div>
       <p>Count: {count}</p>
@@ -2128,7 +2121,6 @@ function App() {
     </div>
   );
 }
-
 export default App;
 ```
 
@@ -2138,20 +2130,16 @@ export default App;
 
 ```jsx
 import create from 'zustand';
-
 // store.js
 const useStore = create(set => ({
   count: 0,
   increment: () => set(state => ({ count: state.count + 1 })),
 }));
-
 // App.js
 import React from 'react';
 import { useStore } from './store';
-
 function App() {
   const { count, increment } = useStore();
-
   return (
     <div>
       <p>Count: {count}</p>
@@ -2159,7 +2147,6 @@ function App() {
     </div>
   );
 }
-
 export default App;
 ```
 
@@ -2170,7 +2157,6 @@ export default App;
 ```jsx
 import { createMachine, interpret } from 'xstate';
 import { useMachine } from '@xstate/react';
-
 // machine.js
 const counterMachine = createMachine({
   id: 'counter',
@@ -2192,7 +2178,6 @@ const counterMachine = createMachine({
 import React from 'react';
 import { useMachine } from '@xstate/react';
 import { counterMachine } from './machine';
-
 function App() {
   const [state, send] = useMachine(counterMachine);
   return (
@@ -2301,17 +2286,13 @@ Access-Control-Allow-Headers: Content-Type
     const express = require('express');
     const app = express();
     const cors = require('cors');
-    
     // Использование middleware для обработки CORS
     app.use(cors());
-    
     // Обработка запроса OPTIONS
     app.options('*', cors());
-    
     app.get('/resource', (req, res) => {
       res.send('Resource');
     });
-    
     app.listen(3000, () => {
       console.log('Server running on port 3000');
     });
