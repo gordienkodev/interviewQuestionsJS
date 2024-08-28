@@ -1407,7 +1407,6 @@ Context API предоставляет способ для более удобн
 
 Пример использования Context API:
 ```jsx
-Copy code
 import React, { createContext, useContext } from 'react';
 // Создаем контекст
 const UserContext = createContext();
