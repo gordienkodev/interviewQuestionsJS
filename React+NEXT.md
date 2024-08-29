@@ -2526,7 +2526,7 @@ const AuthenticatedUserProfile = withAuth(UserProfile);
   
 ### What are uncontrolled and controlled components? ### Что такое неконтролируемые и контролируемые компоненты?
   
-В контексте React, контролируемый компонент — это элемент формы, такой как <input>, <textarea> или <select>, значение которого управляется React. Контролируемые компоненты полностью управляются состоянием в React.
+В контексте React, контролируемый компонент — это элемент формы, такой как input, textarea или select, значение которого управляется React. Контролируемые компоненты полностью управляются состоянием в React.
 
 Неконтролируемый компонент управляет своим собственным состоянием. Он не управляется React, и поэтому его состояние не контролируется непосредственно через React.
 
@@ -2550,7 +2550,7 @@ function ControlledInput() {
   );
 }
   ```
-В этом примере значение <input> управляется состоянием value, и изменения обновляются через функцию setValue. React контролирует значение инпута.
+В этом примере значение input управляется состоянием value, и изменения обновляются через функцию setValue. React контролирует значение инпута.
 
 Неконтролируемые компоненты
 Неконтролируемый компонент — это компонент, который управляет своим состоянием самостоятельно, без вмешательства React. Значение элемента можно получить через ссылку (ref), но React не управляет этим значением напрямую.
@@ -2616,7 +2616,8 @@ function App() {
       <LazyComponent />
     </React.Suspense>
   );
-}```
+}
+```
 2. Lazy Loading
 Цель: Загружать ресурсы только когда они действительно нужны пользователю.
 
@@ -2637,7 +2638,8 @@ const handleClick = () => {
 
 function MyComponent() {
   return <button onClick={handleClick}>Click me</button>;
-}```
+}
+```
 4. Use React.memo for Functional Components
 Цель: Оптимизировать перерисовки функциональных компонентов.
 
@@ -2647,7 +2649,8 @@ function MyComponent() {
 ```jsx 
 const MyComponent = React.memo(({ value }) => {
   return <div>{value}</div>;
-});```
+});
+```
 5. Use PureComponent for Class Components
 Цель: Избежать лишних перерисовок классовых компонентов.
 
@@ -2659,7 +2662,8 @@ class MyComponent extends React.PureComponent {
   render() {
     return <div>{this.props.value}</div>;
   }
-}```
+}
+```
 6. Use Functional Updates in State
 Цель: Обеспечить корректное обновление состояния при частых обновлениях.
 
@@ -2669,7 +2673,8 @@ class MyComponent extends React.PureComponent {
 ```jsx 
 setState(prevState => ({
   count: prevState.count + 1
-}));```
+}));
+```
 7. Avoid Unnecessary Re-renders
 Цель: Оптимизировать производительность, избегая ненужных перерисовок.
 
@@ -2701,7 +2706,8 @@ import { debounce } from 'lodash';
 
 const handleChange = debounce(event => {
   // обработка изменения
-}, 300);```
+}, 300);
+```
 11. Optimize Images
 Цель: Уменьшить время загрузки страниц за счет оптимизации изображений.
 
@@ -2725,7 +2731,8 @@ const Button = styled.button`
 
 function App() {
   return <Button>Click me</Button>;
-}```
+};
+```
 13. Avoid Prop Drilling
 Цель: Упростить доступ к данным, избегая передачи через множество уровней компонентов.
 
@@ -2748,7 +2755,8 @@ const UserDetails = React.memo(({ user, onEdit }) => {
       <p>{title}</p>
     </div>
   );
-});```
+});
+```
 15. CSS Animations Instead of JS Animations
 Цель: Использовать CSS-анимации для простых эффектов для повышения производительности.
 
@@ -2778,7 +2786,8 @@ self.addEventListener('message', e => {
   const posts = e.data;
   // Выполните сортировку
   postMessage(sortedPosts);
-});```
+});
+```
 Используйте Web Worker в вашем компоненте.
 
 ```jsx 
@@ -2787,7 +2796,8 @@ componentDidMount() {
   this.worker.onmessage = event => {
     this.setState({ posts: event.data });
   };
-}```
+}
+```
 18. Virtualize Long Lists
 Цель: Оптимизировать рендеринг длинных списков, отображая только видимые элементы.
 
@@ -2805,7 +2815,8 @@ function MyList({ items }) {
       )}
     </List>
   );
-}```
+}
+```
 19. Analyzing and Optimizing Your Webpack Bundle Bloat
 Цель: Уменьшить размер бандла и ускорить загрузку.
 
@@ -2822,7 +2833,8 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
   plugins: [new BundleAnalyzerPlugin()],
-};```
+};
+```
 20. Consider Server-side Rendering (SSR)
 Цель: Улучшить время первого рендера и SEO, рендеря страницы на сервере.
 
@@ -3345,7 +3357,8 @@ function Home() {
   );
 }
 
-export default Home;```
+export default Home;
+```
 Префетчинг страниц
 
 По умолчанию Next.js автоматически выполняет предзагрузку страниц, на которые ссылается компонент <Link>. Это значит, что когда пользователь видит ссылку, Next.js начинает загружать контент целевой страницы в фоновом режиме, чтобы переход был более быстрым.
@@ -3375,7 +3388,8 @@ function Posts({ posts }) {
   );
 }
 
-export default Posts;```
+export default Posts;
+```
 
 Также можно использовать объект URL для создания динамических маршрутов:
 
@@ -3401,7 +3415,8 @@ function Posts({ posts }) {
   );
 }
 
-export default Posts;```
+export default Posts;
+```
 
 Императивная маршрутизация
 
@@ -3420,7 +3435,8 @@ export default function ReadMore() {
       Click here to read more
     </button>
   );
-}```
+}
+```
 
 Shallow Routing
 
@@ -3447,7 +3463,8 @@ function Page() {
   return <div>Check the counter in the URL!</div>;
 }
 
-export default Page;```
+export default Page;
+```
 
 Работа с состоянием маршрутизатора
 
@@ -3467,7 +3484,8 @@ function CurrentRoute() {
   );
 }
 
-export default CurrentRoute;```
+export default CurrentRoute;
+```
 
 
 
@@ -3546,7 +3564,8 @@ class ExamplePage extends React.Component {
   }
 }
 
-export default ExamplePage;```
+export default ExamplePage;
+```
 
 Параметры функции getInitialProps
 ctx (контекст):
@@ -3609,7 +3628,8 @@ export async function getStaticProps() {
   const data = await res.json();
 
   return { props: { data } }; // Данные передаются как пропсы
-}```
+}
+```
 
 getServerSideProps
 Применение:
@@ -3633,7 +3653,8 @@ export async function getServerSideProps(context) {
   const data = await res.json();
 
   return { props: { data } }; // Данные передаются как пропсы
-}```
+}
+```
 
 Сравнение
 getStaticProps идеально подходит для статических данных, загружаемых на этапе сборки, что делает страницу быстрой и эффективной.
@@ -3662,7 +3683,8 @@ const DynamicComponent = dynamic(() => import('../components/DynamicComponent'))
 
 function Page() {
   return <DynamicComponent />;
-}```
+}
+```
 
 Бандлинг:
 
@@ -3745,7 +3767,8 @@ export default function Home() {
 // pages/about.js
 export default function About() {
   return <h1>About Us</h1>;
-}```
+}
+```
 2. Динамические маршруты
 Создание динамических маршрутов
 Для создания динамических маршрутов используйте квадратные скобки в именах файлов. Например:
@@ -3761,7 +3784,8 @@ export default function Post() {
   const { id } = router.query;
 
   return <h1>Post ID: {id}</h1>;
-}```
+}
+```
 3. Вложенные маршруты
 Создание вложенных маршрутов
 Создавайте вложенные папки внутри pages для создания вложенных маршрутов. Например:
@@ -3783,7 +3807,8 @@ export default function BlogPost() {
   const { slug } = router.query;
 
   return <h1>Blog Post: {slug}</h1>;
-}```
+}
+```
 4. Использование компонента Link
 Компонент Link для навигации
 Для навигации между страницами используйте компонент Link из next/link.
@@ -3804,7 +3829,8 @@ function Navigation() {
   );
 }
 
-export default Navigation;```
+export default Navigation;
+```
 5. Программная навигация
 Использование useRouter для программной навигации
 Используйте хук useRouter для программной навигации.
@@ -3821,7 +3847,8 @@ export default function NavigateButton() {
   };
 
   return <button onClick={goToAbout}>Go to About Page</button>;
-}```
+}
+```
 6. Шаблоны URL и параметры запроса
 Обработка параметров запроса
 Динамические маршруты можно использовать для обработки параметров запроса. Параметры могут быть переданы через router.query.
@@ -3836,7 +3863,8 @@ export default function Product() {
   const { id } = router.query;
 
   return <h1>Product ID: {id}</h1>;
-}```
+}
+```
 7. Обработка ошибок и редиректы
 Обработка 404 страниц
 Создайте pages/404.js для настройки страницы ошибки 404.
@@ -3860,7 +3888,8 @@ export async function getServerSideProps(context) {
       permanent: false,
     },
   };
-}```
+}
+```
 
   
   
@@ -3897,7 +3926,8 @@ export async function getStaticProps() {
 
 export default function HomePage({ data }) {
   return <div>{data}</div>;
-}```
+}
+```
 Производительность
 Быстрое время ответа: Поскольку страницы предварительно сгенерированы, сервер отвечает быстро.
 Сборка: При сборке могут быть задержки, особенно при большом объеме данных, так как страницы строятся заранее.
@@ -3925,7 +3955,8 @@ export async function getServerSideProps(context) {
 
 export default function UserPage({ userData }) {
   return <div>{userData.name}</div>;
-}```
+}
+```
 Производительность
 Медленнее время ответа: Поскольку данные получаются и страница генерируется при каждом запросе, это может увеличить время ответа по сравнению со статическими страницами.
 Нагрузка на сервер: Каждый запрос может обрабатывать данные, что может увеличить нагрузку на сервер, особенно при высоком трафике.
@@ -3987,7 +4018,8 @@ export default function Post({ post }) {
       <p>{post.content}</p>
     </div>
   );
-}```
+}
+```
 2. Определите getStaticPaths
 В этой функции вы возвращаете список всех возможных значений для переменной части пути:
 
@@ -4003,7 +4035,8 @@ export async function getStaticPaths() {
   }));
 
   return { paths, fallback: true }; // Можно использовать 'false' или 'blocking' в зависимости от ваших нужд
-}```
+}
+```
 3. Определите getStaticProps
 Эта функция получает данные для конкретного пути, определённого в getStaticPaths:
 
@@ -4018,7 +4051,8 @@ export async function getStaticProps({ params }) {
       post,
     },
   };
-}```
+}
+```
 Параметры getStaticPaths
 paths: Массив объектов с параметрами для генерации страниц. Каждый объект содержит ключ params, который соответствует переменным в вашем динамическом маршруте.
 fallback:
@@ -4052,7 +4086,8 @@ export default async function handler(req, res) {
   } else {
     res.status(405).end(); // Метод не разрешен
   }
-}```
+}
+```
 Аутентификация и авторизация: Вы можете использовать API-маршруты для обработки запросов на аутентификацию и авторизацию, такие как вход в систему и проверка токенов.
 
 ```jsx
@@ -4066,7 +4101,8 @@ export default async function handler(req, res) {
   } else {
     res.status(405).end();
   }
-}```
+}
+```
 Получение данных с сервера: API-маршруты могут быть использованы для получения данных с сервера, например, из базы данных или внешних API, и предоставления их клиентскому приложению.
 
 ```jsx
@@ -4078,7 +4114,8 @@ export default async function handler(req, res) {
   } else {
     res.status(405).end();
   }
-}```
+}
+```
 Обработка вебхуков: API-маршруты могут быть использованы для обработки вебхуков от сторонних сервисов, таких как платежные шлюзы или системы уведомлений.
 
 ```jsx
@@ -4091,7 +4128,8 @@ export default async function handler(req, res) {
   } else {
     res.status(405).end();
   }
-}```
+}
+```
 Проксирование запросов: В некоторых случаях, API-маршруты могут использоваться для проксирования запросов к другим API или серверам, скрывая детали реализации от клиента.
 
 ```jsx
@@ -4100,7 +4138,8 @@ export default async function handler(req, res) {
   const response = await fetch('https://api.example.com/data');
   const data = await response.json();
   res.status(200).json(data);
-}```
+}
+```
 Как это работает
 API-маршруты в Next.js создаются в папке pages/api. Каждый файл в этой папке соответствует маршруту вашего API. Например, файл pages/api/hello.js будет доступен по маршруту /api/hello.
 
@@ -4143,7 +4182,8 @@ export function middleware(req) {
   }
   
   return NextResponse.next();
-}```
+}
+```
 Переход на основе условий: Middleware может выполнять перенаправления на основе условий, таких как язык пользователя или местоположение.
 
 ```jsx
@@ -4160,7 +4200,8 @@ export function middleware(req) {
   }
   
   return NextResponse.next();
-}```
+}
+```
 Изменение заголовков ответа: Middleware может добавлять или изменять заголовки ответа для выполнения кросс-доменных запросов или других задач.
 
 ```jsx
@@ -4171,7 +4212,8 @@ export function middleware(req) {
   const response = NextResponse.next();
   response.headers.set('X-Custom-Header', 'value');
   return response;
-}```
+}
+```
 Как использовать промежуточное ПО в Next.js
 Создание файла middleware: Для создания промежуточного ПО в Next.js создайте файл middleware.js или middleware.ts в корне вашего проекта или в папке pages или src.
 
@@ -4235,7 +4277,8 @@ export function middleware(req) {
   } catch (error) {
     return NextResponse.redirect('/login');
   }
-}```
+}
+```
 2. Аутентификация на основе сессий
 Как это работает:
 
@@ -4267,7 +4310,8 @@ export default async function handler(req, res) {
 // lib/session.js
 export function setSession(sessionId, data) {
   // Установите сессию в базе данных или хранилище сессий
-}```
+}
+```
 3. Аутентификация через OAuth
 Как это работает:
 
@@ -4291,7 +4335,8 @@ export default NextAuth({
   pages: {
     signIn: '/auth/signin',
   },
-});```
+});
+```
 Компонент для входа:
 
 ```jsx
@@ -4304,7 +4349,8 @@ export default function SignIn() {
       Sign in with Google
     </button>
   );
-}```
+}
+```
 4. Аутентификация на основе серверного рендеринга (SSR)
 Как это работает:
 
@@ -4335,7 +4381,8 @@ export async function getServerSideProps(context) {
 
 export default function ProtectedPage({ session }) {
   return <div>Protected content for {session.user.name}</div>;
-}```
+}
+```
 Почему это важно
 Безопасность: Аутентификация обеспечивает доступ к защищенным маршрутам и ресурсам только авторизованным пользователям.
 Управление доступом: Разные уровни аутентификации и авторизации позволяют настраивать доступ к различным частям приложения.
